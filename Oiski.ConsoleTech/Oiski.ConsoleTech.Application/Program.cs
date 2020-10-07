@@ -143,18 +143,44 @@ namespace Delegate_Playground
             #endregion
 
             #region V5 - Label Test
-            Label label = new Label("Hej, Jens. Du er da en lille banantrold!");
-            char[,] d = label.Draw();
-            for ( int y = 0; y < label.Size.y; y++ )
+            //Label label = new Label("Hej, Jens. Du er da en lille banantrold!");
+            //char[,] d = label.Draw();
+            //for ( int y = 0; y < label.Size.y; y++ )
+            //{
+            //    for ( int x = 0; x < label.Size.x; x++ )
+            //    {
+            //        Console.Write(d[x, y]);
+            //    }
+
+            //    Console.WriteLine();
+            //}
+            #endregion
+
+            #region V6 Label Insert Test
+            Label label = new Label("Hello, World!");
+            Renderer rend = new Renderer();
+
+            string[] pos = { "0", "0" };
+            do
             {
-                for ( int x = 0; x < label.Size.x; x++ )
+                Console.Clear();
+                label.Position = new Vector2(int.Parse(pos[0]), int.Parse(pos[1]));
+                rend.InitRenderer();
+                int positionX = label.Position.x;
+                int positionY = label.Position.y;
+                for ( int y = 0; y < label.Size.y; y++ )
                 {
-                    Console.Write(d[x, y]);
+                    for ( int x = 0; x < label.Size.x; x++ )
+                    {
+                        rend.InsertAt(new Vector2(positionX++, positionY), label.Draw()[x, y]);
+                    }
+                    positionX = label.Position.x;
+                    positionY++;
                 }
 
-                Console.WriteLine();
-            }
-
+                rend.Draw();
+                pos = Console.ReadLine().Split(",");
+            } while ( true );
             #endregion
         }
     }
