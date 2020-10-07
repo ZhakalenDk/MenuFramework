@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Delegate_Playground.MenuFramework
+namespace Oiski.ConsoleTech
 {
     public class Renderer
     {
@@ -68,25 +68,31 @@ namespace Delegate_Playground.MenuFramework
         {
             _position = new Vector2(_position.x + BORDERTHICKNESS_X, _position.y + BORDERTHICKNESS_Y);
 
-            if ( _position.x < 1 )
+            #region Legacy Code
+            //if ( _position.x < 1 )
+            //{
+            //    _position = new Vector2(1, _position.y);
+            //}
+            //else if ( _position.x > ( Grid.GetLength(0) - ( BORDERTHICKNESS_X + 1 ) ) )
+            //{
+            //    _position = new Vector2(Grid.GetLength(0) - ( BORDERTHICKNESS_X + 1 ), _position.y);
+            //}
+
+            //if ( _position.y < 1 )
+            //{
+            //    _position = new Vector2(_position.x, 1);
+            //}
+            //else if ( _position.y > ( Grid.GetLength(1) - ( BORDERTHICKNESS_Y + 1 ) ) )
+            //{
+            //    _position = new Vector2(_position.x, Grid.GetLength(1) - ( BORDERTHICKNESS_Y + 1 ));
+            //}
+            #endregion
+
+            if ( _position.x >= 1 && _position.x <= ( Grid.GetLength(0) - ( BORDERTHICKNESS_X + 1 ) ) && _position.y >= 1 && _position.y <= ( Grid.GetLength(1) - ( BORDERTHICKNESS_Y + 1 ) ) )
             {
-                _position = new Vector2(1, _position.y);
-            }
-            else if ( _position.x > ( Grid.GetLength(0) - ( BORDERTHICKNESS_X + 1 ) ) )
-            {
-                _position = new Vector2(Grid.GetLength(0) - ( BORDERTHICKNESS_X + 1 ), _position.y);
+                Grid[_position.x, _position.y] = _symbol;
             }
 
-            if ( _position.y < 1 )
-            {
-                _position = new Vector2(_position.x, 1);
-            }
-            else if ( _position.y > ( Grid.GetLength(1) - ( BORDERTHICKNESS_Y + 1 ) ) )
-            {
-                _position = new Vector2(_position.x, Grid.GetLength(1) - ( BORDERTHICKNESS_Y + 1 ));
-            }
-
-            Grid[_position.x, _position.y] = _symbol;
         }
 
         public virtual void InsertAt (Vector2 _position, string _toInsert)
@@ -94,17 +100,18 @@ namespace Delegate_Playground.MenuFramework
             int xAxis = _position.x;
             for ( int i = 0; i < _toInsert.Length; i++ )
             {
-                if ( xAxis > Grid.GetLength(0) - ( BORDERTHICKNESS_X + 2 ) )
-                {
-                    break;
-                }
-
+                #region Legacy Code
+                //if ( xAxis > Grid.GetLength(0) - ( BORDERTHICKNESS_X + 2 ) )
+                //{
+                //    break;
+                //}
+                #endregion
                 InsertAt(new Vector2(xAxis, _position.y), _toInsert[i]);
                 xAxis++;
             }
         }
 
-        public void Draw ()
+        public void Render ()
         {
             if ( Grid != null && Grid.Length != 0 )
             {

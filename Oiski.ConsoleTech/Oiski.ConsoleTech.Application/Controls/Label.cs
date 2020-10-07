@@ -2,42 +2,46 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Delegate_Playground.MenuFramework.Controls
+namespace Oiski.ConsoleTech.Application.Controls
 {
-    public class Label
+    public class Label : Control
     {
-        private char[,] grid = new char[3, 3];
-        private readonly char[] border = { '+', '|', '-' };
-
         public string Text { get; set; } = string.Empty;
 
-        public Vector2 Size { get; protected set; }
-
-        public Vector2 Position { get; set; }
-
-        public bool EnsureSize { get; set; } = true;
+        new public Vector2 Size
+        {
+            get
+            {
+                return base.Size;
+            }
+            protected set
+            {
+                base.Size = value;
+            }
+        }
 
         private void CorrectSize ()
         {
-            if ( Size.x < Text.Length )
-            {
-                Size = new Vector2(Text.Length + 1, Size.y);
-            }
+            Size = new Vector2(Text.Length + 2, 3);
 
-            if ( Size.y < 3 )
-            {
-                Size = new Vector2(Size.x, 3);
-            }
+            #region Legacy Code
+            //if ( Size.x < Text.Length )
+            //{
+            //    Size = new Vector2(Text.Length + 1, Size.y);
+            //}
+
+            //if ( Size.y < 3 )
+            //{
+            //    Size = new Vector2(Size.x, 3);
+            //}
+            #endregion
 
             grid = new char[Size.x, Size.y];
         }
 
-        public char[,] Draw ()
+        internal override char[,] Build ()
         {
-            if ( EnsureSize )
-            {
-                CorrectSize();
-            }
+            CorrectSize();
 
             int textIndex = 0;
             for ( int y = 0; y < grid.GetLength(1); y++ )
@@ -63,7 +67,10 @@ namespace Delegate_Playground.MenuFramework.Controls
                     }
                     else
                     {
-                        grid[x, y] = Text[textIndex];
+                        if ( textIndex < Text.Length )
+                        {
+                            grid[x, y] = Text[textIndex];
+                        }
                         textIndex++;
                     }
                 }
@@ -77,6 +84,11 @@ namespace Delegate_Playground.MenuFramework.Controls
             Text = _text;
             Size = new Vector2(Text.Length + 2, 3);
             Position = new Vector2(0, 0);
+        }
+
+        public Label (string _text, Vector2 _position) : this(_text)
+        {
+            Position = _position;
         }
     }
 }

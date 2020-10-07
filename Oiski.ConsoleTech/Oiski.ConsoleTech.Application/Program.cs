@@ -1,14 +1,18 @@
-﻿using Delegate_Playground.MenuFramework;
-using Delegate_Playground.MenuFramework.Controls;
+﻿using Oiski.ConsoleTech.Application;
+using Oiski.ConsoleTech.Application.Controls;
 using System;
+using System.Diagnostics;
+using System.Threading;
 
-namespace Delegate_Playground
+namespace Oiski.ConsoleTech
 {
     class Program
     {
         static void Main ()
         {
             Console.Title = "Menu Framework Test";
+            //Console.SetWindowSize(65, 30);
+            //Console.SetBufferSize(65, 31);
 
             #region V1
             ///*
@@ -127,6 +131,7 @@ namespace Delegate_Playground
             //Renderer rend = new Renderer();
 
             //string[] pos = { "0", "0" };
+            //do
             //{
             //    rend.InitRenderer();
             //    rend.Draw();
@@ -138,13 +143,14 @@ namespace Delegate_Playground
             //    rend.InsertAt(new Vector2(int.Parse(pos[0]), int.Parse(pos[1])), "Hello");
             //    rend.Refresh();
             //    pos = Console.ReadLine().Split(",");
-            //} while ( true ) ;
+
+            //} while ( true );
 
             #endregion
 
             #region V5 - Label Test
             //Label label = new Label("Hej, Jens. Du er da en lille banantrold!");
-            //char[,] d = label.Draw();
+            //char[,] d = label.Build();
             //for ( int y = 0; y < label.Size.y; y++ )
             //{
             //    for ( int x = 0; x < label.Size.x; x++ )
@@ -154,32 +160,83 @@ namespace Delegate_Playground
 
             //    Console.WriteLine();
             //}
+
+            //Console.Read();
             #endregion
 
-            #region V6 Label Insert Test
-            Label label = new Label("Hello, World!");
-            Renderer rend = new Renderer();
+            #region V6 - Label Insert Test
+            //Control label = new Label("Hello, World!");
+            //Renderer rend = new Renderer();
 
-            string[] pos = { "0", "0" };
+            //string[] pos = { "0", "0" };
+            //do
+            //{
+            //    label.Position = new Vector2(int.Parse(pos[0]), int.Parse(pos[1]));
+            //    rend.InitRenderer();
+            //    int positionX = label.Position.x;
+            //    int positionY = label.Position.y;
+            //    for ( int y = 0; y < label.Size.y; y++ )
+            //    {
+            //        for ( int x = 0; x < label.Size.x; x++ )
+            //        {
+            //            rend.InsertAt(new Vector2(positionX++, positionY), label.Build()[x, y]);
+            //        }
+            //        positionX = label.Position.x;
+            //        positionY++;
+            //    }
+
+            //    rend.Draw();
+            //    pos = Console.ReadLine().Split(",");
+            //    rend.Refresh();
+            //} while ( true );
+            #endregion
+
+            #region V7 - Draw Multiple Controls Test
+            MenuEngine engine = new MenuEngine();
+            Label label = new Label("Hello, World");
+            engine.AddControl(label);
+            Label label2 = new Label("Hello, Second World!", new Vector2(0, 3));
+            engine.AddControl(label2);
+
+            Thread newThread = new Thread(engine.Run);
+            newThread.IsBackground = true;
+            newThread.Name = "Renderer";
+            newThread.Start();
+
+            System.Timers.Timer timer = new System.Timers.Timer
+            {
+                Enabled = true,
+                Interval = 2000
+            };
+            timer.Elapsed += (o, e) => { label2.Text = $"{new Random().Next(0, 20)}"; };
+
+            timer.Start();
+
+            var sw = Stopwatch.StartNew();
+            Label threadInfo = new Label($">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<", new Vector2(30, 3));
+            engine.AddControl(threadInfo);
+            long miliSec = sw.ElapsedMilliseconds;
+            Thread.CurrentThread.Name = "Input";
             do
             {
-                Console.Clear();
-                label.Position = new Vector2(int.Parse(pos[0]), int.Parse(pos[1]));
-                rend.InitRenderer();
-                int positionX = label.Position.x;
-                int positionY = label.Position.y;
-                for ( int y = 0; y < label.Size.y; y++ )
+                threadInfo.Text = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Last Input: {miliSec / 1000} Seconds<";
+
+                ConsoleKeyInfo key = Console.ReadKey();
+                if ( key.Key == ConsoleKey.Backspace )
                 {
-                    for ( int x = 0; x < label.Size.x; x++ )
+                    if ( label.Text.Length > 0 )
                     {
-                        rend.InsertAt(new Vector2(positionX++, positionY), label.Draw()[x, y]);
+                        label.Text = label.Text[0..^2];
                     }
-                    positionX = label.Position.x;
-                    positionY++;
+                }
+                else
+                {
+                    label.Text += key.KeyChar;
                 }
 
-                rend.Draw();
-                pos = Console.ReadLine().Split(",");
+                miliSec = sw.ElapsedMilliseconds;
+                sw.Restart();
+
             } while ( true );
             #endregion
         }

@@ -1,6 +1,6 @@
-﻿using Delegate_Playground.MenuFramework.Controls;
+﻿
 
-namespace Delegate_Playground.MenuFramework
+namespace Oiski.ConsoleTech
 {
     public class RenderConfiguration
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Delegate_Playground.MenuFramework
+namespace Oiski.ConsoleTech
 {
     public enum BorderArea
     {
