@@ -28,7 +28,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
 
         public Control ()
         {
-            lock ( this )
+            lock ( MenuEngine.Controls )
             {
                 IndexID = MenuEngine.Controls.Count;
 
