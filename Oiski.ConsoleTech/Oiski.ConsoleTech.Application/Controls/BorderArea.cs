@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech
+namespace Oiski.ConsoleTech.OiskiEngine.Controls
 {
+    /// <summary>
+    /// Defines the area of the border applied on a <see cref="Control"/>
+    /// </summary>
     public enum BorderArea
     {
         Corner,

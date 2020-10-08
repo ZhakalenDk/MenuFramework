@@ -1,7 +1,6 @@
-﻿using Oiski.ConsoleTech.Application;
-using Oiski.ConsoleTech.Application.Controls;
+﻿using Oiski.ConsoleTech.OiskiEngine;
+using Oiski.ConsoleTech.OiskiEngine.Controls;
 using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace Oiski.ConsoleTech
@@ -267,9 +266,21 @@ namespace Oiski.ConsoleTech
             //( ( Label ) MenuEngine.FindControl(0) ).Text = "Hello";
             #endregion
 
-            #region V10 - Events
+            #region V10 - Input Controller
             MenuEngine.Run();
-            OptionControl option = new OptionControl("Pick Me!");
+
+            Label label = new Label("Hello, World!");
+            Label label2 = new Label("Hello Again, World!", new Vector2(0, 4));
+
+            do
+            {
+                if ( MenuEngine.Input.CurrentSelectedIndex > 1 )
+                {
+                    Label label3 = MenuEngine.FindControl(MenuEngine.Input.CurrentSelectedIndex) as Label;
+                    label3.Text = "I worked!";
+                }
+            } while ( true );
+
             #endregion
         }
     }

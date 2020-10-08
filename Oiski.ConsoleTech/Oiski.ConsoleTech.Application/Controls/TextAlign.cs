@@ -1,4 +1,4 @@
-﻿namespace Oiski.ConsoleTech.Application
+﻿namespace Oiski.ConsoleTech.OiskiEngine.Controls
 {
     public enum TextAlign
     {

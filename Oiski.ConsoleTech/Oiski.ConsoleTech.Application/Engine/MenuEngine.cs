@@ -1,4 +1,6 @@
-﻿using Oiski.ConsoleTech.Application.Controls;
+﻿using Oiski.ConsoleTech.OiskiEngine.Controls;
+using Oiski.ConsoleTech.OiskiEngine.Input;
+using Oiski.ConsoleTech.OiskiEngine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Timers;
 
-namespace Oiski.ConsoleTech.Application
+namespace Oiski.ConsoleTech.OiskiEngine
 {
     public static class MenuEngine
     {
@@ -14,16 +16,26 @@ namespace Oiski.ConsoleTech.Application
 
         public static RenderConfiguration Configuration { get; } = new RenderConfiguration(new Vector2(Console.WindowWidth, Console.WindowHeight), '+', '|', '-');
 
+        public static InputController Input { get; } = new InputController();
+
         internal static List<Control> Controls { get; } = new List<Control>();
 
         public static void AddControl (Control _control)
         {
-            Controls.Add(_control);
+            lock ( Controls )
+            {
+                Controls.Add(_control);
+            }
         }
 
         public static bool RemoveControl (Control _control)
         {
-            return Controls.Remove(_control);
+            bool wasRemoved = false;
+            lock ( Controls )
+            {
+                wasRemoved = Controls.Remove(_control);
+            }
+            return wasRemoved;
         }
 
         public static Control FindControl (int _indexID)
@@ -39,28 +51,29 @@ namespace Oiski.ConsoleTech.Application
             return null;
         }
 
-        private static void DrawControls ()
+        private static void InsertControls ()
         {
             Renderer.InitRenderer();
-            for ( int i = 0; i < Controls.Count; i++ )
+            lock ( Controls )
             {
-                int positionX = Controls[i].Position.x;
-                int positionY = Controls[i].Position.y;
-                for ( int y = 0; y < Controls[i].Size.y; y++ )
+                for ( int i = 0; i < Controls.Count; i++ )
                 {
-                    for ( int x = 0; x < Controls[i].Size.x; x++ )
+                    int positionX = Controls[i].Position.x;
+                    int positionY = Controls[i].Position.y;
+                    for ( int y = 0; y < Controls[i].Size.y; y++ )
                     {
-                        Renderer.InsertAt(new Vector2(positionX++, positionY), Controls[i].Build()[x, y]);
+                        for ( int x = 0; x < Controls[i].Size.x; x++ )
+                        {
+                            Renderer.InsertAt(new Vector2(positionX++, positionY), Controls[i].Build()[x, y]);
+                        }
+                        positionX = Controls[i].Position.x;
+                        positionY++;
                     }
-                    positionX = Controls[i].Position.x;
-                    positionY++;
                 }
             }
 
             Renderer.Render();
         }
-
-        private static SelectableControl SelectedControl;
 
         public static void Run ()
         {
@@ -78,13 +91,16 @@ namespace Oiski.ConsoleTech.Application
             var sw = Stopwatch.StartNew();
             string infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
             Label threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
+
             do
             {
                 infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
                 threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
                 threadInfo.Text = infoOutput;
-                SelectedControl?.HandleMe();
-                DrawControls();
+
+                Input.ListenForInput(Input.GetKeyInfo);
+
+                InsertControls();
             } while ( true );
         }
     }

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.Application.Controls
+namespace Oiski.ConsoleTech.OiskiEngine.Controls
 {
+    /// <summary>
+    /// Represents a <see cref="Label"/> that can be placed and manipulated through the <see cref="MenuEngine"/>
+    /// </summary>
     public class Label : Control
     {
         public string Text { get; set; } = string.Empty;
@@ -20,6 +23,9 @@ namespace Oiski.ConsoleTech.Application.Controls
             }
         }
 
+        /// <summary>
+        /// This ensures that the width of the <see cref="Label"/> always encapsulates the <see cref="Text"/>
+        /// </summary>
         private void CorrectSize ()
         {
             Size = new Vector2(Text.Length + 2, 3);
@@ -39,8 +45,17 @@ namespace Oiski.ConsoleTech.Application.Controls
             grid = new char[Size.x, Size.y];
         }
 
+        /// <summary>
+        /// Defines the visible area of the border for the <see cref="Label"/>. 
+        /// <br/>
+        /// Use the <see cref="BorderArea"/> <see langword="enum"/> to access the individual components of the border through this member
+        /// </summary>
         protected bool[] VisibleBorder { get; } = { true, true, true };
 
+        /// <summary>
+        /// Builds the <see cref="Label"/> control
+        /// </summary>
+        /// <returns>A rendable two-dimensional <see langword="char"/> <see langword="array"/> that can be inserted into the <see cref="Rendering.Renderer"/> <see langword="class"/> via the <see cref="MenuEngine"/></returns>
         internal override char[,] Build ()
         {
             CorrectSize();
@@ -102,26 +117,42 @@ namespace Oiski.ConsoleTech.Application.Controls
             return grid;
         }
 
+        /// <summary>
+        /// Define which parts of the border that should be visible when the <see cref="Label"/> is rendered
+        /// </summary>
+        /// <param name="_area"></param>
+        /// <param name="_visible"></param>
         public void SetBorder (BorderArea _area, bool _visible)
         {
             VisibleBorder[( int ) _area] = _visible;
         }
+
+        /// <summary>
+        /// Change the borde style for the <see cref="Label"/>
+        /// </summary>
+        /// <param name="_area"></param>
+        /// <param name="_style"></param>
         public void BorderStyle (BorderArea _area, char _style)
         {
             border[( int ) _area] = _style;
         }
 
+        /// <summary>
+        /// Initializes a new instance of type <see cref="Label"/> where the <paramref name="_text"/> is set, and adds the <see cref="Control"/> to the <see cref="MenuEngine.Controls"/>
+        /// </summary>
+        /// <param name="_text"></param>
         public Label (string _text) : base()
         {
             Text = _text;
             Size = new Vector2(Text.Length + 2, 3);
             Position = new Vector2(0, 0);
-
-            IndexID = MenuEngine.Controls.Count;
-
-            MenuEngine.AddControl(this);
         }
 
+        /// <summary>
+        /// Initializes a new instance of type <see cref="Label"/> where the <paramref name="_text"/> and <paramref name="_position"/> is set, and adds the <see cref="Control"/> to the <see cref="MenuEngine.Controls"/>
+        /// </summary>
+        /// <param name="_text"></param>
+        /// <param name="_position"></param>
         public Label (string _text, Vector2 _position) : this(_text)
         {
             Position = _position;
