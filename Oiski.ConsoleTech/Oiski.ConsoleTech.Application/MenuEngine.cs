@@ -8,38 +8,51 @@ using System.Timers;
 
 namespace Oiski.ConsoleTech.Application
 {
-    public class MenuEngine
+    public static class MenuEngine
     {
-        protected Renderer Renderer { get; } = new Renderer();
+        internal static Renderer Renderer { get; } = new Renderer();
 
-        public RenderConfiguration Configuration { get; } = new RenderConfiguration(new Vector2(Console.WindowWidth, Console.WindowHeight), '+', '|', '-');
+        public static RenderConfiguration Configuration { get; } = new RenderConfiguration(new Vector2(Console.WindowWidth, Console.WindowHeight), '+', '|', '-');
 
-        protected List<Control> Controls { get; } = new List<Control>();
+        internal static List<Control> Controls { get; } = new List<Control>();
 
-        public void AddControl (Control _control)
+        public static void AddControl (Control _control)
         {
             Controls.Add(_control);
         }
 
-        public bool RemoveControl (Control _control)
+        public static bool RemoveControl (Control _control)
         {
             return Controls.Remove(_control);
         }
 
-        private void DrawControls ()
+        public static Control FindControl (int _indexID)
+        {
+            for ( int i = 0; i < Controls.Count; i++ )
+            {
+                if ( Controls[i].IndexID == _indexID )
+                {
+                    return Controls[i];
+                }
+            }
+
+            return null;
+        }
+
+        private static void DrawControls ()
         {
             Renderer.InitRenderer();
-            foreach ( Control control in Controls )
+            for ( int i = 0; i < Controls.Count; i++ )
             {
-                int positionX = control.Position.x;
-                int positionY = control.Position.y;
-                for ( int y = 0; y < control.Size.y; y++ )
+                int positionX = Controls[i].Position.x;
+                int positionY = Controls[i].Position.y;
+                for ( int y = 0; y < Controls[i].Size.y; y++ )
                 {
-                    for ( int x = 0; x < control.Size.x; x++ )
+                    for ( int x = 0; x < Controls[i].Size.x; x++ )
                     {
-                        Renderer.InsertAt(new Vector2(positionX++, positionY), control.Build()[x, y]);
+                        Renderer.InsertAt(new Vector2(positionX++, positionY), Controls[i].Build()[x, y]);
                     }
-                    positionX = control.Position.x;
+                    positionX = Controls[i].Position.x;
                     positionY++;
                 }
             }
@@ -47,17 +60,32 @@ namespace Oiski.ConsoleTech.Application
             Renderer.Render();
         }
 
-        public void Run ()
+        private static SelectableControl SelectedControl;
+
+        public static void Run ()
+        {
+            Thread rendereThread = new Thread(Start)
+            {
+                Name = "Renderer",
+                Priority = ThreadPriority.AboveNormal
+            };
+
+            rendereThread.Start();
+        }
+
+        private static void Start ()
         {
             var sw = Stopwatch.StartNew();
-            Label threadInfo = new Label($">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<", new Vector2(30, 0));
-            AddControl(threadInfo);
+            string infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
+            Label threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
             do
             {
-                threadInfo.Text = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
+                infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
+                threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
+                threadInfo.Text = infoOutput;
+                SelectedControl?.HandleMe();
                 DrawControls();
             } while ( true );
-
         }
     }
 }

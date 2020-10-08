@@ -6,8 +6,8 @@ namespace Oiski.ConsoleTech
 {
     public class Renderer
     {
-        const int BORDERTHICKNESS_X = 1;
-        const int BORDERTHICKNESS_Y = 1;
+        protected int BorderThickness_X = 1;
+        protected int BorderThickness_Y = 1;
         public char[,] Grid { get; protected set; } = null;
         public RenderConfiguration Configuration { get; protected set; } = new RenderConfiguration(new Vector2(Console.WindowWidth, Console.WindowHeight), '+', '|', '-');
 
@@ -28,7 +28,7 @@ namespace Oiski.ConsoleTech
             BuildScreenBorder();
         }
 
-        private void BuildScreenBorder ()
+        protected virtual void BuildScreenBorder ()
         {
             if ( Grid == null || Configuration == null )
             {
@@ -66,7 +66,7 @@ namespace Oiski.ConsoleTech
 
         public virtual void InsertAt (Vector2 _position, char _symbol)
         {
-            _position = new Vector2(_position.x + BORDERTHICKNESS_X, _position.y + BORDERTHICKNESS_Y);
+            _position = new Vector2(_position.x + BorderThickness_X, _position.y + BorderThickness_Y);
 
             #region Legacy Code
             //if ( _position.x < 1 )
@@ -88,7 +88,7 @@ namespace Oiski.ConsoleTech
             //}
             #endregion
 
-            if ( _position.x >= 1 && _position.x <= ( Grid.GetLength(0) - ( BORDERTHICKNESS_X + 1 ) ) && _position.y >= 1 && _position.y <= ( Grid.GetLength(1) - ( BORDERTHICKNESS_Y + 1 ) ) )
+            if ( _position.x >= 1 && _position.x <= ( Grid.GetLength(0) - ( BorderThickness_X + 1 ) ) && _position.y >= 1 && _position.y <= ( Grid.GetLength(1) - ( BorderThickness_Y + 1 ) ) )
             {
                 Grid[_position.x, _position.y] = _symbol;
             }
@@ -111,7 +111,7 @@ namespace Oiski.ConsoleTech
             }
         }
 
-        public void Render ()
+        public virtual void Render ()
         {
             if ( Grid != null && Grid.Length != 0 )
             {
@@ -130,33 +130,6 @@ namespace Oiski.ConsoleTech
                 throw new Exception("Grid is empty or null. Aborting rendering process!");
             }
 
-            Console.SetCursorPosition(0, 0);
-        }
-
-        public void Refresh ()
-        {
-            string toPrint = string.Empty;
-
-            Console.Clear();
-            if ( Grid != null && Grid.Length != 0 )
-            {
-                for ( int y = 0; y < Grid.GetLength(1); y++ )
-                {
-                    for ( int x = 0; x < Grid.GetLength(0); x++ )
-                    {
-                        toPrint += ( Grid[x, y] );
-                    }
-
-                    toPrint += Environment.NewLine;
-                }
-            }
-            else
-            {
-                throw new Exception("Grid is empty or null. Aborting rendering process!");
-            }
-
-
-            Console.Write(toPrint);
             Console.SetCursorPosition(0, 0);
         }
     }

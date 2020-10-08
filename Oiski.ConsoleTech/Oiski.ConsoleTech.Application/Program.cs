@@ -192,52 +192,84 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V7 - Draw Multiple Controls Test
-            MenuEngine engine = new MenuEngine();
-            Label label = new Label("Hello, World");
-            engine.AddControl(label);
-            Label label2 = new Label("Hello, Second World!", new Vector2(0, 3));
-            engine.AddControl(label2);
+            /////MenuEngine engine = new MenuEngine();
+            //Label label = new Label("Hello, World");
+            //MenuEngine.AddControl(label);
+            //Label label2 = new Label("Hello, Second World!", new Vector2(0, 3));
+            //MenuEngine.AddControl(label2);
 
-            Thread newThread = new Thread(engine.Run);
-            newThread.IsBackground = true;
-            newThread.Name = "Renderer";
-            newThread.Start();
+            //Thread newThread = new Thread(MenuEngine.Run);
+            //newThread.IsBackground = true;
+            //newThread.Name = "Renderer";
+            //newThread.Start();
 
-            System.Timers.Timer timer = new System.Timers.Timer
-            {
-                Enabled = true,
-                Interval = 2000
-            };
-            timer.Elapsed += (o, e) => { label2.Text = $"{new Random().Next(0, 20)}"; };
+            //System.Timers.Timer timer = new System.Timers.Timer
+            //{
+            //    Enabled = true,
+            //    Interval = 2000
+            //};
+            //timer.Elapsed += (o, e) => { label2.Text = $"{new Random().Next(0, 20)}"; Label label3 = new Label("I'm a Third!", new Vector2(15, 5)); MenuEngine.AddControl(label3); };
 
-            timer.Start();
+            //timer.Start();
 
-            var sw = Stopwatch.StartNew();
-            Label threadInfo = new Label($">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<", new Vector2(30, 3));
-            engine.AddControl(threadInfo);
-            long miliSec = sw.ElapsedMilliseconds;
-            Thread.CurrentThread.Name = "Input";
-            do
-            {
-                threadInfo.Text = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Last Input: {miliSec / 1000} Seconds<";
+            //var sw = Stopwatch.StartNew();
+            //Label threadInfo = new Label($">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<", new Vector2(30, 3));
+            //MenuEngine.AddControl(threadInfo);
+            //long miliSec = sw.ElapsedMilliseconds;
+            //Thread.CurrentThread.Name = "Input";
+            //do
+            //{
+            //    threadInfo.Text = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Last Input: {miliSec / 1000} Seconds<";
 
-                ConsoleKeyInfo key = Console.ReadKey();
-                if ( key.Key == ConsoleKey.Backspace )
-                {
-                    if ( label.Text.Length > 0 )
-                    {
-                        label.Text = label.Text[0..^2];
-                    }
-                }
-                else
-                {
-                    label.Text += key.KeyChar;
-                }
+            //    ConsoleKeyInfo key = Console.ReadKey();
+            //    if ( key.Key == ConsoleKey.Backspace )
+            //    {
+            //        if ( label.Text.Length > 0 )
+            //        {
+            //            label.Text = label.Text[0..^2];
+            //        }
+            //    }
+            //    else
+            //    {
+            //        label.Text += key.KeyChar;
+            //    }
 
-                miliSec = sw.ElapsedMilliseconds;
-                sw.Restart();
 
-            } while ( true );
+            //    miliSec = sw.ElapsedMilliseconds;
+            //    sw.Restart();
+
+            //} while ( true );
+            #endregion
+
+            #region V8 - Automaticaly Adding Controls on Initialization
+            //Label label = new Label("I got automatically added!");
+            //Label label2 = new Label("I got automatically added and placed", new Vector2(0, 3));
+
+            //MenuEngine.Run();
+            #endregion
+
+            #region V8 - Label Border Control
+            //Label label = new Label("Hello, World!");
+            //MenuEngine.Run();
+            //label.SetBorder(BorderArea.Corner, true);
+            //label.SetBorder(BorderArea.Horizontal, false);
+            //label.SetBorder(BorderArea.Vertical, true);
+            #endregion
+
+            #region V9 - Finding Controls
+            //Label label = new Label("Hello, World");
+            //label.BorderStyle(BorderArea.Horizontal, '~');
+            //label.BorderStyle(BorderArea.Corner, '-');
+            //label.SetBorder(BorderArea.Vertical, false);
+
+            //MenuEngine.Run();
+
+            //( ( Label ) MenuEngine.FindControl(0) ).Text = "Hello";
+            #endregion
+
+            #region V10 - Events
+            MenuEngine.Run();
+            OptionControl option = new OptionControl("Pick Me!");
             #endregion
         }
     }

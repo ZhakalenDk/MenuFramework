@@ -39,6 +39,8 @@ namespace Oiski.ConsoleTech.Application.Controls
             grid = new char[Size.x, Size.y];
         }
 
+        protected bool[] VisibleBorder { get; } = { true, true, true };
+
         internal override char[,] Build ()
         {
             CorrectSize();
@@ -52,18 +54,38 @@ namespace Oiski.ConsoleTech.Application.Controls
                     {
                         if ( y == 0 || y == grid.GetLength(1) - 1 )
                         {
-                            grid[x, y] = border[( int ) BorderArea.Corner];
-
+                            if ( VisibleBorder[( int ) BorderArea.Corner] )
+                            {
+                                grid[x, y] = border[( int ) BorderArea.Corner];
+                            }
+                            else
+                            {
+                                grid[x, y] = ' ';
+                            }
                         }
                         else
                         {
-                            grid[x, y] = border[( int ) BorderArea.Vertical];
+                            if ( VisibleBorder[( int ) BorderArea.Vertical] )
+                            {
+                                grid[x, y] = border[( int ) BorderArea.Vertical];
+                            }
+                            else
+                            {
+                                grid[x, y] = ' ';
+                            }
                         }
 
                     }
                     else if ( y == 0 || y == grid.GetLength(1) - 1 )
                     {
-                        grid[x, y] = border[( int ) BorderArea.Horizontal];
+                        if ( VisibleBorder[( int ) BorderArea.Horizontal] )
+                        {
+                            grid[x, y] = border[( int ) BorderArea.Horizontal];
+                        }
+                        else
+                        {
+                            grid[x, y] = ' ';
+                        }
                     }
                     else
                     {
@@ -71,6 +93,7 @@ namespace Oiski.ConsoleTech.Application.Controls
                         {
                             grid[x, y] = Text[textIndex];
                         }
+
                         textIndex++;
                     }
                 }
@@ -79,11 +102,24 @@ namespace Oiski.ConsoleTech.Application.Controls
             return grid;
         }
 
+        public void SetBorder (BorderArea _area, bool _visible)
+        {
+            VisibleBorder[( int ) _area] = _visible;
+        }
+        public void BorderStyle (BorderArea _area, char _style)
+        {
+            border[( int ) _area] = _style;
+        }
+
         public Label (string _text) : base()
         {
             Text = _text;
             Size = new Vector2(Text.Length + 2, 3);
             Position = new Vector2(0, 0);
+
+            IndexID = MenuEngine.Controls.Count;
+
+            MenuEngine.AddControl(this);
         }
 
         public Label (string _text, Vector2 _position) : this(_text)

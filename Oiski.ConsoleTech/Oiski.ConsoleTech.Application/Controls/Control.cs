@@ -9,6 +9,7 @@ namespace Oiski.ConsoleTech.Application.Controls
         protected char[,] grid = new char[3, 3];
         protected readonly char[] border = { '+', '|', '-' };
 
+        public int IndexID { get; protected set; }
         public Vector2 Size { get; set; }
         public Vector2 Position { get; set; }
 
