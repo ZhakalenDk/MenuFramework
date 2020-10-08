@@ -10,6 +10,11 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
     public abstract class SelectableControl : Label
     {
         /// <summary>
+        /// Defines the index heriachy of which any <see cref="SelectableControl"/> is selected in an ascending order.
+        /// </summary>
+        public int SelectedIndex { get; set; }
+
+        /// <summary>
         /// Whether or not the <see cref="Control"/> is currently selected
         /// </summary>
         public bool IsSelected { get; private set; } = false;

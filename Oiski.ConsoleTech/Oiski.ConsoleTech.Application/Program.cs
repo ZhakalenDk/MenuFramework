@@ -268,16 +268,36 @@ namespace Oiski.ConsoleTech
 
             #region V10 - Input Controller
             MenuEngine.Run();
-
-            Label label = new Label("Hello, World!");
-            Label label2 = new Label("Hello Again, World!", new Vector2(0, 4));
+            OptionControl option = new OptionControl("Hello, World!")
+            {
+                SelectedIndex = 1
+            };
 
             do
             {
-                if ( MenuEngine.Input.CurrentSelectedIndex > 1 )
+                if ( MenuEngine.Input.CurrentSelectedIndex == option.SelectedIndex )
                 {
-                    Label label3 = MenuEngine.FindControl(MenuEngine.Input.CurrentSelectedIndex) as Label;
-                    label3.Text = "I worked!";
+                    lock ( MenuEngine.Controls )
+                    {
+                        foreach ( var item in MenuEngine.Controls )
+                        {
+                            if ( item is OptionControl && ( ( OptionControl ) item ).SelectedIndex == MenuEngine.Input.CurrentSelectedIndex )
+                            {
+                                lock ( item )
+                                {
+                                    ( ( OptionControl ) item ).Text = "I worked!";
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    lock ( option )
+                    {
+                        option.Text = "Hello, World!";
+                    }
+
                 }
             } while ( true );
 

@@ -38,17 +38,9 @@ namespace Oiski.ConsoleTech.OiskiEngine
             return wasRemoved;
         }
 
-        public static Control FindControl (int _indexID)
+        public static Control FindControl (Predicate<Control> _match)
         {
-            for ( int i = 0; i < Controls.Count; i++ )
-            {
-                if ( Controls[i].IndexID == _indexID )
-                {
-                    return Controls[i];
-                }
-            }
-
-            return null;
+            return Controls.Find(_match);
         }
 
         private static void InsertControls ()
@@ -98,7 +90,10 @@ namespace Oiski.ConsoleTech.OiskiEngine
                 threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
                 threadInfo.Text = infoOutput;
 
-                Input.ListenForInput(Input.GetKeyInfo);
+                lock ( Input )
+                {
+                    Input.ListenForInput(Input.GetKeyInfo);
+                }
 
                 InsertControls();
             } while ( true );
