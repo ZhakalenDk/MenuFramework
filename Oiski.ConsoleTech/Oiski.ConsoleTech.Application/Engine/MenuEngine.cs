@@ -84,18 +84,17 @@ namespace Oiski.ConsoleTech.OiskiEngine
             string infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
             Label threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
 
+            Input.ListenForInput();
+
             do
             {
                 infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
                 threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
                 threadInfo.Text = infoOutput;
 
-                lock ( Input )
-                {
-                    Input.ListenForInput(Input.GetKeyInfo);
-                }
-
                 InsertControls();
+
+
             } while ( true );
         }
     }

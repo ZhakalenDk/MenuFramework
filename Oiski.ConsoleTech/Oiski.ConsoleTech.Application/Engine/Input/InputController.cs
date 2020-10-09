@@ -10,11 +10,15 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
 {
     public class InputController
     {
-        public int CurrentSelectedIndex { get; protected set; }
+        private readonly object lockObject = new object();
+        public int CurrentSelectedIndex_X { get; private set; }
+        public int CurrentSelectedIndex_Y { get; private set; }
+        public bool Selected { get; private set; } = false;
 
         public NavController Navigation { get; } = new NavController();
 
         public bool EnableNavigation { get; set; } = true;
+        public bool CanSelect { get; set; } = true;
 
         public ConsoleKeyInfo GetKeyInfo ()
         {
@@ -31,56 +35,88 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             return Console.ReadLine();
         }
 
-        public void ListenForInput<T> (Func<T> _inputStream)
+        public void ListenForInput ()
         {
-            if ( _inputStream == null )
-            {
-                throw new Exception("Input Stream can't be null!");
-            }
-
-            Thread inputThread = new Thread(() => Run(_inputStream))
+            Thread rendereThread = new Thread(Start)
             {
                 Name = "Input",
-                IsBackground = true
-
+                Priority = ThreadPriority.AboveNormal
             };
 
-            inputThread.Start();
+            rendereThread.Start();
         }
 
-        Stopwatch watch = Stopwatch.StartNew();
-
-        private void Run<T> (Func<T> _inputStream)
+        private void Start ()
         {
-            var sw = watch;
-            string infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Last Input: {sw.ElapsedMilliseconds / 1000} Seconds<";
+            var sw = Stopwatch.StartNew();
+            string infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
             Label threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3));
 
-            if ( _inputStream == null )
+            do
             {
-                throw new Exception("Input Stream can't be null!");
-            }
+                infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Idle Time: {sw.ElapsedMilliseconds / 1000} Seconds<|>IsSelected: {Selected}<|>Selected Index: x({CurrentSelectedIndex_X}) Y({CurrentSelectedIndex_Y})<";
+                threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3);
+                threadInfo.Text = infoOutput;
+                sw.Restart();
 
-            if ( EnableNavigation )
-            {
-                if ( ( ( ConsoleKeyInfo ) ( object ) _inputStream.Invoke() ).Key == Navigation.Up )
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                if ( EnableNavigation )
                 {
-                    lock ( this )
+
+
+                    if ( keyInfo.Key == Navigation.Up )
                     {
-                        CurrentSelectedIndex++;
-                        watch.Restart();
+                        lock ( lockObject )
+                        {
+                            MenuEngine.Input.CurrentSelectedIndex_Y--;
+                        }
+
+                    }
+
+                    if ( keyInfo.Key == Navigation.Down )
+                    {
+                        lock ( lockObject )
+                        {
+                            MenuEngine.Input.CurrentSelectedIndex_Y++;
+                        }
+                    }
+
+                    if ( keyInfo.Key == Navigation.Left )
+                    {
+                        lock ( lockObject )
+                        {
+                            MenuEngine.Input.CurrentSelectedIndex_X--;
+                        }
+                    }
+
+                    if ( keyInfo.Key == Navigation.Right )
+                    {
+                        lock ( lockObject )
+                        {
+                            MenuEngine.Input.CurrentSelectedIndex_X++;
+                        }
                     }
                 }
-                else if ( ( ( ConsoleKeyInfo ) ( object ) _inputStream.Invoke() ).Key == Navigation.Down )
-                {
-                    lock ( this )
-                    {
-                        CurrentSelectedIndex--;
 
-                        watch.Restart();
+                if ( CanSelect )
+                {
+                    if ( keyInfo.Key == Navigation.Select )
+                    {
+                        lock ( lockObject )
+                        {
+                            Selected = true;
+                        }
+                    }
+                    else
+                    {
+                        lock ( lockObject )
+                        {
+                            Selected = false;
+                        }
                     }
                 }
-            }
+
+            } while ( true );
         }
     }
 }

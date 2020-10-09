@@ -275,30 +275,7 @@ namespace Oiski.ConsoleTech
 
             do
             {
-                if ( MenuEngine.Input.CurrentSelectedIndex == option.SelectedIndex )
-                {
-                    lock ( MenuEngine.Controls )
-                    {
-                        foreach ( var item in MenuEngine.Controls )
-                        {
-                            if ( item is OptionControl && ( ( OptionControl ) item ).SelectedIndex == MenuEngine.Input.CurrentSelectedIndex )
-                            {
-                                lock ( item )
-                                {
-                                    ( ( OptionControl ) item ).Text = "I worked!";
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    lock ( option )
-                    {
-                        option.Text = "Hello, World!";
-                    }
-
-                }
+                option.Position = new Vector2(MenuEngine.Input.CurrentSelectedIndex_X, MenuEngine.Input.CurrentSelectedIndex_Y);
             } while ( true );
 
             #endregion
