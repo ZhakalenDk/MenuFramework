@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Oiski.ConsoleTech.OiskiEngine</RootNamespace>
+    <RootNamespace>Oiski.ConsoleTech.Engine</RootNamespace>
     <StartupObject>Oiski.ConsoleTech.Program</StartupObject>
   </PropertyGroup>
 

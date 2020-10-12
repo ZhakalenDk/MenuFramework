@@ -61,11 +61,11 @@ namespace Oiski.ConsoleTech.Engine.Input
         public bool HorizontalNavigationEnabled { get; private set; } = true;
         public bool VerticalNavigationEnabled { get; private set; } = true;
         /// <summary>
-        /// <strong>NOTE YET IN USE</strong> - If <see langword="true"/> the selection system won't go negative on the X-axis
+        /// If <see langword="true"/> the selection system won't go negative on the X-axis
         /// </summary>
         public bool HorizontalClamp { get; private set; } = true;
         /// <summary>
-        /// <strong>NOTE YET IN USE</strong> - If <see langword="true"/> the selection system won't go negative on the Y-axis
+        /// If <see langword="true"/> the selection system won't go negative on the Y-axis
         /// </summary>
         public bool VerticalClamp { get; private set; } = true;
         /// <summary>
@@ -217,7 +217,7 @@ namespace Oiski.ConsoleTech.Engine.Input
                     else if ( threadInfo != null )
                     {
                         sw = null;
-                        OiskiEngine.RemoveControl(threadInfo);
+                        OiskiEngine.Controls.RemoveControl(threadInfo);
                         threadInfo = null;
                     }
                     else if ( OiskiEngine.DEBUGMODE && threadInfo == null && sw == null )
@@ -254,7 +254,12 @@ namespace Oiski.ConsoleTech.Engine.Input
                             {
                                 lock ( lockObject )
                                 {
-                                    OiskiEngine.Input.currentSelectedIndex_Y--;
+                                    currentSelectedIndex_Y--;
+
+                                    if ( VerticalClamp && currentSelectedIndex_Y < 0 )
+                                    {
+                                        currentSelectedIndex_Y++;
+                                    }
                                 }
 
                             }
@@ -263,7 +268,12 @@ namespace Oiski.ConsoleTech.Engine.Input
                             {
                                 lock ( lockObject )
                                 {
-                                    OiskiEngine.Input.currentSelectedIndex_Y++;
+                                    currentSelectedIndex_Y++;
+
+                                    if ( VerticalClamp && currentSelectedIndex_Y > OiskiEngine.Controls.GetSelectableControls.Count - 1 )
+                                    {
+                                        currentSelectedIndex_Y--;
+                                    }
                                 }
                             }
                         }
@@ -274,7 +284,7 @@ namespace Oiski.ConsoleTech.Engine.Input
                             {
                                 lock ( lockObject )
                                 {
-                                    OiskiEngine.Input.currentSelectedIndex_X--;
+                                    currentSelectedIndex_X--;
                                 }
                             }
 
@@ -282,14 +292,14 @@ namespace Oiski.ConsoleTech.Engine.Input
                             {
                                 lock ( lockObject )
                                 {
-                                    OiskiEngine.Input.currentSelectedIndex_X++;
+                                    currentSelectedIndex_X++;
                                 }
                             }
                         }
 
                         lock ( lockObject )
                         {
-                            SelectableControl control = OiskiEngine.FindControl(GetSelectedIndex);
+                            SelectableControl control = OiskiEngine.Controls.FindControl(GetSelectedIndex);
 
                             if ( control != null )
                             {
@@ -306,7 +316,7 @@ namespace Oiski.ConsoleTech.Engine.Input
                         {
                             lock ( lockObject )
                             {
-                                SelectableControl control = OiskiEngine.FindControl(GetSelectedIndex);
+                                SelectableControl control = OiskiEngine.Controls.FindControl(GetSelectedIndex);
 
                                 if ( control != null )
                                 {

@@ -41,10 +41,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
         {
             lock ( OiskiEngine.Controls )
             {
-                IndexID = OiskiEngine.Controls.Count;
+                IndexID = OiskiEngine.Controls.GetControls.Count;
                 ZIndex = 1;
 
-                OiskiEngine.AddControl(this);
+                OiskiEngine.Controls.AddControl(this);
             }
         }
     }

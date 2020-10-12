@@ -366,15 +366,15 @@ namespace Oiski.ConsoleTech
         #region V13 - Small Menu Test: Events
         private static void AtTarget (SelectableControl _sender)
         {
-            foreach ( Control control in OiskiEngine.Controls )
+            foreach ( SelectableControl control in OiskiEngine.Controls.GetSelectableControls )
             {
                 if ( control == _sender )
                 {
                     _sender.BorderStyle(BorderArea.Horizontal, '~');
                 }
-                else if ( control is SelectableControl sControl )
+                else /*if ( control is SelectableControl sControl )*/
                 {
-                    sControl.BorderStyle(BorderArea.Horizontal, '-');
+                    control.BorderStyle(BorderArea.Horizontal, '-');
                 }
             }
         }
