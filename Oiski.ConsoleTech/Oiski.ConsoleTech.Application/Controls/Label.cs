@@ -157,5 +157,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
         {
             Position = _position;
         }
+
+        public override string ToString ()
+        {
+            return $"{{ {IndexID},{Text}}}";
+        }
     }
 }

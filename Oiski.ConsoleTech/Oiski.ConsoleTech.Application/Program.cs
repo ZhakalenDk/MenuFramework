@@ -321,7 +321,7 @@ namespace Oiski.ConsoleTech
                 SelectedIndex = new Vector2(0, 0)
             };
 
-            option1.OnSelect += ChangeMeText;
+            option1.OnSelect += CreateMenu;
 
             option1.BorderStyle(BorderArea.Horizontal, '~');
             Option option2 = new Option("Attach Database", new Vector2(5, 13))
@@ -329,14 +329,14 @@ namespace Oiski.ConsoleTech
                 SelectedIndex = new Vector2(0, 1)
             };
 
-            option2.OnSelect += ChangeMeText;
+            option2.OnSelect += CreateMenu;
 
             Option option3 = new Option("Delete Database", new Vector2(5, 16))
             {
                 SelectedIndex = new Vector2(0, 2)
             };
 
-            option3.OnSelect += ChangeMeText;
+            option3.OnSelect += CreateMenu;
 
             TextField field1 = new TextField("Database Name", new Vector2(50, 10))
             {
@@ -382,6 +382,15 @@ namespace Oiski.ConsoleTech
         private static void ChangeMeText (SelectableControl _control)
         {
             _control.Text = $"{_control.Text} ->";
+        }
+
+        private static void CreateMenu (SelectableControl _sender)
+        {
+            for ( int i = 0; i < OiskiEngine.Controls.GetSelectableControls.Count; i++ )
+            {
+                OiskiEngine.Controls.RemoveControl(OiskiEngine.Controls.GetSelectableControls[i]);
+            }
+
         }
         #endregion
     }
