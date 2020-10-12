@@ -11,9 +11,21 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
 {
     public class InputController
     {
+        /// <summary>
+        /// Use this to <see langword="lock"/> the internal <see cref="InputController"/> values when changes happen
+        /// </summary>
         private readonly object lockObject = new object();
+        /// <summary>
+        /// The index on the x-axis of the selection system
+        /// </summary>
         private int currentSelectedIndex_X;
+        /// <summary>
+        /// The index on the y-axis of the selection system
+        /// </summary>
         private int currentSelectedIndex_Y;
+        /// <summary>
+        /// The index that defines the current position of the selection marker
+        /// </summary>
         public Vector2 GetSelectedIndex
         {
             get
@@ -21,18 +33,41 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
                 return new Vector2(currentSelectedIndex_X, currentSelectedIndex_Y);
             }
         }
-        //public bool Selected { get; private set; } = false;
-        public Action OnSelect { get; set; }
+
+        //public Action<object> OnSelect { get; set; }
+        //public delegate void OnEnter(object _sender);
+
+        /// <summary>
+        /// The text input gathered while <see cref="CanWrite"/> is active.
+        /// <br/>
+        /// Use this retrieve <see cref="string"/> input from the user through the <see cref="InputController"/>
+        /// </summary>
         public string TextInput { get; protected set; } = string.Empty;
 
+        /// <summary>
+        /// The keys used to navigate the selection system.
+        /// </summary>
         public KeyBindings NavigationKeys { get; } = new KeyBindings();
 
+        /// <summary>
+        /// If <see langword="true"/> input will be enabled for the <see cref="InputController"/>
+        /// </summary>
         public bool InputEnabled { get; private set; } = true;
+        /// <summary>
+        /// If <see langword="true"/> navigation will be enabled for the <see cref="InputController"/>
+        /// </summary>
         public bool EnableNavigation { get; private set; } = true;
+        /// <summary>
+        /// If <see langword="true"/> the <see cref="InputController"/> will be able to select a <see cref="SelectableControl"/> on the selection system
+        /// </summary>
         public bool CanSelect { get; private set; } = true;
+        /// <summary>
+        /// If <see langword="true"/> the <see cref="InputController"/> can gather text input from a user.
+        /// <strong>Note:</strong> Use <see cref="TextInput"/> to retrieve the input
+        /// </summary>
         public bool CanWrite { get; private set; } = false;
 
-        public void EnableInput (bool _enable)
+        public void EnableInput(bool _enable)
         {
             lock ( lockObject )
             {
@@ -40,7 +75,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             }
         }
 
-        public void SetNavigation (bool _enable)
+        public void SetNavigation(bool _enable)
         {
             lock ( lockObject )
             {
@@ -48,7 +83,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             }
         }
 
-        public void SetSelect (bool _canSelect)
+        public void SetSelect(bool _canSelect)
         {
             lock ( lockObject )
             {
@@ -56,7 +91,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             }
         }
 
-        public void SetWriting (bool _canWrite)
+        public void SetWriting(bool _canWrite)
         {
             lock ( lockObject )
             {
@@ -64,7 +99,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             }
         }
 
-        public string SetTextInput (string _text)
+        public string SetTextInput(string _text)
         {
             lock ( lockObject )
             {
@@ -74,7 +109,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             return TextInput;
         }
 
-        private bool IsSpecialCharacter (char _char)
+        private bool IsSpecialCharacter(char _char)
         {
             if ( ( _char >= '!' && _char <= '/' ) || ( _char >= ':' && _char <= '@' ) || ( _char >= '[' && _char <= '`' ) || ( _char >= '{' && _char <= '~' ) )
             {
@@ -83,7 +118,11 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
 
             return false;
         }
-        public void ListenForInput ()
+
+        /// <summary>
+        /// Begin listening for user input
+        /// </summary>
+        public void ListenForInput()
         {
             Thread rendereThread = new Thread(Start)
             {
@@ -94,7 +133,10 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             rendereThread.Start();
         }
 
-        protected virtual void Start ()
+        /// <summary>
+        /// Begin the <see cref="InputController"/> loop
+        /// </summary>
+        protected virtual void Start()
         {
             #region DEBUG Values
             Stopwatch sw = null;
@@ -142,11 +184,6 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
                         threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3));
                     }
                     #endregion
-
-                    //lock ( lockObject )
-                    //{
-                    //    Selected = false;
-                    //}
 
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
 
@@ -201,7 +238,13 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
                         {
                             lock ( lockObject )
                             {
-                                OnSelect?.Invoke();
+                                SelectableControl control = MenuEngine.FindControl(GetSelectedIndex);
+
+                                if ( control != null )
+                                {
+                                    //OnSelect?.Invoke(control);
+                                    control.HandleSelectEvent();
+                                }
                             }
                         }
                     }

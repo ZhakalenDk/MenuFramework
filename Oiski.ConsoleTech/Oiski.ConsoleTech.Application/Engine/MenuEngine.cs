@@ -13,20 +13,42 @@ namespace Oiski.ConsoleTech.OiskiEngine
 {
     public static class MenuEngine
     {
+        /// <summary>
+        /// Use this to lock internal values when changed.
+        /// </summary>
         private static readonly object lockObject = new object();
 
+        /// <summary>
+        /// If true this will enable debug mode.
+        /// </summary>
         internal static bool DEBUGMODE { get; set; } = false;
+
+        /// <summary>
+        /// Monitors the time since the <see cref="MenuEngine"/> was started.
+        /// </summary>
         internal static Stopwatch TimeSinceStart { get; private set; } = null;
 
-        internal static Renderer Renderer { get; } = new Renderer();
+        /// <summary>
+        /// The <see cref="Rendering.Renderer"/> that will be used to render the rendering loops for the <see cref="MenuEngine"/>
+        /// </summary>
+        internal static Renderer Renderer { get; set; } = new Renderer();
 
+        /// <summary>
+        /// The confiuration that is used to set the how the <see cref="Rendering.Renderer"/> behaves
+        /// </summary>
         public static RenderConfiguration Configuration { get; } = new RenderConfiguration(new Vector2(Console.WindowWidth, Console.WindowHeight), '+', '|', '-');
 
+        /// <summary>
+        /// THe <see cref="MenuEngine"/>s <see cref="InputController"/> that will listen and registrer input from an user.
+        /// </summary>
         public static InputController Input { get; } = new InputController();
 
+        /// <summary>
+        /// Contains all <see cref="Control"/>s that are currently present in the render heirachy.
+        /// </summary>
         internal static List<Control> Controls { get; } = new List<Control>();
 
-        public static void AddControl (Control _control)
+        public static void AddControl(Control _control)
         {
             lock ( lockObject )
             {
@@ -34,7 +56,12 @@ namespace Oiski.ConsoleTech.OiskiEngine
             }
         }
 
-        public static bool RemoveControl (Control _control)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_control"></param>
+        /// <returns><see langword="true"/> if the <see cref="Control"/> could be removed, otherwise <see langword="false"/></returns>
+        public static bool RemoveControl(Control _control)
         {
             bool wasRemoved = false;
             lock ( lockObject )
@@ -44,25 +71,46 @@ namespace Oiski.ConsoleTech.OiskiEngine
             return wasRemoved;
         }
 
-        public static Control FindControl (Predicate<Control> _match)
+        /// <summary>
+        /// Search the list of <see cref="Control"/>s for a <see cref="Control"/> that fits the <paramref name="_match"/> conditions.
+        /// </summary>
+        /// <param name="_match"></param>
+        /// <returns>The first occurence that matches the predicate. If not <see cref="Control"/> is found it will return <see langword="null"/></returns>
+        public static Control FindControl(Predicate<Control> _match)
         {
             return Controls.Find(_match);
         }
 
-        public static SelectableControl FindControl (Vector2 _selectedIndex)
+        /// <summary>
+        /// Search for a <see cref="SelectableControl"/> based on the <paramref name="_selectedIndex"/>
+        /// </summary>
+        /// <param name="_selectedIndex"></param>
+        /// <returns>The first occurence that matches the <paramref name="_selectedIndex"/>. If no match is found it will return <see langword="null"/></returns>
+        public static SelectableControl FindControl(Vector2 _selectedIndex)
         {
-            foreach ( SelectableControl control in Controls )
+            foreach ( var control in Controls )
             {
-                if ( control.SelectedIndex == _selectedIndex )
+                if ( control is SelectableControl && ( ( SelectableControl ) control ).SelectedIndex == _selectedIndex )
                 {
-                    return control;
+                    return control as SelectableControl;
                 }
             }
 
             return null;
         }
 
-        private static void InsertControls ()
+        public static void ChangeRenderer(Renderer _renderer)
+        {
+            lock ( lockObject )
+            {
+                Renderer = _renderer;
+            }
+        }
+
+        /// <summary>
+        /// Insert all <see cref="Control"/>s in the <see cref="Controls"/> <see cref="List{T}"/> into the <see cref="Renderer.Grid"/>
+        /// </summary>
+        private static void InsertControls()
         {
             Renderer.InitRenderer();
 
@@ -89,7 +137,10 @@ namespace Oiski.ConsoleTech.OiskiEngine
             Renderer.Render();
         }
 
-        public static void Run ()
+        /// <summary>
+        /// Begin the execution of the <see cref="MenuEngine"/> and it's internal functionalities
+        /// </summary>
+        public static void Run()
         {
             Thread rendereThread = new Thread(Start)
             {
@@ -100,7 +151,10 @@ namespace Oiski.ConsoleTech.OiskiEngine
             rendereThread.Start();
         }
 
-        private static void Start ()
+        /// <summary>
+        /// Will set off the <see cref="MenuEngine"/> loop
+        /// </summary>
+        private static void Start()
         {
             #region DEBUG Values
             string infoOutput;
@@ -118,7 +172,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
                 infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {TimeSinceStart.ElapsedMilliseconds / 1000} Seconds<";
                 threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
 
-                conInfo = $">Selected: {( ( Input.CanSelect ) ? ( $"{Input.Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                conInfo = $">Can select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
                 conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
             }
             #endregion
@@ -134,7 +188,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
                     threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
                     threadInfo.Text = infoOutput;
 
-                    conInfo = $">Selected: {( ( Input.CanSelect ) ? ( $"{Input.Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                    conInfo = $">Can Select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
                     conditionValues.Position = new Vector2(Console.WindowWidth - conInfo.Length - 4, 6);
                     conditionValues.Text = conInfo;
                 }
@@ -151,7 +205,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
                     infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {TimeSinceStart.ElapsedMilliseconds / 1000} Seconds<";
                     threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
 
-                    conInfo = $">Selected: {( ( Input.CanSelect ) ? ( $"{Input.Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                    conInfo = $">Can Select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
                     conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
                 }
                 #endregion

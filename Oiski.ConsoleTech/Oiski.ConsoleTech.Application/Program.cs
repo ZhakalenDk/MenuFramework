@@ -7,7 +7,7 @@ namespace Oiski.ConsoleTech
 {
     class Program
     {
-        static void Main ()
+        static void Main()
         {
             Console.Title = "Menu Framework Test";
             //Console.SetWindowSize(65, 30);
@@ -267,41 +267,51 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V10 - Input Controller
-            MenuEngine.Run();
-            OptionControl option = new OptionControl("Hello, World!")
-            {
-                SelectedIndex = new Vector2(0, 1)
-            };
+            //MenuEngine.Run();
+            //OptionControl option = new OptionControl("Hello, World!")
+            //{
+            //    SelectedIndex = new Vector2(0, 1)
+            //};
 
-            OptionControl option2 = new OptionControl("Hello, Second world!", new Vector2(0, 3))
-            {
-                SelectedIndex = new Vector2(0, 2)
-            };
+            //OptionControl option2 = new OptionControl("Hello, Second world!", new Vector2(0, 3))
+            //{
+            //    SelectedIndex = new Vector2(0, 2)
+            //};
 
-            do
-            {
-                option.Position = MenuEngine.Input.GetSelectedIndex;
+            //option.OnSelect += OnEnter;
 
-                if ( MenuEngine.Input.Selected )
-                {
-                    MenuEngine.Input.SetWriting(!MenuEngine.Input.CanWrite);
-                    MenuEngine.Input.SetTextInput(option.Text);
-                    MenuEngine.Input.SetNavigation(!MenuEngine.Input.EnableNavigation);
-                }
+            //do
+            //{
+            //    option.Position = MenuEngine.Input.GetSelectedIndex;
 
-                if ( MenuEngine.Input.CanWrite )
-                {
-                    option.Text = MenuEngine.Input.TextInput;
-                }
+            //    if ( MenuEngine.Input.CanWrite )
+            //    {
+            //        option.Text = MenuEngine.Input.TextInput;
+            //    }
 
-                //if ( MenuEngine.Input.Selected )
-                //{
-                //    SelectableControl control = MenuEngine.FindControl(MenuEngine.Input.GetSelectedIndex);
-                //    control.Text = "Hello, Psycho Jon!";
-                //}
+            //} while ( true );
+            #endregion
 
-            } while ( true );
+            #region V11 - Text Control
+
             #endregion
         }
+
+        #region V10 - Input Controller: OnSelection Test
+        //private static void OnEnter(object _sender)
+        //{
+        //    if ( MenuEngine.Input.CanWrite )
+        //    {
+        //        MenuEngine.Input.SetWriting(false);
+        //    }
+        //    else
+        //    {
+        //        Label sender = ( ( Label ) _sender );
+        //        MenuEngine.Input.SetWriting(true);
+        //        sender.Text = "I got trickered";
+        //        MenuEngine.Input.SetTextInput(sender.Text);
+        //    }
+        //}
+        #endregion
     }
 }

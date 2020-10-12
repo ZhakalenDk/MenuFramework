@@ -24,12 +24,15 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         /// </summary>
         public event Action<SelectableControl> OnSelect;
 
-        public SelectableControl (string _text) : base(_text)
+        public SelectableControl(string _text) : base(_text)
         {
             SelectedIndex = new Vector2(Position.x, Position.y);
         }
 
-        internal void HandleMe ()
+        /// <summary>
+        /// Will be trickered when the <see cref="SelectableControl"/> is targeted by the <see cref="MenuEngine.Input"/> selection system
+        /// </summary>
+        internal void HandleSelectEvent()
         {
             OnSelect?.Invoke(this);
         }
