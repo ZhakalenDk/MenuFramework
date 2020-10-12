@@ -5,36 +5,84 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace Oiski.ConsoleTech.OiskiEngine.Input
 {
     public class InputController
     {
         private readonly object lockObject = new object();
-        public int CurrentSelectedIndex_X { get; private set; }
-        public int CurrentSelectedIndex_Y { get; private set; }
-        public bool Selected { get; private set; } = false;
-
-        public NavController Navigation { get; } = new NavController();
-
-        public bool EnableNavigation { get; set; } = true;
-        public bool CanSelect { get; set; } = true;
-
-        public ConsoleKeyInfo GetKeyInfo ()
+        private int currentSelectedIndex_X;
+        private int currentSelectedIndex_Y;
+        public Vector2 GetSelectedIndex
         {
-            return Console.ReadKey();
+            get
+            {
+                return new Vector2(currentSelectedIndex_X, currentSelectedIndex_Y);
+            }
+        }
+        //public bool Selected { get; private set; } = false;
+        public Action OnSelect { get; set; }
+        public string TextInput { get; protected set; } = string.Empty;
+
+        public KeyBindings NavigationKeys { get; } = new KeyBindings();
+
+        public bool InputEnabled { get; private set; } = true;
+        public bool EnableNavigation { get; private set; } = true;
+        public bool CanSelect { get; private set; } = true;
+        public bool CanWrite { get; private set; } = false;
+
+        public void EnableInput (bool _enable)
+        {
+            lock ( lockObject )
+            {
+                InputEnabled = _enable;
+            }
         }
 
-        public char GetChar ()
+        public void SetNavigation (bool _enable)
         {
-            return Console.ReadKey().KeyChar;
+            lock ( lockObject )
+            {
+                EnableNavigation = _enable;
+            }
         }
 
-        public string GetString ()
+        public void SetSelect (bool _canSelect)
         {
-            return Console.ReadLine();
+            lock ( lockObject )
+            {
+                CanSelect = _canSelect;
+            }
         }
 
+        public void SetWriting (bool _canWrite)
+        {
+            lock ( lockObject )
+            {
+                CanWrite = _canWrite;
+            }
+        }
+
+        public string SetTextInput (string _text)
+        {
+            lock ( lockObject )
+            {
+                TextInput = _text;
+            }
+
+            return TextInput;
+        }
+
+        private bool IsSpecialCharacter (char _char)
+        {
+            if ( ( _char >= '!' && _char <= '/' ) || ( _char >= ':' && _char <= '@' ) || ( _char >= '[' && _char <= '`' ) || ( _char >= '{' && _char <= '~' ) )
+            {
+                return true;
+            }
+
+            return false;
+        }
         public void ListenForInput ()
         {
             Thread rendereThread = new Thread(Start)
@@ -46,77 +94,151 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             rendereThread.Start();
         }
 
-        private void Start ()
+        protected virtual void Start ()
         {
-            var sw = Stopwatch.StartNew();
-            string infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
-            Label threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3));
+            #region DEBUG Values
+            Stopwatch sw = null;
+            string infoOutput;
+            Label threadInfo = null;
 
-            do
+            //string conInfo;
+            //Label conditionValues = null;
+            #endregion
+
+            if ( InputEnabled )
             {
-                infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Idle Time: {sw.ElapsedMilliseconds / 1000} Seconds<|>IsSelected: {Selected}<|>Selected Index: x({CurrentSelectedIndex_X}) Y({CurrentSelectedIndex_Y})<";
-                threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3);
-                threadInfo.Text = infoOutput;
-                sw.Restart();
-
-                ConsoleKeyInfo keyInfo = Console.ReadKey();
-                if ( EnableNavigation )
+                #region DEBUG Functionality
+                if ( MenuEngine.DEBUGMODE )
                 {
+                    sw = Stopwatch.StartNew();
+                    infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Between Input: {sw.ElapsedMilliseconds / 1000} Seconds<|>Selected Index: X({currentSelectedIndex_X}) Y({currentSelectedIndex_Y})<";
+                    threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3));
 
-
-                    if ( keyInfo.Key == Navigation.Up )
-                    {
-                        lock ( lockObject )
-                        {
-                            MenuEngine.Input.CurrentSelectedIndex_Y--;
-                        }
-
-                    }
-
-                    if ( keyInfo.Key == Navigation.Down )
-                    {
-                        lock ( lockObject )
-                        {
-                            MenuEngine.Input.CurrentSelectedIndex_Y++;
-                        }
-                    }
-
-                    if ( keyInfo.Key == Navigation.Left )
-                    {
-                        lock ( lockObject )
-                        {
-                            MenuEngine.Input.CurrentSelectedIndex_X--;
-                        }
-                    }
-
-                    if ( keyInfo.Key == Navigation.Right )
-                    {
-                        lock ( lockObject )
-                        {
-                            MenuEngine.Input.CurrentSelectedIndex_X++;
-                        }
-                    }
+                    //conInfo = $">Selected: {( ( CanSelect ) ? ( $"{Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {CanWrite}<";
+                    //conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
                 }
+                #endregion
 
-                if ( CanSelect )
+                do
                 {
-                    if ( keyInfo.Key == Navigation.Select )
+                    #region DEBUG Functionality
+                    if ( MenuEngine.DEBUGMODE && sw != null && threadInfo != null )
                     {
-                        lock ( lockObject )
-                        {
-                            Selected = true;
-                        }
+                        infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Between Input: {sw.ElapsedMilliseconds / 1000} Seconds<|>Selected Index: X({currentSelectedIndex_X}) Y({currentSelectedIndex_Y})<";
+                        threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3);
+                        threadInfo.Text = infoOutput;
+                        sw.Restart();
                     }
-                    else
+                    else if ( threadInfo != null )
                     {
-                        lock ( lockObject )
-                        {
-                            Selected = false;
-                        }
+                        sw = null;
+                        MenuEngine.RemoveControl(threadInfo);
+                        threadInfo = null;
                     }
-                }
+                    else if ( MenuEngine.DEBUGMODE && threadInfo == null && sw == null )
+                    {
+                        sw = Stopwatch.StartNew();
+                        infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Between Input: {sw.ElapsedMilliseconds / 1000} Seconds<|>Selected Index: X({currentSelectedIndex_X}) Y({currentSelectedIndex_Y})<";
+                        threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3));
+                    }
+                    #endregion
 
-            } while ( true );
+                    //lock ( lockObject )
+                    //{
+                    //    Selected = false;
+                    //}
+
+                    ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+                    if ( keyInfo.Key == NavigationKeys.Debug )
+                    {
+                        MenuEngine.DEBUGMODE = !MenuEngine.DEBUGMODE;
+                    }
+
+                    #region Navigation
+                    if ( EnableNavigation )
+                    {
+
+                        if ( keyInfo.Key == NavigationKeys.Up )
+                        {
+                            lock ( lockObject )
+                            {
+                                MenuEngine.Input.currentSelectedIndex_Y--;
+                            }
+
+                        }
+
+                        if ( keyInfo.Key == NavigationKeys.Down )
+                        {
+                            lock ( lockObject )
+                            {
+                                MenuEngine.Input.currentSelectedIndex_Y++;
+                            }
+                        }
+
+                        if ( keyInfo.Key == NavigationKeys.Left )
+                        {
+                            lock ( lockObject )
+                            {
+                                MenuEngine.Input.currentSelectedIndex_X--;
+                            }
+                        }
+
+                        if ( keyInfo.Key == NavigationKeys.Right )
+                        {
+                            lock ( lockObject )
+                            {
+                                MenuEngine.Input.currentSelectedIndex_X++;
+                            }
+                        }
+                    }
+                    #endregion
+
+                    #region Selection
+                    if ( CanSelect )
+                    {
+                        if ( keyInfo.Key == NavigationKeys.Select )
+                        {
+                            lock ( lockObject )
+                            {
+                                OnSelect?.Invoke();
+                            }
+                        }
+                    }
+                    #endregion
+
+                    #region Writing
+                    if ( CanWrite )
+                    {
+                        if ( keyInfo.Key == ConsoleKey.Backspace )
+                        {
+                            if ( TextInput.Length > 0 )
+                            {
+                                lock ( lockObject )
+                                {
+                                    TextInput = TextInput.Remove(TextInput.Length - 1);
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                            lock ( lockObject )
+                            {
+                                if ( ( char.IsLetter(keyInfo.KeyChar) || char.IsWhiteSpace(keyInfo.KeyChar) || IsSpecialCharacter(keyInfo.KeyChar) ) && keyInfo.Key != NavigationKeys.Select )
+                                {
+                                    TextInput += keyInfo.KeyChar;
+                                }
+
+                            }
+                        }
+
+
+                    }
+                    #endregion
+
+                } while ( true );
+            }
         }
     }
 }

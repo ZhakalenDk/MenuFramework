@@ -21,6 +21,12 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         /// The ID that defines this <see cref="object"/> in the <see cref="MenuEngine.Controls"/> herirachy
         /// </summary>
         public int IndexID { get; protected set; }
+        /// <summary>
+        /// This is the index identifier that determines in which order controls should be rendered.
+        /// <br/>
+        /// <strong>Note: </strong>Lower numbers will render <strong>on top</strong> of higher numbers.
+        /// </summary>
+        public int ZIndex { get; set; }
         public Vector2 Size { get; set; }
         public Vector2 Position { get; set; }
 
@@ -31,6 +37,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
             lock ( MenuEngine.Controls )
             {
                 IndexID = MenuEngine.Controls.Count;
+                ZIndex = 1;
 
                 MenuEngine.AddControl(this);
             }

@@ -4,6 +4,7 @@ using Oiski.ConsoleTech.OiskiEngine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Timers;
@@ -12,6 +13,11 @@ namespace Oiski.ConsoleTech.OiskiEngine
 {
     public static class MenuEngine
     {
+        private static readonly object lockObject = new object();
+
+        internal static bool DEBUGMODE { get; set; } = false;
+        internal static Stopwatch TimeSinceStart { get; private set; } = null;
+
         internal static Renderer Renderer { get; } = new Renderer();
 
         public static RenderConfiguration Configuration { get; } = new RenderConfiguration(new Vector2(Console.WindowWidth, Console.WindowHeight), '+', '|', '-');
@@ -22,7 +28,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
 
         public static void AddControl (Control _control)
         {
-            lock ( Controls )
+            lock ( lockObject )
             {
                 Controls.Add(_control);
             }
@@ -31,7 +37,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
         public static bool RemoveControl (Control _control)
         {
             bool wasRemoved = false;
-            lock ( Controls )
+            lock ( lockObject )
             {
                 wasRemoved = Controls.Remove(_control);
             }
@@ -43,11 +49,27 @@ namespace Oiski.ConsoleTech.OiskiEngine
             return Controls.Find(_match);
         }
 
+        public static SelectableControl FindControl (Vector2 _selectedIndex)
+        {
+            foreach ( SelectableControl control in Controls )
+            {
+                if ( control.SelectedIndex == _selectedIndex )
+                {
+                    return control;
+                }
+            }
+
+            return null;
+        }
+
         private static void InsertControls ()
         {
             Renderer.InitRenderer();
-            lock ( Controls )
+
+            lock ( lockObject )
             {
+                Controls.OrderBy(control => control.ZIndex);
+
                 for ( int i = 0; i < Controls.Count; i++ )
                 {
                     int positionX = Controls[i].Position.x;
@@ -80,21 +102,61 @@ namespace Oiski.ConsoleTech.OiskiEngine
 
         private static void Start ()
         {
-            var sw = Stopwatch.StartNew();
-            string infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
-            Label threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
+            #region DEBUG Values
+            string infoOutput;
+            Label threadInfo = null;
+
+            TimeSinceStart = Stopwatch.StartNew();
+
+            string conInfo;
+            Label conditionValues = null;
+            #endregion
+
+            #region DEBUG Functionality
+            if ( DEBUGMODE )
+            {
+                infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {TimeSinceStart.ElapsedMilliseconds / 1000} Seconds<";
+                threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
+
+                conInfo = $">Selected: {( ( Input.CanSelect ) ? ( $"{Input.Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
+            }
+            #endregion
 
             Input.ListenForInput();
 
             do
             {
-                infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {sw.ElapsedMilliseconds / 1000} Seconds<";
-                threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
-                threadInfo.Text = infoOutput;
+                #region DEBUG Functionality
+                if ( DEBUGMODE && TimeSinceStart != null && threadInfo != null && conditionValues != null )
+                {
+                    infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {TimeSinceStart.ElapsedMilliseconds / 1000} Seconds<";
+                    threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
+                    threadInfo.Text = infoOutput;
+
+                    conInfo = $">Selected: {( ( Input.CanSelect ) ? ( $"{Input.Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                    conditionValues.Position = new Vector2(Console.WindowWidth - conInfo.Length - 4, 6);
+                    conditionValues.Text = conInfo;
+                }
+                else if ( threadInfo != null )
+                {
+                    RemoveControl(threadInfo);
+                    threadInfo = null;
+
+                    MenuEngine.RemoveControl(conditionValues);
+                    conditionValues = null;
+                }
+                else if ( DEBUGMODE && threadInfo == null && conditionValues == null )
+                {
+                    infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {TimeSinceStart.ElapsedMilliseconds / 1000} Seconds<";
+                    threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
+
+                    conInfo = $">Selected: {( ( Input.CanSelect ) ? ( $"{Input.Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                    conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
+                }
+                #endregion
 
                 InsertControls();
-
-
             } while ( true );
         }
     }

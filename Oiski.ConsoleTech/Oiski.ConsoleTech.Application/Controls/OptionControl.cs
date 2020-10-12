@@ -17,5 +17,10 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         {
 
         }
+
+        public OptionControl (string _text, Vector2 _positon) : this(_text)
+        {
+            Position = _positon;
+        }
     }
 }

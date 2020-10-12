@@ -270,14 +270,37 @@ namespace Oiski.ConsoleTech
             MenuEngine.Run();
             OptionControl option = new OptionControl("Hello, World!")
             {
-                SelectedIndex = 1
+                SelectedIndex = new Vector2(0, 1)
+            };
+
+            OptionControl option2 = new OptionControl("Hello, Second world!", new Vector2(0, 3))
+            {
+                SelectedIndex = new Vector2(0, 2)
             };
 
             do
             {
-                option.Position = new Vector2(MenuEngine.Input.CurrentSelectedIndex_X, MenuEngine.Input.CurrentSelectedIndex_Y);
-            } while ( true );
+                option.Position = MenuEngine.Input.GetSelectedIndex;
 
+                if ( MenuEngine.Input.Selected )
+                {
+                    MenuEngine.Input.SetWriting(!MenuEngine.Input.CanWrite);
+                    MenuEngine.Input.SetTextInput(option.Text);
+                    MenuEngine.Input.SetNavigation(!MenuEngine.Input.EnableNavigation);
+                }
+
+                if ( MenuEngine.Input.CanWrite )
+                {
+                    option.Text = MenuEngine.Input.TextInput;
+                }
+
+                //if ( MenuEngine.Input.Selected )
+                //{
+                //    SelectableControl control = MenuEngine.FindControl(MenuEngine.Input.GetSelectedIndex);
+                //    control.Text = "Hello, Psycho Jon!";
+                //}
+
+            } while ( true );
             #endregion
         }
     }

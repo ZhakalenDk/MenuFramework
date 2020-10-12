@@ -12,7 +12,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         /// <summary>
         /// Defines the index heriachy of which any <see cref="SelectableControl"/> is selected in an ascending order.
         /// </summary>
-        public int SelectedIndex { get; set; }
+        public Vector2 SelectedIndex { get; set; }
 
         /// <summary>
         /// Whether or not the <see cref="Control"/> is currently selected
@@ -26,7 +26,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
 
         public SelectableControl (string _text) : base(_text)
         {
-
+            SelectedIndex = new Vector2(Position.x, Position.y);
         }
 
         internal void HandleMe ()

@@ -23,6 +23,16 @@ namespace Oiski.ConsoleTech.OiskiEngine
             y = _y;
         }
 
+        public static bool operator == (Vector2 _a, Vector2 _b)
+        {
+            return ( _a.x == _b.x ) && ( _a.y == _b.y );
+        }
+
+        public static bool operator != (Vector2 _a, Vector2 _b)
+        {
+            return ( _a.x != _b.x ) || ( _a.y != _b.y );
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -30,6 +40,18 @@ namespace Oiski.ConsoleTech.OiskiEngine
         public override string ToString ()
         {
             return $"({x},{y})";
+        }
+
+        public override bool Equals (object obj)
+        {
+            return obj is Vector2 vector &&
+                     x == vector.x &&
+                     y == vector.y;
+        }
+
+        public override int GetHashCode ()
+        {
+            return HashCode.Combine(x, y);
         }
     }
 }
