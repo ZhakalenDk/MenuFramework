@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Controls
+namespace Oiski.ConsoleTech.Engine.Controls
 {
     /// <summary>
-    /// Represents a <see cref="Label"/> that can be placed and manipulated through the <see cref="MenuEngine"/>
+    /// Represents a <see cref="Label"/> that can be placed and manipulated through the <see cref="OiskiEngine"/>
     /// </summary>
     public class Label : Control
     {
@@ -55,7 +55,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         /// <summary>
         /// Builds the <see cref="Label"/> control
         /// </summary>
-        /// <returns>A rendable two-dimensional <see langword="char"/> <see langword="array"/> that can be inserted into the <see cref="Rendering.Renderer"/> <see langword="class"/> via the <see cref="MenuEngine"/></returns>
+        /// <returns>A rendable two-dimensional <see langword="char"/> <see langword="array"/> that can be inserted into the <see cref="Rendering.Renderer"/> <see langword="class"/> via the <see cref="OiskiEngine"/></returns>
         internal override char[,] Build ()
         {
             CorrectSize();
@@ -138,7 +138,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         }
 
         /// <summary>
-        /// Initializes a new instance of type <see cref="Label"/> where the <paramref name="_text"/> is set, and adds the <see cref="Control"/> to the <see cref="MenuEngine.Controls"/>
+        /// Initializes a new instance of type <see cref="Label"/> where the <paramref name="_text"/> is set, and adds the <see cref="Control"/> to the <see cref="OiskiEngine.Controls"/>
         /// </summary>
         /// <param name="_text"></param>
         public Label (string _text) : base()
@@ -149,7 +149,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         }
 
         /// <summary>
-        /// Initializes a new instance of type <see cref="Label"/> where the <paramref name="_text"/> and <paramref name="_position"/> is set, and adds the <see cref="Control"/> to the <see cref="MenuEngine.Controls"/>
+        /// Initializes a new instance of type <see cref="Label"/> where the <paramref name="_text"/> and <paramref name="_position"/> is set, and adds the <see cref="Control"/> to the <see cref="OiskiEngine.Controls"/>
         /// </summary>
         /// <param name="_text"></param>
         /// <param name="_position"></param>

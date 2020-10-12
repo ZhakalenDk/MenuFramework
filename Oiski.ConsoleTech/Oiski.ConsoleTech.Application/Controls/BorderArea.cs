@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Controls
+namespace Oiski.ConsoleTech.Engine.Controls
 {
     /// <summary>
     /// Defines the area of the border applied on a <see cref="Control"/>

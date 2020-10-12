@@ -1,8 +1,8 @@
 ﻿
 
-using Oiski.ConsoleTech.OiskiEngine.Controls;
+using Oiski.ConsoleTech.Engine.Controls;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Rendering
+namespace Oiski.ConsoleTech.Engine.Rendering
 {
     /// <summary>
     /// Defines a storage of settings that can be <strong>directly</strong> applied to the <see cref="Renderer"/> <see langword="class"/>

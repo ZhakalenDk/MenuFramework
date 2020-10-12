@@ -1,6 +1,6 @@
-﻿using Oiski.ConsoleTech.OiskiEngine.Controls;
-using Oiski.ConsoleTech.OiskiEngine.Input;
-using Oiski.ConsoleTech.OiskiEngine.Rendering;
+﻿using Oiski.ConsoleTech.Engine.Controls;
+using Oiski.ConsoleTech.Engine.Input;
+using Oiski.ConsoleTech.Engine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading;
 using System.Timers;
 
-namespace Oiski.ConsoleTech.OiskiEngine
+namespace Oiski.ConsoleTech.Engine
 {
-    public static class MenuEngine
+    public static class OiskiEngine
     {
         /// <summary>
         /// Use this to lock internal values when changed.
@@ -24,12 +24,12 @@ namespace Oiski.ConsoleTech.OiskiEngine
         internal static bool DEBUGMODE { get; set; } = false;
 
         /// <summary>
-        /// Monitors the time since the <see cref="MenuEngine"/> was started.
+        /// Monitors the time since the <see cref="OiskiEngine"/> was started.
         /// </summary>
         internal static Stopwatch TimeSinceStart { get; private set; } = null;
 
         /// <summary>
-        /// The <see cref="Rendering.Renderer"/> that will be used to render the rendering loops for the <see cref="MenuEngine"/>
+        /// The <see cref="Rendering.Renderer"/> that will be used to render the rendering loops for the <see cref="OiskiEngine"/>
         /// </summary>
         internal static Renderer Renderer { get; set; } = new Renderer();
 
@@ -39,7 +39,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
         public static RenderConfiguration Configuration { get; } = new RenderConfiguration(new Vector2(Console.WindowWidth, Console.WindowHeight), '+', '|', '-');
 
         /// <summary>
-        /// THe <see cref="MenuEngine"/>s <see cref="InputController"/> that will listen and registrer input from an user.
+        /// THe <see cref="OiskiEngine"/>s <see cref="InputController"/> that will listen and registrer input from an user.
         /// </summary>
         public static InputController Input { get; } = new InputController();
 
@@ -48,7 +48,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
         /// </summary>
         internal static List<Control> Controls { get; } = new List<Control>();
 
-        public static void AddControl(Control _control)
+        public static void AddControl (Control _control)
         {
             lock ( lockObject )
             {
@@ -61,7 +61,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
         /// </summary>
         /// <param name="_control"></param>
         /// <returns><see langword="true"/> if the <see cref="Control"/> could be removed, otherwise <see langword="false"/></returns>
-        public static bool RemoveControl(Control _control)
+        public static bool RemoveControl (Control _control)
         {
             bool wasRemoved = false;
             lock ( lockObject )
@@ -76,7 +76,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
         /// </summary>
         /// <param name="_match"></param>
         /// <returns>The first occurence that matches the predicate. If not <see cref="Control"/> is found it will return <see langword="null"/></returns>
-        public static Control FindControl(Predicate<Control> _match)
+        public static Control FindControl (Predicate<Control> _match)
         {
             return Controls.Find(_match);
         }
@@ -86,20 +86,20 @@ namespace Oiski.ConsoleTech.OiskiEngine
         /// </summary>
         /// <param name="_selectedIndex"></param>
         /// <returns>The first occurence that matches the <paramref name="_selectedIndex"/>. If no match is found it will return <see langword="null"/></returns>
-        public static SelectableControl FindControl(Vector2 _selectedIndex)
+        public static SelectableControl FindControl (Vector2 _selectedIndex)
         {
             foreach ( var control in Controls )
             {
-                if ( control is SelectableControl && ( ( SelectableControl ) control ).SelectedIndex == _selectedIndex )
+                if ( control is SelectableControl sControl && sControl.SelectedIndex == _selectedIndex )
                 {
-                    return control as SelectableControl;
+                    return sControl;
                 }
             }
 
             return null;
         }
 
-        public static void ChangeRenderer(Renderer _renderer)
+        public static void ChangeRenderer (Renderer _renderer)
         {
             lock ( lockObject )
             {
@@ -110,13 +110,13 @@ namespace Oiski.ConsoleTech.OiskiEngine
         /// <summary>
         /// Insert all <see cref="Control"/>s in the <see cref="Controls"/> <see cref="List{T}"/> into the <see cref="Renderer.Grid"/>
         /// </summary>
-        private static void InsertControls()
+        private static void InsertControls ()
         {
             Renderer.InitRenderer();
 
             lock ( lockObject )
             {
-                Controls.OrderBy(control => control.ZIndex);
+                Controls.OrderByDescending(control => control.ZIndex);
 
                 for ( int i = 0; i < Controls.Count; i++ )
                 {
@@ -138,9 +138,9 @@ namespace Oiski.ConsoleTech.OiskiEngine
         }
 
         /// <summary>
-        /// Begin the execution of the <see cref="MenuEngine"/> and it's internal functionalities
+        /// Begin the execution of the <see cref="OiskiEngine"/> and it's internal functionalities
         /// </summary>
-        public static void Run()
+        public static void Run ()
         {
             Thread rendereThread = new Thread(Start)
             {
@@ -152,9 +152,9 @@ namespace Oiski.ConsoleTech.OiskiEngine
         }
 
         /// <summary>
-        /// Will set off the <see cref="MenuEngine"/> loop
+        /// Will set off the <see cref="OiskiEngine"/> loop
         /// </summary>
-        private static void Start()
+        private static void Start ()
         {
             #region DEBUG Values
             string infoOutput;
@@ -170,10 +170,16 @@ namespace Oiski.ConsoleTech.OiskiEngine
             if ( DEBUGMODE )
             {
                 infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {TimeSinceStart.ElapsedMilliseconds / 1000} Seconds<";
-                threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
+                threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0))
+                {
+                    ZIndex = -1
+                };
 
-                conInfo = $">Can select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
-                conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
+                conInfo = $">Can select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.NavigationEnabled ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6))
+                {
+                    ZIndex = -1
+                };
             }
             #endregion
 
@@ -188,7 +194,7 @@ namespace Oiski.ConsoleTech.OiskiEngine
                     threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0);
                     threadInfo.Text = infoOutput;
 
-                    conInfo = $">Can Select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                    conInfo = $">Can Select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.NavigationEnabled ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
                     conditionValues.Position = new Vector2(Console.WindowWidth - conInfo.Length - 4, 6);
                     conditionValues.Text = conInfo;
                 }
@@ -197,16 +203,22 @@ namespace Oiski.ConsoleTech.OiskiEngine
                     RemoveControl(threadInfo);
                     threadInfo = null;
 
-                    MenuEngine.RemoveControl(conditionValues);
+                    OiskiEngine.RemoveControl(conditionValues);
                     conditionValues = null;
                 }
                 else if ( DEBUGMODE && threadInfo == null && conditionValues == null )
                 {
                     infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Since Start: {TimeSinceStart.ElapsedMilliseconds / 1000} Seconds<";
-                    threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0));
+                    threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 0))
+                    {
+                        ZIndex = -1
+                    };
 
-                    conInfo = $">Can Select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
-                    conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
+                    conInfo = $">Can Select: {( ( Input.CanSelect ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Navigation: {( ( Input.NavigationEnabled ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {Input.CanWrite}<";
+                    conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6))
+                    {
+                        ZIndex = -1
+                    };
                 }
                 #endregion
 

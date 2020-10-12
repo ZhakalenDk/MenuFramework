@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.OiskiEngine
+namespace Oiski.ConsoleTech.Engine
 {
     /// <summary>
     /// Defines a two-dimensional Vector with points

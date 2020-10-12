@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Controls
+namespace Oiski.ConsoleTech.Engine.Controls
 {
     /// <summary>
     /// Defines an <see langword="abstract"/> <see langword="class"/> that acts as the base <see cref="Control"/> <see langword="class"/> for all selectedable <see cref="Control"/>s
@@ -30,7 +30,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         }
 
         /// <summary>
-        /// Will be trickered when the <see cref="SelectableControl"/> is targeted by the <see cref="MenuEngine.Input"/> selection system
+        /// Will be trickered when the <see cref="SelectableControl"/> is targeted by the <see cref="OiskiEngine.Input"/> selection system
         /// </summary>
         internal void HandleSelectEvent()
         {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Controls
+namespace Oiski.ConsoleTech.Engine.Controls
 {
     /// <summary>
     /// Defines an <see langword="abstract"/> <see langword="class"/> that can be inherited from.
     /// <br/>
-    /// This is the base <see langword="class"/> for all <see cref="Controls"/> in the <see cref="OiskiEngine"/> environment
+    /// This is the base <see langword="class"/> for all <see cref="Controls"/> in the <see cref="ConsoleTech.Engine"/> environment
     /// </summary>
     public abstract class Control
     {
@@ -18,7 +18,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         protected readonly char[] border = { '+', '|', '-' };
 
         /// <summary>
-        /// The ID that defines this <see cref="object"/> in the <see cref="MenuEngine.Controls"/> herirachy
+        /// The ID that defines this <see cref="object"/> in the <see cref="OiskiEngine.Controls"/> herirachy
         /// </summary>
         public int IndexID { get; protected set; }
         /// <summary>
@@ -26,20 +26,25 @@ namespace Oiski.ConsoleTech.OiskiEngine.Controls
         /// <br/>
         /// <strong>Note: </strong>Lower numbers will render <strong>on top</strong> of higher numbers.
         /// </summary>
-        public int ZIndex { get; set; }
+        public int ZIndex { get; internal set; }
         public Vector2 Size { get; set; }
         public Vector2 Position { get; set; }
+
+        public void SetZIndex (int _index)
+        {
+            ZIndex = ( ( _index < 0 ) ? ( 0 ) : ( _index ) );
+        }
 
         internal abstract char[,] Build ();
 
         public Control ()
         {
-            lock ( MenuEngine.Controls )
+            lock ( OiskiEngine.Controls )
             {
-                IndexID = MenuEngine.Controls.Count;
+                IndexID = OiskiEngine.Controls.Count;
                 ZIndex = 1;
 
-                MenuEngine.AddControl(this);
+                OiskiEngine.AddControl(this);
             }
         }
     }

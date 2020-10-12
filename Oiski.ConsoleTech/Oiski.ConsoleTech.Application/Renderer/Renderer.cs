@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Rendering
+namespace Oiski.ConsoleTech.Engine.Rendering
 {
     /// <summary>
     /// Represents a basic renderer for rendering a simple grid structure build from <see langword="chars"/> into the <see cref="Console"/> window

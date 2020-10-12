@@ -1,5 +1,5 @@
-﻿using Oiski.ConsoleTech.OiskiEngine.Controls;
-using Oiski.ConsoleTech.OiskiEngine.Engine.Input;
+﻿using Oiski.ConsoleTech.Engine.Controls;
+using Oiski.ConsoleTech.Engine.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Input
+namespace Oiski.ConsoleTech.Engine.Input
 {
     public class InputController
     {
@@ -56,7 +56,9 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
         /// <summary>
         /// If <see langword="true"/> navigation will be enabled for the <see cref="InputController"/>
         /// </summary>
-        public bool EnableNavigation { get; private set; } = true;
+        public bool NavigationEnabled { get; private set; } = true;
+        public bool HorizontalNavigationEnabled { get; private set; } = true;
+        public bool VerticalNavigationEnabled { get; private set; } = true;
         /// <summary>
         /// If <see langword="true"/> the <see cref="InputController"/> will be able to select a <see cref="SelectableControl"/> on the selection system
         /// </summary>
@@ -67,7 +69,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
         /// </summary>
         public bool CanWrite { get; private set; } = false;
 
-        public void EnableInput(bool _enable)
+        public void EnableInput (bool _enable)
         {
             lock ( lockObject )
             {
@@ -75,15 +77,20 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             }
         }
 
-        public void SetNavigation(bool _enable)
+        public void SetNavigation (bool _enable)
         {
             lock ( lockObject )
             {
-                EnableNavigation = _enable;
+                NavigationEnabled = _enable;
             }
         }
 
-        public void SetSelect(bool _canSelect)
+        public void SetNavigation (string _axis, bool _enable)
+        {
+
+        }
+
+        public void SetSelect (bool _canSelect)
         {
             lock ( lockObject )
             {
@@ -91,7 +98,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             }
         }
 
-        public void SetWriting(bool _canWrite)
+        public void SetWriting (bool _canWrite)
         {
             lock ( lockObject )
             {
@@ -99,7 +106,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             }
         }
 
-        public string SetTextInput(string _text)
+        public string SetTextInput (string _text)
         {
             lock ( lockObject )
             {
@@ -109,7 +116,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             return TextInput;
         }
 
-        private bool IsSpecialCharacter(char _char)
+        private bool IsSpecialCharacter (char _char)
         {
             if ( ( _char >= '!' && _char <= '/' ) || ( _char >= ':' && _char <= '@' ) || ( _char >= '[' && _char <= '`' ) || ( _char >= '{' && _char <= '~' ) )
             {
@@ -122,7 +129,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
         /// <summary>
         /// Begin listening for user input
         /// </summary>
-        public void ListenForInput()
+        public void ListenForInput ()
         {
             Thread rendereThread = new Thread(Start)
             {
@@ -136,7 +143,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
         /// <summary>
         /// Begin the <see cref="InputController"/> loop
         /// </summary>
-        protected virtual void Start()
+        protected virtual void Start ()
         {
             #region DEBUG Values
             Stopwatch sw = null;
@@ -150,12 +157,14 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
             if ( InputEnabled )
             {
                 #region DEBUG Functionality
-                if ( MenuEngine.DEBUGMODE )
+                if ( OiskiEngine.DEBUGMODE )
                 {
                     sw = Stopwatch.StartNew();
                     infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Between Input: {sw.ElapsedMilliseconds / 1000} Seconds<|>Selected Index: X({currentSelectedIndex_X}) Y({currentSelectedIndex_Y})<";
-                    threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3));
-
+                    threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3))
+                    {
+                        ZIndex = -1
+                    };
                     //conInfo = $">Selected: {( ( CanSelect ) ? ( $"{Selected}" ) : ( "Can't Select" ) )}<|>Navigation: {( ( EnableNavigation ) ? ( "Enabled" ) : ( "Disabled" ) )}<|>Can Write: {CanWrite}<";
                     //conditionValues = new Label(conInfo, new Vector2(Console.WindowWidth - conInfo.Length - 4, 6));
                 }
@@ -164,7 +173,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
                 do
                 {
                     #region DEBUG Functionality
-                    if ( MenuEngine.DEBUGMODE && sw != null && threadInfo != null )
+                    if ( OiskiEngine.DEBUGMODE && sw != null && threadInfo != null )
                     {
                         infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Between Input: {sw.ElapsedMilliseconds / 1000} Seconds<|>Selected Index: X({currentSelectedIndex_X}) Y({currentSelectedIndex_Y})<";
                         threadInfo.Position = new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3);
@@ -174,14 +183,17 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
                     else if ( threadInfo != null )
                     {
                         sw = null;
-                        MenuEngine.RemoveControl(threadInfo);
+                        OiskiEngine.RemoveControl(threadInfo);
                         threadInfo = null;
                     }
-                    else if ( MenuEngine.DEBUGMODE && threadInfo == null && sw == null )
+                    else if ( OiskiEngine.DEBUGMODE && threadInfo == null && sw == null )
                     {
                         sw = Stopwatch.StartNew();
                         infoOutput = $">Thread Name: {Thread.CurrentThread.Name}<|>Time Between Input: {sw.ElapsedMilliseconds / 1000} Seconds<|>Selected Index: X({currentSelectedIndex_X}) Y({currentSelectedIndex_Y})<";
-                        threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3));
+                        threadInfo = new Label(infoOutput, new Vector2(Console.WindowWidth - infoOutput.Length - 4, 3))
+                        {
+                            ZIndex = -1
+                        };
                     }
                     #endregion
 
@@ -189,43 +201,48 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
 
                     if ( keyInfo.Key == NavigationKeys.Debug )
                     {
-                        MenuEngine.DEBUGMODE = !MenuEngine.DEBUGMODE;
+                        OiskiEngine.DEBUGMODE = !OiskiEngine.DEBUGMODE;
                     }
 
                     #region Navigation
-                    if ( EnableNavigation )
+                    if ( NavigationEnabled )
                     {
-
-                        if ( keyInfo.Key == NavigationKeys.Up )
+                        if ( VerticalNavigationEnabled )
                         {
-                            lock ( lockObject )
+                            if ( keyInfo.Key == NavigationKeys.Up )
                             {
-                                MenuEngine.Input.currentSelectedIndex_Y--;
+                                lock ( lockObject )
+                                {
+                                    OiskiEngine.Input.currentSelectedIndex_Y--;
+                                }
+
                             }
 
-                        }
-
-                        if ( keyInfo.Key == NavigationKeys.Down )
-                        {
-                            lock ( lockObject )
+                            if ( keyInfo.Key == NavigationKeys.Down )
                             {
-                                MenuEngine.Input.currentSelectedIndex_Y++;
-                            }
-                        }
-
-                        if ( keyInfo.Key == NavigationKeys.Left )
-                        {
-                            lock ( lockObject )
-                            {
-                                MenuEngine.Input.currentSelectedIndex_X--;
+                                lock ( lockObject )
+                                {
+                                    OiskiEngine.Input.currentSelectedIndex_Y++;
+                                }
                             }
                         }
 
-                        if ( keyInfo.Key == NavigationKeys.Right )
+                        if ( HorizontalNavigationEnabled )
                         {
-                            lock ( lockObject )
+                            if ( keyInfo.Key == NavigationKeys.Left )
                             {
-                                MenuEngine.Input.currentSelectedIndex_X++;
+                                lock ( lockObject )
+                                {
+                                    OiskiEngine.Input.currentSelectedIndex_X--;
+                                }
+                            }
+
+                            if ( keyInfo.Key == NavigationKeys.Right )
+                            {
+                                lock ( lockObject )
+                                {
+                                    OiskiEngine.Input.currentSelectedIndex_X++;
+                                }
                             }
                         }
                     }
@@ -238,7 +255,7 @@ namespace Oiski.ConsoleTech.OiskiEngine.Input
                         {
                             lock ( lockObject )
                             {
-                                SelectableControl control = MenuEngine.FindControl(GetSelectedIndex);
+                                SelectableControl control = OiskiEngine.FindControl(GetSelectedIndex);
 
                                 if ( control != null )
                                 {

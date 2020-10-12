@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Oiski.ConsoleTech.OiskiEngine.Engine.Input
+namespace Oiski.ConsoleTech.Engine.Input
 {
     public class KeyBindings
     {
