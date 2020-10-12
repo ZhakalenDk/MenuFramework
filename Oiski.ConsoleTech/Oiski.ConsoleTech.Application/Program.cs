@@ -298,7 +298,14 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V12 - Z-Index
+            //OiskiEngine.Run();
+            //TextField field = new TextField("Hello, World!");
+            //field.SetZIndex(-101);
 
+            //do
+            //{
+            //    field.Position = OiskiEngine.Input.GetSelectedIndex;
+            //} while ( true );
             #endregion
         }
 
