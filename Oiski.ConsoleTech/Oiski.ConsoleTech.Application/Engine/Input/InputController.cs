@@ -23,6 +23,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// The index on the y-axis of the selection system
         /// </summary>
         private int currentSelectedIndex_Y;
+
         /// <summary>
         /// The index that defines the current position of the selection marker
         /// </summary>
@@ -33,22 +34,22 @@ namespace Oiski.ConsoleTech.Engine.Input
                 return new Vector2(currentSelectedIndex_X, currentSelectedIndex_Y);
             }
         }
-
-        //public Action<object> OnSelect { get; set; }
-        //public delegate void OnEnter(object _sender);
-
+        /// <summary>
+        /// The event that is triggered when a <see cref="SelectableControl"/> is targeted by the selection system.
+        /// <br/>
+        /// <strong>Note:</strong> This is triggered <strong>before</strong> any other event originated in this <see langword="class"/>
+        /// </summary>
+        public Action<SelectableControl> AtTarget { get; set; }
         /// <summary>
         /// The text input gathered while <see cref="CanWrite"/> is active.
         /// <br/>
         /// Use this retrieve <see cref="string"/> input from the user through the <see cref="InputController"/>
         /// </summary>
         public string TextInput { get; protected set; } = string.Empty;
-
         /// <summary>
         /// The keys used to navigate the selection system.
         /// </summary>
         public KeyBindings NavigationKeys { get; } = new KeyBindings();
-
         /// <summary>
         /// If <see langword="true"/> input will be enabled for the <see cref="InputController"/>
         /// </summary>
@@ -59,6 +60,14 @@ namespace Oiski.ConsoleTech.Engine.Input
         public bool NavigationEnabled { get; private set; } = true;
         public bool HorizontalNavigationEnabled { get; private set; } = true;
         public bool VerticalNavigationEnabled { get; private set; } = true;
+        /// <summary>
+        /// <strong>NOTE YET IN USE</strong> - If <see langword="true"/> the selection system won't go negative on the X-axis
+        /// </summary>
+        public bool HorizontalClamp { get; private set; } = true;
+        /// <summary>
+        /// <strong>NOTE YET IN USE</strong> - If <see langword="true"/> the selection system won't go negative on the Y-axis
+        /// </summary>
+        public bool VerticalClamp { get; private set; } = true;
         /// <summary>
         /// If <see langword="true"/> the <see cref="InputController"/> will be able to select a <see cref="SelectableControl"/> on the selection system
         /// </summary>
@@ -87,7 +96,32 @@ namespace Oiski.ConsoleTech.Engine.Input
 
         public void SetNavigation (string _axis, bool _enable)
         {
+            switch ( _axis.ToLower() )
+            {
+                case "horizontal":
+                    HorizontalNavigationEnabled = _enable;
+                    break;
+                case "vertical":
+                    VerticalNavigationEnabled = _enable;
+                    break;
+                default:
+                    throw new Exception($"{_axis} is not an axis!");
+            }
+        }
 
+        public void SetClamp (string _axis, bool _enable)
+        {
+            switch ( _axis.ToLower() )
+            {
+                case "horizontal":
+                    HorizontalClamp = _enable;
+                    break;
+                case "vertical":
+                    VerticalClamp = _enable;
+                    break;
+                default:
+                    throw new Exception($"{_axis} is not an axis!");
+            }
         }
 
         public void SetSelect (bool _canSelect)
@@ -197,12 +231,19 @@ namespace Oiski.ConsoleTech.Engine.Input
                     }
                     #endregion
 
-                    ConsoleKeyInfo keyInfo = Console.ReadKey();
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
                     if ( keyInfo.Key == NavigationKeys.Debug )
                     {
                         OiskiEngine.DEBUGMODE = !OiskiEngine.DEBUGMODE;
                     }
+
+                    #region Writing Reset
+                    if ( !CanWrite )
+                    {
+                        SetTextInput(string.Empty);
+                    }
+                    #endregion
 
                     #region Navigation
                     if ( NavigationEnabled )
@@ -245,6 +286,16 @@ namespace Oiski.ConsoleTech.Engine.Input
                                 }
                             }
                         }
+
+                        lock ( lockObject )
+                        {
+                            SelectableControl control = OiskiEngine.FindControl(GetSelectedIndex);
+
+                            if ( control != null )
+                            {
+                                AtTarget?.Invoke(control);
+                            }
+                        }
                     }
                     #endregion
 
@@ -259,7 +310,6 @@ namespace Oiski.ConsoleTech.Engine.Input
 
                                 if ( control != null )
                                 {
-                                    //OnSelect?.Invoke(control);
                                     control.HandleSelectEvent();
                                 }
                             }

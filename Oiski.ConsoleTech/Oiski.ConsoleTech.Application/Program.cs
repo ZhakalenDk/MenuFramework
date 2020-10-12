@@ -1,6 +1,7 @@
 ﻿using Oiski.ConsoleTech.Engine;
 using Oiski.ConsoleTech.Engine.Controls;
 using System;
+using System.ComponentModel.Design;
 using System.Threading;
 
 namespace Oiski.ConsoleTech
@@ -307,6 +308,42 @@ namespace Oiski.ConsoleTech
             //    field.Position = OiskiEngine.Input.GetSelectedIndex;
             //} while ( true );
             #endregion
+
+            #region V13 - Small Menu Test
+            OiskiEngine.Run();
+            OiskiEngine.Input.AtTarget = AtTarget;
+            OiskiEngine.Input.SetNavigation("Horizontal", false);
+            Label header = new Label("Welcome To Oiski's Database Tool");
+            header.Position = new Vector2(Console.WindowWidth / 2 - ( header.Text.Length - 4 ), 0);
+
+            Option option1 = new Option("Create Database", new Vector2(5, 10))
+            {
+                SelectedIndex = new Vector2(0, 0)
+            };
+
+            option1.OnSelect += ChangeMeText;
+
+            option1.BorderStyle(BorderArea.Horizontal, '~');
+            Option option2 = new Option("Attach Database", new Vector2(5, 13))
+            {
+                SelectedIndex = new Vector2(0, 1)
+            };
+
+            option2.OnSelect += ChangeMeText;
+
+            Option option3 = new Option("Delete Database", new Vector2(5, 16))
+            {
+                SelectedIndex = new Vector2(0, 2)
+            };
+
+            option3.OnSelect += ChangeMeText;
+
+            TextField field1 = new TextField("Database Name", new Vector2(50, 10))
+            {
+                SelectedIndex = new Vector2(0, 3),
+                EraseTextOnSelect = true
+            };
+            #endregion
         }
 
         #region V10 - Input Controller: OnSelection Test
@@ -324,6 +361,28 @@ namespace Oiski.ConsoleTech
         //        MenuEngine.Input.SetTextInput(sender.Text);
         //    }
         //}
+        #endregion
+
+        #region V13 - Small Menu Test: Events
+        private static void AtTarget (SelectableControl _sender)
+        {
+            foreach ( Control control in OiskiEngine.Controls )
+            {
+                if ( control == _sender )
+                {
+                    _sender.BorderStyle(BorderArea.Horizontal, '~');
+                }
+                else if ( control is SelectableControl sControl )
+                {
+                    sControl.BorderStyle(BorderArea.Horizontal, '-');
+                }
+            }
+        }
+
+        private static void ChangeMeText (SelectableControl _control)
+        {
+            _control.Text = $"{_control.Text} ->";
+        }
         #endregion
     }
 }

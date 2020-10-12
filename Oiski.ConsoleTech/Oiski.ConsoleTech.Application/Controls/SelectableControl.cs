@@ -21,10 +21,12 @@ namespace Oiski.ConsoleTech.Engine.Controls
 
         /// <summary>
         /// The event that would occur when the <see cref="SelectableControl"/> is selected
+        /// <br/>
+        /// The <see cref="SelectableControl"/> parameter refers to the current <see cref="SelectableControl"/>
         /// </summary>
         public event Action<SelectableControl> OnSelect;
 
-        public SelectableControl(string _text) : base(_text)
+        public SelectableControl (string _text) : base(_text)
         {
             SelectedIndex = new Vector2(Position.x, Position.y);
         }
@@ -32,7 +34,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <summary>
         /// Will be trickered when the <see cref="SelectableControl"/> is targeted by the <see cref="OiskiEngine.Input"/> selection system
         /// </summary>
-        internal void HandleSelectEvent()
+        internal void HandleSelectEvent ()
         {
             OnSelect?.Invoke(this);
         }
