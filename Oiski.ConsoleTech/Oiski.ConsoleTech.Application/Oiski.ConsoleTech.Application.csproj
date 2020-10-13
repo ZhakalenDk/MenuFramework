@@ -7,4 +7,20 @@
     <StartupObject>Oiski.ConsoleTech.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controls\**" />
+    <Compile Remove="Engine\**" />
+    <Compile Remove="Renderer\**" />
+    <EmbeddedResource Remove="Controls\**" />
+    <EmbeddedResource Remove="Engine\**" />
+    <EmbeddedResource Remove="Renderer\**" />
+    <None Remove="Controls\**" />
+    <None Remove="Engine\**" />
+    <None Remove="Renderer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Oiski.ConsoleTech.Engine\Oiski.ConsoleTech.Engine.csproj" />
+  </ItemGroup>
+
 </Project>

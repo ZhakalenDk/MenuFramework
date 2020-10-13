@@ -8,7 +8,7 @@ namespace Oiski.ConsoleTech
 {
     class Program
     {
-        static void Main ()
+        static void Main()
         {
             Console.Title = "Menu Framework Test";
             //Console.SetWindowSize(65, 30);
@@ -310,40 +310,87 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V13 - Small Menu Test
-            OiskiEngine.Run();
-            OiskiEngine.Input.AtTarget = AtTarget;
-            OiskiEngine.Input.SetNavigation("Horizontal", false);
-            Label header = new Label("Welcome To Oiski's Database Tool");
-            header.Position = new Vector2(Console.WindowWidth / 2 - ( header.Text.Length - 4 ), 0);
+            //OiskiEngine.Run();
+            //OiskiEngine.Input.AtTarget = AtTarget;
+            //OiskiEngine.Input.SetNavigation("Horizontal", false);
+            //Label header = new Label("Welcome To Oiski's Database Tool");
+            //header.Position = new Vector2(Console.WindowWidth / 2 - ( header.Text.Length - 4 ), 0);
 
-            Option option1 = new Option("Create Database", new Vector2(5, 10))
-            {
-                SelectedIndex = new Vector2(0, 0)
-            };
-
-            option1.OnSelect += CreateMenu;
-
-            option1.BorderStyle(BorderArea.Horizontal, '~');
-            Option option2 = new Option("Attach Database", new Vector2(5, 13))
-            {
-                SelectedIndex = new Vector2(0, 1)
-            };
-
-            option2.OnSelect += CreateMenu;
-
-            Option option3 = new Option("Delete Database", new Vector2(5, 16))
-            {
-                SelectedIndex = new Vector2(0, 2)
-            };
-
-            option3.OnSelect += CreateMenu;
-
-            TextField field1 = new TextField("Database Name", new Vector2(50, 10))
-            {
-                SelectedIndex = new Vector2(0, 3),
-                EraseTextOnSelect = true
-            };
+            //InitiateMain(null);
             #endregion
+
+            #region V14 - Menu Control
+            //OiskiEngine.Run();
+            //OiskiEngine.Input.SetNavigation("Horizontal", false);
+            //Menu mainMenu = new Menu();
+            //Menu createMenu = new Menu();
+
+            //#region Main Menu
+            //Label header = new Label("Welcome To Oiski's Database Tool", false);
+            //header.Position = new Vector2(Console.WindowWidth / 2 - ( header.Text.Length - 4 ), 0);
+            //mainMenu.Controls.AddControl(header);
+
+            //Option createDB_button = new Option("Create Database", new Vector2(5, 3), false)
+            //{
+            //    SelectedIndex = new Vector2(0, 0)
+            //};
+
+            //createDB_button.BorderStyle(BorderArea.Horizontal, '~');
+
+            //createDB_button.OnSelect += (s) => { mainMenu.Show(false); createMenu.Show(true); OiskiEngine.Input.ResetSlection(); };
+            //mainMenu.Controls.AddControl(createDB_button);
+
+            //mainMenu.Show(true);
+            //#endregion
+
+            //#region Create DB Menu
+            //Label header2 = new Label("Create Database", false)
+            //{
+            //    Position = new Vector2(Console.WindowWidth / 2 - ( header.Text.Length - 4 ), 0)
+            //};
+            //createMenu.Controls.AddControl(header2);
+
+            //Label name_label = new Label("Database Name", new Vector2(5, 3), false);
+            //TextField databaseName = new TextField("Enter Name here", new Vector2(19, 3), false)
+            //{
+            //    EraseTextOnSelect = true,
+            //    ResetAfterFirstWrite = true,
+            //    SelectedIndex = new Vector2(0, 0)
+            //};
+
+            //createMenu.Controls.AddControl(name_label);
+            //databaseName.BorderStyle(BorderArea.Horizontal, '~');
+            //createMenu.Controls.AddControl(databaseName);
+
+            //Label path_label = new Label("Database Path", new Vector2(5, 6), false);
+            //TextField databasePath = new TextField("Enter Path here", new Vector2(19, 6), false)
+            //{
+            //    EraseTextOnSelect = true,
+            //    ResetAfterFirstWrite = true,
+            //    SelectedIndex = new Vector2(0, 1)
+            //};
+
+            //createMenu.Controls.AddControl(databasePath);
+            //createMenu.Controls.AddControl(path_label);
+
+            //Option back = new Option("Back", new Vector2(5, 9), false)
+            //{
+            //    SelectedIndex = new Vector2(0, 2)
+            //};
+
+            //back.OnSelect += (s) => { s.BorderStyle(BorderArea.Horizontal, '-'); mainMenu.Show(true); createMenu.Show(false); OiskiEngine.Input.ResetSlection(); };
+            //createMenu.Controls.AddControl(back);
+            //#endregion
+            #endregion
+
+            #region V15 - Library Build
+            //OiskiEngine.Run();
+            //Menu menu = new Menu();
+
+            //menu.Controls.AddControl(new TextField("I have text", false) { EraseTextOnSelect = true, ResetAfterFirstWrite = true });
+            //menu.Show(true);
+            #endregion
+
         }
 
         #region V10 - Input Controller: OnSelection Test
@@ -364,34 +411,89 @@ namespace Oiski.ConsoleTech
         #endregion
 
         #region V13 - Small Menu Test: Events
-        private static void AtTarget (SelectableControl _sender)
-        {
-            foreach ( SelectableControl control in OiskiEngine.Controls.GetSelectableControls )
-            {
-                if ( control == _sender )
-                {
-                    _sender.BorderStyle(BorderArea.Horizontal, '~');
-                }
-                else /*if ( control is SelectableControl sControl )*/
-                {
-                    control.BorderStyle(BorderArea.Horizontal, '-');
-                }
-            }
-        }
+        //private static void InitiateMain(SelectableControl _control)
+        //{
+        //    RemoveMenu();
 
-        private static void ChangeMeText (SelectableControl _control)
-        {
-            _control.Text = $"{_control.Text} ->";
-        }
+        //    Option option1 = new Option("Create Database", new Vector2(5, 10))
+        //    {
+        //        SelectedIndex = new Vector2(0, 0)
+        //    };
 
-        private static void CreateMenu (SelectableControl _sender)
-        {
-            for ( int i = 0; i < OiskiEngine.Controls.GetSelectableControls.Count; i++ )
-            {
-                /*It's because the list arranges itself dynamically*/
-                OiskiEngine.Controls.RemoveControl(OiskiEngine.Controls.GetSelectableControls[i]);
-            }
-        }
+        //    option1.OnSelect += InitiateCreate;
+
+        //    option1.BorderStyle(BorderArea.Horizontal, '~');
+        //    Option option2 = new Option("Attach Database", new Vector2(5, 13))
+        //    {
+        //        SelectedIndex = new Vector2(0, 1)
+        //    };
+
+        //    option2.OnSelect += (s) => s.Text = "I got triggered";
+
+        //    Option option3 = new Option("Delete Database", new Vector2(5, 16))
+        //    {
+        //        SelectedIndex = new Vector2(0, 2)
+        //    };
+
+        //    option3.OnSelect += (s) => s.Text = "I got triggered";
+
+        //    TextField field1 = new TextField("Database Name", new Vector2(50, 10))
+        //    {
+        //        SelectedIndex = new Vector2(0, 3),
+        //        EraseTextOnSelect = true
+        //    };
+        //}
+
+        //private static void InitiateCreate(SelectableControl _control)
+        //{
+        //    RemoveMenu();
+
+        //    TextField dbName_field = new TextField("DB Name", new Vector2(5, 10))
+        //    {
+        //        SelectedIndex = new Vector2(0, 0),
+        //        EraseTextOnSelect = true,
+        //        ResetAfterFirstWrite = true
+        //    };
+
+        //    TextField dbPath = new TextField("Path", new Vector2(5, 13))
+        //    {
+        //        SelectedIndex = new Vector2(0, 1),
+        //        EraseTextOnSelect = true
+        //    };
+
+        //    dbName_field.BorderStyle(BorderArea.Horizontal, '~');
+
+        //    Option back = new Option("Back", new Vector2(5, 16))
+        //    {
+        //        SelectedIndex = new Vector2(0, 2)
+        //    };
+
+        //    back.OnSelect += InitiateMain;
+        //}
+
+        //private static void AtTarget(SelectableControl _sender)
+        //{
+        //    foreach ( SelectableControl control in OiskiEngine.Controls.GetSelectableControls )
+        //    {
+        //        if ( control == _sender )
+        //        {
+        //            _sender.BorderStyle(BorderArea.Horizontal, '~');
+        //        }
+        //        else /*if ( control is SelectableControl sControl )*/
+        //        {
+        //            control.BorderStyle(BorderArea.Horizontal, '-');
+        //        }
+        //    }
+        //}
+
+        //private static void RemoveMenu()
+        //{
+        //    for ( int i = 0; i < OiskiEngine.Controls.GetSelectableControls.Count; i++ )
+        //    {
+        //        OiskiEngine.Controls.RemoveControl(OiskiEngine.Controls.GetSelectableControls[i]);
+        //        i = -1;
+        //    }
+        //}
         #endregion
     }
 }
