@@ -388,6 +388,7 @@ namespace Oiski.ConsoleTech
         {
             for ( int i = 0; i < OiskiEngine.Controls.GetSelectableControls.Count; i++ )
             {
+                /*It's because the list arranges itself dynamically*/
                 OiskiEngine.Controls.RemoveControl(OiskiEngine.Controls.GetSelectableControls[i]);
             }
         }
