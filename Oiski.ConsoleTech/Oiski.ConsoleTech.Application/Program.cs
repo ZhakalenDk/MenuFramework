@@ -390,7 +390,6 @@ namespace Oiski.ConsoleTech
             {
                 OiskiEngine.Controls.RemoveControl(OiskiEngine.Controls.GetSelectableControls[i]);
             }
-
         }
         #endregion
     }

@@ -25,6 +25,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         {
             get
             {
+
                 return controls;
             }
         }
@@ -33,7 +34,9 @@ namespace Oiski.ConsoleTech.Engine.Controls
         {
             get
             {
+
                 return selectableControls;
+
             }
         }
 
