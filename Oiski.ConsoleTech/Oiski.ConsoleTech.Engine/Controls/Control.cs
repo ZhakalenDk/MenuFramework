@@ -14,7 +14,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <summary>
         /// The local two-dimensional grid holds the unrendered <i>template</i> for the <see cref="Control"/>
         /// </summary>
-        protected char[,] grid = null;/* = new char[3, 3];*/
+        protected char[,] grid = null;
+        /// <summary>
+        /// The symbols used to construct the border of the <see cref="Control"/>
+        /// </summary>
         protected readonly char[] border = { '+', '|', '-' };
 
         /// <summary>
@@ -27,9 +30,19 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <strong>Note: </strong>Lower numbers will render <strong>on top</strong> of higher numbers.
         /// </summary>
         public int ZIndex { get; internal set; }
+        /// <summary>
+        /// The <see cref="Vector2"/> size for the <see cref="Control"/>
+        /// </summary>
         public Vector2 Size { get; set; } = new Vector2(3, 3);
+        /// <summary>
+        /// THe <see cref="Vector2"/> position in screenspace cordinates
+        /// </summary>
         public Vector2 Position { get; set; }
 
+        /// <summary>
+        /// Set the <see cref="ZIndex"/> for <see langword="this"/> <see cref="Control"/>
+        /// </summary>
+        /// <param name="_index"></param>
         public void SetZIndex(int _index)
         {
             ZIndex = ( ( _index < 0 ) ? ( 0 ) : ( _index ) );

@@ -48,7 +48,12 @@ namespace Oiski.ConsoleTech.Engine.Rendering
 
         private readonly char[] boundaryChars;
 
-        public void ChangeBorderStyle (BorderArea _area, char _style)
+        /// <summary>
+        /// Change the style of the border defined by <paramref name="_area"/>
+        /// </summary>
+        /// <param name="_area"></param>
+        /// <param name="_style"></param>
+        public void ChangeBorderStyle(BorderArea _area, char _style)
         {
             boundaryChars[( int ) _area] = _style;
         }
@@ -62,7 +67,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// <param name="_borderCornerChar"></param>
         /// <param name="_borderVerticalChar"></param>
         /// <param name="_borderHorizontalChar"></param>
-        public RenderConfiguration (Vector2 _size, char _borderCornerChar, char _borderVerticalChar, char _borderHorizontalChar)
+        public RenderConfiguration(Vector2 _size, char _borderCornerChar, char _borderVerticalChar, char _borderHorizontalChar)
         {
             Size = _size;
 
@@ -77,8 +82,17 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// </summary>
         protected enum Border
         {
+            /// <summary>
+            /// The character used to draw the corners for the border
+            /// </summary>
             CornerChar,
+            /// <summary>
+            /// The character used to draw the vertical border
+            /// </summary>
             VerticalChar,
+            /// <summary>
+            /// The character used to draw the horizontal border
+            /// </summary>
             HorizontalChar
         }
     }

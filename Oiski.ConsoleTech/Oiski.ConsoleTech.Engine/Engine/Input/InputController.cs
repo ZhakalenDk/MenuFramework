@@ -9,6 +9,9 @@ using System.Xml.Serialization;
 
 namespace Oiski.ConsoleTech.Engine.Input
 {
+    /// <summary>
+    /// Defines a threaded controller for retrieving and applying user input in a <see cref="Console"/> application
+    /// </summary>
     public class InputController
     {
         /// <summary>
@@ -58,7 +61,13 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// If <see langword="true"/> navigation will be enabled for the <see cref="InputController"/>
         /// </summary>
         public bool NavigationEnabled { get; private set; } = true;
+        /// <summary>
+        /// If <see langword="true"/> the <see cref="InputController"/> can recieve input on the horizontal navigational axis
+        /// </summary>
         public bool HorizontalNavigationEnabled { get; private set; } = true;
+        /// <summary>
+        /// If <see langword="true"/> the <see cref="InputController"/> can recieve input on the vertical navigational axis
+        /// </summary>
         public bool VerticalNavigationEnabled { get; private set; } = true;
         /// <summary>
         /// If <see langword="true"/> the selection system won't go negative on the X-axis
@@ -78,6 +87,10 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// </summary>
         public bool CanWrite { get; private set; } = false;
 
+        /// <summary>
+        /// Enables the <see cref="InputController"/> for recieving input
+        /// </summary>
+        /// <param name="_enable"></param>
         public void EnableInput(bool _enable)
         {
             lock ( lockObject )
@@ -86,6 +99,10 @@ namespace Oiski.ConsoleTech.Engine.Input
             }
         }
 
+        /// <summary>
+        /// When <paramref name="_enable"/> is <see langword="true"/> the <see cref="InputController"/> can use the <see cref="NavigationKeys"/> to increase or decrease the current selected index on either axis
+        /// </summary>
+        /// <param name="_enable"></param>
         public void SetNavigation(bool _enable)
         {
             lock ( lockObject )
@@ -94,6 +111,11 @@ namespace Oiski.ConsoleTech.Engine.Input
             }
         }
 
+        /// <summary>
+        /// When <paramref name="_enable"/> is <see langword="true"/> the <see cref="InputController"/> can use the <see cref="NavigationKeys"/> to increase or decrease the current selected index on the <paramref name="_axis"/>
+        /// </summary>
+        /// <param name="_axis"></param>
+        /// <param name="_enable"></param>
         public void SetNavigation(string _axis, bool _enable)
         {
             switch ( _axis.ToLower() )
@@ -109,6 +131,11 @@ namespace Oiski.ConsoleTech.Engine.Input
             }
         }
 
+        /// <summary>
+        /// Will clamp the value on the <paramref name="_axis"/> so the current selection index can't go negative or higher than the amount of <strong>directly</strong> attached <see cref="SelectableControl"/>s in the <see cref="OiskiEngine.Controls"/> collectons
+        /// </summary>
+        /// <param name="_axis"></param>
+        /// <param name="_enable"></param>
         public void SetClamp(string _axis, bool _enable)
         {
             switch ( _axis.ToLower() )
@@ -124,6 +151,10 @@ namespace Oiski.ConsoleTech.Engine.Input
             }
         }
 
+        /// <summary>
+        /// If <paramref name="_canSelect"/> is <see langword="true"/> the <see cref="InputController"/> can select a <see cref="SelectableControl"/> at the selection index target
+        /// </summary>
+        /// <param name="_canSelect"></param>
         public void SetSelect(bool _canSelect)
         {
             lock ( lockObject )
@@ -132,6 +163,10 @@ namespace Oiski.ConsoleTech.Engine.Input
             }
         }
 
+        /// <summary>
+        /// If <paramref name="_canWrite"/> is <see langword="true"/> the <see cref="InputController"/> will be able to recieve text input
+        /// </summary>
+        /// <param name="_canWrite"></param>
         public void SetWriting(bool _canWrite)
         {
             lock ( lockObject )
@@ -140,6 +175,11 @@ namespace Oiski.ConsoleTech.Engine.Input
             }
         }
 
+        /// <summary>
+        /// Set the <see langword="value"/> of <see cref="TextInput"/> to <paramref name="_text"/>
+        /// </summary>
+        /// <param name="_text"></param>
+        /// <returns></returns>
         public string SetTextInput(string _text)
         {
             lock ( lockObject )
@@ -150,6 +190,9 @@ namespace Oiski.ConsoleTech.Engine.Input
             return TextInput;
         }
 
+        /// <summary>
+        /// Reset the selected index back to zero no both axises
+        /// </summary>
         public void ResetSlection()
         {
             currentSelectedIndex_X = 0;

@@ -19,6 +19,11 @@ namespace Oiski.ConsoleTech.Engine.Controls
         private readonly List<Control> controls = new List<Control>();
         private readonly List<SelectableControl> selectableControls = new List<SelectableControl>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_index"></param>
+        /// <returns>The <see cref="Control"/> with index of <paramref name="_index"/></returns>
         public Control this[int _index]
         {
             get
@@ -65,6 +70,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
 
         }
 
+        /// <summary>
+        /// Add a <see cref="Control"/> to the <see cref="ControlCollection"/>
+        /// </summary>
+        /// <param name="_control"></param>
         public void AddControl(Control _control)
         {
             lock ( lockObject )

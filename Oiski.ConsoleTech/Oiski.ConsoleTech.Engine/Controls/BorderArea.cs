@@ -9,8 +9,17 @@ namespace Oiski.ConsoleTech.Engine.Controls
     /// </summary>
     public enum BorderArea
     {
+        /// <summary>
+        /// The corner character of a border in a <see cref="Control"/>
+        /// </summary>
         Corner,
+        /// <summary>
+        /// The vertical character of a border in a <see cref="Control"/>
+        /// </summary>
         Vertical,
+        /// <summary>
+        /// The horizontal character of a border in a <see cref="Control"/>
+        /// </summary>
         Horizontal
     }
 }

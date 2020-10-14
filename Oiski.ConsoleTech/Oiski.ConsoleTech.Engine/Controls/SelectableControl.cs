@@ -26,6 +26,11 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         public event Action<SelectableControl> OnSelect;
 
+        /// <summary>
+        /// Initializes a new instance of type <see cref="SelectableControl"/> where the text is set
+        /// </summary>
+        /// <param name="_text"></param>
+        /// <param name="_attachToEngine">Whether or not to directly attach this <see cref="SelectableControl"/> to the <see cref="OiskiEngine"/></param>
         public SelectableControl(string _text, bool _attachToEngine = true) : base(_text, _attachToEngine)
         {
             SelectedIndex = new Vector2(Position.x, Position.y);

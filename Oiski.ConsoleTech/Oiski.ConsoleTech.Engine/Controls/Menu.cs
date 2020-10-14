@@ -10,6 +10,9 @@ namespace Oiski.ConsoleTech.Engine.Controls
     /// </summary>
     public class Menu : Control
     {
+        /// <summary>
+        /// The collection of controls, which are directly connected to <see langword="this"/> <see cref="Menu"/> instance
+        /// </summary>
         public ControlCollection Controls { get; } = new ControlCollection();
 
         /// <summary>
@@ -17,6 +20,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         public Action<SelectableControl> OnTarget { get; set; } = null;
 
+        /// <summary>
+        /// If <paramref name="_visible"/> is <see langword="true"/> the <see cref="Menu"/> will be rendered by the <see cref="OiskiEngine"/>. Otherwise it will not be rendered
+        /// </summary>
+        /// <param name="_visible"></param>
         public void Show(bool _visible)
         {
             foreach ( var control in Controls.GetControls )

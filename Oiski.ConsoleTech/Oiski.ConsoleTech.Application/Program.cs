@@ -1,6 +1,8 @@
 ﻿using Oiski.ConsoleTech.Engine;
 using Oiski.ConsoleTech.Engine.Controls;
+using Oiski.ConsoleTech.Engine.Rendering;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Threading;
 
@@ -389,6 +391,45 @@ namespace Oiski.ConsoleTech
 
             //menu.Controls.AddControl(new TextField("I have text", false) { EraseTextOnSelect = true, ResetAfterFirstWrite = true });
             //menu.Show(true);
+            #endregion
+
+            #region V16 - Configuration Fix
+            //OiskiEngine.Configuration.ChangeBorderStyle(BorderArea.Horizontal, '-');
+            //OiskiEngine.Configuration.ChangeBorderStyle(BorderArea.Vertical, '|');
+            //OiskiEngine.Configuration.ChangeBorderStyle(BorderArea.Corner, '¤');
+            //OiskiEngine.Run();
+            #endregion
+
+            #region V17 - Color Rendering
+            ColorRenderer renderer = new ColorRenderer()
+            {
+                DefaultColor = new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black)
+            };
+
+            renderer.InitRenderer();
+
+            ColorableLabel label = new ColorableLabel("Hello, World!", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black));
+            for ( int y = 0; y < label.ColorGrid.GetLength(1); y++ )
+            {
+                for ( int x = 0; x < label.ColorGrid.GetLength(0); x++ )
+                {
+                    //Console.ForegroundColor = label.ColorGrid[x, y].ForegroundColor;
+                    //Console.BackgroundColor = label.ColorGrid[x, y].BackgroundColor;
+                    //Console.Write(label.build[x, y]);
+                    //Console.ResetColor();
+
+                    renderer.InsertAt(new Vector2(x, y), label.build[x, y]);
+                    renderer.ColorGrid[x, y].ToConsole();
+                }
+
+                Console.WriteLine();
+            }
+
+            //renderer.Render();
+
+
+            //OiskiEngine.ChangeRenderer(renderer);
+            //OiskiEngine.Run();
             #endregion
 
         }

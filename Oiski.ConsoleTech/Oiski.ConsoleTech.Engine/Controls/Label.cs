@@ -9,8 +9,14 @@ namespace Oiski.ConsoleTech.Engine.Controls
     /// </summary>
     public class Label : Control
     {
+        /// <summary>
+        /// The <see langword="string"/> value inside the <see cref="Label"/> <see cref="Control"/>
+        /// </summary>
         public string Text { get; set; } = string.Empty;
 
+        /// <summary>
+        /// The size of the <see cref="Label"/> <see cref="Control"/>
+        /// </summary>
         new public Vector2 Size
         {
             get
@@ -160,6 +166,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
             Position = _position;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A formated <see langword="string"/> representation for <see langword="this"/> instance</returns>
         public override string ToString()
         {
             return $"{{ {IndexID},{Text}}}";
