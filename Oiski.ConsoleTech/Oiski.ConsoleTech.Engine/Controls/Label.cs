@@ -32,7 +32,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <summary>
         /// This ensures that the width of the <see cref="Label"/> always encapsulates the <see cref="Text"/>
         /// </summary>
-        private void CorrectSize()
+        protected void CorrectSize ()
         {
             Size = new Vector2(Text.Length + 2, 3);
 
@@ -62,7 +62,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Builds the <see cref="Label"/> control
         /// </summary>
         /// <returns>A rendable two-dimensional <see langword="char"/> <see langword="array"/> that can be inserted into the <see cref="Rendering.Renderer"/> <see langword="class"/> via the <see cref="OiskiEngine"/></returns>
-        internal override char[,] Build()
+        internal override char[,] Build ()
         {
             CorrectSize();
 
@@ -128,7 +128,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_area"></param>
         /// <param name="_visible"></param>
-        public void SetBorder(BorderArea _area, bool _visible)
+        public void SetBorder (BorderArea _area, bool _visible)
         {
             VisibleBorder[( int ) _area] = _visible;
         }
@@ -138,7 +138,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_area"></param>
         /// <param name="_style"></param>
-        public void BorderStyle(BorderArea _area, char _style)
+        public void BorderStyle (BorderArea _area, char _style)
         {
             border[( int ) _area] = _style;
         }
@@ -148,7 +148,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_text"></param>
         /// <param name="_attachToEngine">Whether or not to attach the <see cref="Control"/> directly to the <see cref="OiskiEngine"/> controls heirachy</param>
-        public Label(string _text, bool _attachToEngine = true) : base(_attachToEngine)
+        public Label (string _text, bool _attachToEngine = true) : base(_attachToEngine)
         {
             Text = _text;
             Size = new Vector2(Text.Length + 2, 3);
@@ -161,7 +161,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <param name="_text"></param>
         /// <param name="_position"></param>
         /// <param name="_attachToEngine">Whether or not to attach the <see cref="Control"/> directly to the <see cref="OiskiEngine"/> controls heirachy</param>
-        public Label(string _text, Vector2 _position, bool _attachToEngine = true) : this(_text, _attachToEngine)
+        public Label (string _text, Vector2 _position, bool _attachToEngine = true) : this(_text, _attachToEngine)
         {
             Position = _position;
         }
@@ -170,7 +170,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// 
         /// </summary>
         /// <returns>A formated <see langword="string"/> representation for <see langword="this"/> instance</returns>
-        public override string ToString()
+        public override string ToString ()
         {
             return $"{{ {IndexID},{Text}}}";
         }

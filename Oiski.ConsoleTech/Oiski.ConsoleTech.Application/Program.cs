@@ -1,4 +1,6 @@
 ﻿using Oiski.ConsoleTech.Engine;
+using Oiski.ConsoleTech.Engine.Color.Controls;
+using Oiski.ConsoleTech.Engine.Color.Rendering;
 using Oiski.ConsoleTech.Engine.Controls;
 using Oiski.ConsoleTech.Engine.Rendering;
 using System;
@@ -10,7 +12,7 @@ namespace Oiski.ConsoleTech
 {
     class Program
     {
-        static void Main()
+        static void Main ()
         {
             Console.Title = "Menu Framework Test";
             //Console.SetWindowSize(65, 30);
@@ -401,35 +403,44 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V17 - Color Rendering
+            //Console.SetWindowSize(50, 10);
+            var ran = new Random();
             ColorRenderer renderer = new ColorRenderer()
             {
-                DefaultColor = new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black)
+                DefaultColor = new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White))
             };
 
-            renderer.InitRenderer();
-
+            //renderer.InitRenderer();
+            
             ColorableLabel label = new ColorableLabel("Hello, World!", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black));
-            for ( int y = 0; y < label.ColorGrid.GetLength(1); y++ )
-            {
-                for ( int x = 0; x < label.ColorGrid.GetLength(0); x++ )
-                {
-                    //Console.ForegroundColor = label.ColorGrid[x, y].ForegroundColor;
-                    //Console.BackgroundColor = label.ColorGrid[x, y].BackgroundColor;
-                    //Console.Write(label.build[x, y]);
-                    //Console.ResetColor();
-
-                    renderer.InsertAt(new Vector2(x, y), label.build[x, y]);
-                    renderer.ColorGrid[x, y].ToConsole();
-                }
-
-                Console.WriteLine();
-            }
-
-            //renderer.Render();
+            ColorableTextField textfield = new ColorableTextField("Hello, World", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
 
 
-            //OiskiEngine.ChangeRenderer(renderer);
-            //OiskiEngine.Run();
+
+            ColorableOption option = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option1 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option2 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option3 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option4 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option5 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option6 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option7 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option8 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option9 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option10 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option11 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option12 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option13 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option14 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option15 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option16 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option17 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option18 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option19 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableOption option20 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+
+            OiskiEngine.ChangeRenderer(renderer);
+            OiskiEngine.Run();
             #endregion
 
         }

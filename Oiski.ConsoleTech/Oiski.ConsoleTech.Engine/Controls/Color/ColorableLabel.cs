@@ -1,21 +1,20 @@
-﻿using Oiski.ConsoleTech.Engine.Rendering;
+﻿using Oiski.ConsoleTech.Engine.Color.Rendering;
+using Oiski.ConsoleTech.Engine.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Oiski.ConsoleTech.Engine.Controls
+namespace Oiski.ConsoleTech.Engine.Color.Controls
 {
     public class ColorableLabel : Label, IColorableControl
     {
         public RenderColor TextColor { get; set; }
-        public RenderColor[,] ColorGrid { get; private set; }
+        public RenderColor[,] ColorGrid { get; protected set; } = new RenderColor[1, 1];
         public RenderColor BorderColor { get; set; }
 
-        public char[,] build;
-
-        internal override char[,] Build()
+        internal override char[,] Build ()
         {
             char[,] charBuild = base.Build();
             ColorGrid = new RenderColor[grid.GetLength(0), grid.GetLength(1)];
@@ -65,11 +64,16 @@ namespace Oiski.ConsoleTech.Engine.Controls
             return charBuild;
         }
 
-        public ColorableLabel(string _text, RenderColor _textColor, RenderColor _borderColor, bool _attachToEngine = true) : base(_text, _attachToEngine)
+        public ColorableLabel (string _text, RenderColor _textColor, RenderColor _borderColor, bool _attachToEngine = true) : base(_text, _attachToEngine)
         {
             TextColor = _textColor;
             BorderColor = _borderColor;
-            build = Build();
+            //build = Build();
+        }
+
+        public ColorableLabel (string _text, RenderColor _textColor, RenderColor _borderColor, Vector2 _position, bool _attachToEngine = true) : this(_text, _textColor, _borderColor, _attachToEngine)
+        {
+            Position = _position;
         }
     }
 }
