@@ -1,0 +1,471 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Oiski.ConsoleTech.Engine</name>
+    </assembly>
+    <members>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.BorderArea">
+            <summary>
+            Defines the area of the border applied on a <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>
+            </summary>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.Control">
+            <summary>
+            Defines an <see langword="abstract"/> <see langword="class"/> that can be inherited from.
+            <br/>
+            This is the base <see langword="class"/> for all <see cref="N:Oiski.ConsoleTech.Engine.Controls"/> in the <see cref="N:Oiski.ConsoleTech.Engine"/> environment
+            </summary>
+        </member>
+        <member name="F:Oiski.ConsoleTech.Engine.Controls.Control.grid">
+            <summary>
+            The local two-dimensional grid holds the unrendered <i>template</i> for the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.Control.IndexID">
+            <summary>
+            The ID that defines this <see cref="T:System.Object"/> in the <see cref="P:Oiski.ConsoleTech.Engine.OiskiEngine.Controls"/> herirachy
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.Control.ZIndex">
+            <summary>
+            This is the index identifier that determines in which order controls should be rendered.
+            <br/>
+            <strong>Note: </strong>Lower numbers will render <strong>on top</strong> of higher numbers.
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Control.#ctor(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="_attachToEngine">Whether or not to add the contorl directly to the engine</param>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.ControlCollection">
+            <summary>
+            Defines a collection of <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>s that can be added to and removed from
+            </summary>
+        </member>
+        <member name="F:Oiski.ConsoleTech.Engine.Controls.ControlCollection.lockObject">
+            <summary>
+            Use this to <see langword="lock"/> internal values when changing them
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.ControlCollection.GetControls">
+            <summary>
+            Returns an <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> containing all <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>s in the <see cref="T:Oiski.ConsoleTech.Engine.Controls.ControlCollection"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.ControlCollection.GetSelectableControls">
+            <summary>
+            Returns an <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> containing all <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/>s in the <see cref="T:Oiski.ConsoleTech.Engine.Controls.ControlCollection"/>
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.ControlCollection.IsEmpty">
+            <summary>
+            
+            </summary>
+            <returns><see langword="true"/> if there's no <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>s in the <see cref="T:Oiski.ConsoleTech.Engine.Controls.ControlCollection"/>. Otherwise <see langword="false"/></returns>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.ControlCollection.RemoveControl(Oiski.ConsoleTech.Engine.Controls.Control)">
+            <summary>
+            
+            </summary>
+            <param name="_control"></param>
+            <returns><see langword="true"/> if the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> could be removed, otherwise <see langword="false"/></returns>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.ControlCollection.FindControl(System.Predicate{Oiski.ConsoleTech.Engine.Controls.Control})">
+            <summary>
+            Search the list of <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>s for a <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> that fits the <paramref name="_match"/> conditions.
+            </summary>
+            <param name="_match"></param>
+            <returns>The first occurence that matches the predicate. If not <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> is found it will return <see langword="null"/></returns>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.ControlCollection.FindControl(Oiski.ConsoleTech.Engine.Vector2)">
+            <summary>
+            Search for a <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> based on the <paramref name="_selectedIndex"/>
+            </summary>
+            <param name="_selectedIndex"></param>
+            <returns>The first occurence that matches the <paramref name="_selectedIndex"/>. If no match is found it will return <see langword="null"/></returns>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.Label">
+            <summary>
+            Represents a <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/> that can be placed and manipulated through the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/>
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Label.CorrectSize">
+            <summary>
+            This ensures that the width of the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/> always encapsulates the <see cref="P:Oiski.ConsoleTech.Engine.Controls.Label.Text"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.Label.VisibleBorder">
+            <summary>
+            Defines the visible area of the border for the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/>. 
+            <br/>
+            Use the <see cref="T:Oiski.ConsoleTech.Engine.Controls.BorderArea"/> <see langword="enum"/> to access the individual components of the border through this member
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Label.Build">
+            <summary>
+            Builds the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/> control
+            </summary>
+            <returns>A rendable two-dimensional <see langword="char"/> <see langword="array"/> that can be inserted into the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> <see langword="class"/> via the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/></returns>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Label.SetBorder(Oiski.ConsoleTech.Engine.Controls.BorderArea,System.Boolean)">
+            <summary>
+            Define which parts of the border that should be visible when the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/> is rendered
+            </summary>
+            <param name="_area"></param>
+            <param name="_visible"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Label.BorderStyle(Oiski.ConsoleTech.Engine.Controls.BorderArea,System.Char)">
+            <summary>
+            Change the borde style for the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/>
+            </summary>
+            <param name="_area"></param>
+            <param name="_style"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Label.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/> where the <paramref name="_text"/> is set, and adds the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> to the <see cref="P:Oiski.ConsoleTech.Engine.OiskiEngine.Controls"/>
+            </summary>
+            <param name="_text"></param>
+            <param name="_attachToEngine">Whether or not to attach the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> directly to the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/> controls heirachy</param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Label.#ctor(System.String,Oiski.ConsoleTech.Engine.Vector2,System.Boolean)">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Controls.Label"/> where the <paramref name="_text"/> and <paramref name="_position"/> is set, and adds the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> to the <see cref="P:Oiski.ConsoleTech.Engine.OiskiEngine.Controls"/>
+            </summary>
+            <param name="_text"></param>
+            <param name="_position"></param>
+            <param name="_attachToEngine">Whether or not to attach the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> directly to the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/> controls heirachy</param>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.Menu">
+            <summary>
+            Represents a menu with <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>s that can be shown or hidden
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.Menu.OnTarget">
+            <summary>
+            The <see langword="event"/> that is triggered when a <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> is targeted by the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/>s <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/>
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Menu.#ctor">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Controls.Menu"/>
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Menu.MarkTarget(Oiski.ConsoleTech.Engine.Controls.SelectableControl)">
+            <summary>
+            The default behavior attached ot <see cref="P:Oiski.ConsoleTech.Engine.Controls.Menu.OnTarget"/>
+            </summary>
+            <param name="_me"></param>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.Option">
+            <summary>
+            Defines a <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> that can be selected during runtime
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.Option.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Controls.Option"/> where the text of the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> is set to <paramref name="_text"/>
+            </summary>
+            <param name="_text"></param>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl">
+            <summary>
+            Defines an <see langword="abstract"/> <see langword="class"/> that acts as the base <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> <see langword="class"/> for all selectedable <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>s
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.SelectableControl.SelectedIndex">
+            <summary>
+            Defines the index heriachy of which any <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> is selected in an ascending order.
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.SelectableControl.IsSelected">
+            <summary>
+            Whether or not the <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> is currently selected
+            </summary>
+        </member>
+        <member name="E:Oiski.ConsoleTech.Engine.Controls.SelectableControl.OnSelect">
+            <summary>
+            The event that would occur when the <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> is selected
+            <br/>
+            The <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> parameter refers to the current <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/>
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.SelectableControl.HandleSelectEvent">
+            <summary>
+            Will be trickered when the <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> is targeted by the <see cref="P:Oiski.ConsoleTech.Engine.OiskiEngine.Input"/> selection system
+            </summary>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Controls.TextField">
+            <summary>
+            Represents a <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/> that can be read from and written to during runtime
+            </summary>
+        </member>
+        <member name="F:Oiski.ConsoleTech.Engine.Controls.TextField.OnSelect">
+            <summary>
+            Occures when the <see cref="T:Oiski.ConsoleTech.Engine.Controls.TextField"/> is selected
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.TextField.EraseTextOnSelect">
+            <summary>
+            If set to <see langword="true"/>, this will erase any text inside the <see cref="T:Oiski.ConsoleTech.Engine.Controls.TextField"/> before its write state is initiated 
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Controls.TextField.ResetAfterFirstWrite">
+            <summary>
+            If set to <see langword="true"/> this will set the <see cref="P:Oiski.ConsoleTech.Engine.Controls.TextField.EraseTextOnSelect"/> to <see langword="false"/> after the first initiated write state
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.TextField.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Controls.TextField"/> where the text is set
+            </summary>
+            <param name="_text"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.TextField.#ctor(System.String,Oiski.ConsoleTech.Engine.Vector2,System.Boolean)">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Controls.TextField"/> where the text and position is set
+            </summary>
+            <param name="_text"></param>
+            <param name="_positon"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.TextField.BeginWrite(Oiski.ConsoleTech.Engine.Controls.SelectableControl)">
+            <summary>
+            Initiates the <see cref="T:Oiski.ConsoleTech.Engine.Controls.TextField"/>s write state
+            </summary>
+            <param name="_me"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Controls.TextField.WriteToMe(System.Object)">
+            <summary>
+            Updates the <see cref="T:Oiski.ConsoleTech.Engine.Controls.TextField"/>s text value
+            </summary>
+            <param name="_state"></param>
+        </member>
+        <member name="F:Oiski.ConsoleTech.Engine.Input.InputController.lockObject">
+            <summary>
+            Use this to <see langword="lock"/> the internal <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/> values when changes happen
+            </summary>
+        </member>
+        <member name="F:Oiski.ConsoleTech.Engine.Input.InputController.currentSelectedIndex_X">
+            <summary>
+            The index on the x-axis of the selection system
+            </summary>
+        </member>
+        <member name="F:Oiski.ConsoleTech.Engine.Input.InputController.currentSelectedIndex_Y">
+            <summary>
+            The index on the y-axis of the selection system
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.GetSelectedIndex">
+            <summary>
+            The index that defines the current position of the selection marker
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.AtTarget">
+            <summary>
+            The event that is triggered when a <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> is targeted by the selection system.
+            <br/>
+            <strong>Note:</strong> This is triggered <strong>before</strong> any other event originated in this <see langword="class"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.TextInput">
+            <summary>
+            The text input gathered while <see cref="P:Oiski.ConsoleTech.Engine.Input.InputController.CanWrite"/> is active.
+            <br/>
+            Use this retrieve <see cref="T:System.String"/> input from the user through the <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.NavigationKeys">
+            <summary>
+            The keys used to navigate the selection system.
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.InputEnabled">
+            <summary>
+            If <see langword="true"/> input will be enabled for the <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.NavigationEnabled">
+            <summary>
+            If <see langword="true"/> navigation will be enabled for the <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.HorizontalClamp">
+            <summary>
+            If <see langword="true"/> the selection system won't go negative on the X-axis
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.VerticalClamp">
+            <summary>
+            If <see langword="true"/> the selection system won't go negative on the Y-axis
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.CanSelect">
+            <summary>
+            If <see langword="true"/> the <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/> will be able to select a <see cref="T:Oiski.ConsoleTech.Engine.Controls.SelectableControl"/> on the selection system
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Input.InputController.CanWrite">
+            <summary>
+            If <see langword="true"/> the <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/> can gather text input from a user.
+            <strong>Note:</strong> Use <see cref="P:Oiski.ConsoleTech.Engine.Input.InputController.TextInput"/> to retrieve the input
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Input.InputController.ListenForInput">
+            <summary>
+            Begin listening for user input
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Input.InputController.Start">
+            <summary>
+            Begin the <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/> loop
+            </summary>
+        </member>
+        <member name="F:Oiski.ConsoleTech.Engine.OiskiEngine.lockObject">
+            <summary>
+            Use this to lock internal values when changed.
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.OiskiEngine.DEBUGMODE">
+            <summary>
+            If true this will enable debug mode.
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.OiskiEngine.TimeSinceStart">
+            <summary>
+            Monitors the time since the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/> was started.
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.OiskiEngine.Renderer">
+            <summary>
+            The <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> that will be used to render the rendering loops for the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.OiskiEngine.Configuration">
+            <summary>
+            The confiuration that is used to set the how the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> behaves
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.OiskiEngine.Input">
+            <summary>
+            THe <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/>s <see cref="T:Oiski.ConsoleTech.Engine.Input.InputController"/> that will listen and registrer input from an user.
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.OiskiEngine.InsertControls">
+            <summary>
+            Insert all <see cref="T:Oiski.ConsoleTech.Engine.Controls.Control"/>s in the <see cref="P:Oiski.ConsoleTech.Engine.OiskiEngine.Controls"/> <see cref="T:System.Collections.Generic.List`1"/> into the <see cref="P:Oiski.ConsoleTech.Engine.Rendering.Renderer.Grid"/>
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.OiskiEngine.Run">
+            <summary>
+            Begin the execution of the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/> and it's internal functionalities
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.OiskiEngine.Start">
+            <summary>
+            Will set off the <see cref="T:Oiski.ConsoleTech.Engine.OiskiEngine"/> loop
+            </summary>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Vector2">
+            <summary>
+            Defines a two-dimensional Vector with points
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Vector2.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Vector2"/> where X and Y are set.
+            </summary>
+            <param name="_x"></param>
+            <param name="_y"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Vector2.ToString">
+            <summary>
+            
+            </summary>
+            <returns>A string representation of the current <see cref="T:Oiski.ConsoleTech.Engine.Vector2"/> as "<i>(<see cref="F:Oiski.ConsoleTech.Engine.Vector2.x"/>,<see cref="F:Oiski.ConsoleTech.Engine.Vector2.y"/>)</i>"</returns>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration">
+            <summary>
+            Defines a storage of settings that can be <strong>directly</strong> applied to the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> <see langword="class"/>
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration.Size">
+            <summary>
+            This is the <strong>horizontal</strong> and <strong>vertical</strong> size of the screenspace that the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> will render
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration.GetCornerChar">
+            <summary>
+            The <see langword="char"/> the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> will use as <strong>corner</strong> for the screen border
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration.GetVerticalChar">
+            <summary>
+            The <see langword="char"/> the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> will use as <strong>vertical</strong> screen border
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration.GetHorizontalChar">
+            <summary>
+            The <see langword="char"/> the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> will use as <strong>horizontal</strong> screen border
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration.#ctor(Oiski.ConsoleTech.Engine.Vector2,System.Char,System.Char,System.Char)">
+            <summary>
+            Initializes a new instance of type <see cref="T:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration"/> where the size of the <strong>screenspace</strong> is defined by <paramref name="_size"/>.
+            <br/>
+            The border of the <strong>screenspace</strong> is rendered based on <paramref name="_borderCornerChar"/>, <paramref name="_borderVerticalChar"/>, <paramref name="_borderHorizontalChar"/>.
+            </summary>
+            <param name="_size"></param>
+            <param name="_borderCornerChar"></param>
+            <param name="_borderVerticalChar"></param>
+            <param name="_borderHorizontalChar"></param>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration.Border">
+            <summary>
+            Maps the Border <see langword="chars"/> in the <see cref="F:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration.boundaryChars"/> <see langword="array"/>
+            </summary>
+        </member>
+        <member name="T:Oiski.ConsoleTech.Engine.Rendering.Renderer">
+            <summary>
+            Represents a basic renderer for rendering a simple grid structure build from <see langword="chars"/> into the <see cref="T:System.Console"/> window
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Rendering.Renderer.Grid">
+            <summary>
+            This is the defined <strong>screenspace</strong>, which includes the border of the rendered <strong>screenspace</strong>.
+            </summary>
+        </member>
+        <member name="P:Oiski.ConsoleTech.Engine.Rendering.Renderer.Configuration">
+            <summary>
+            The configuration for how the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> should behave when rendering the base <strong>screenspace</strong>.
+            <br/>
+            This is by default set to have a width and heigth that represents the dimensions of the current <see cref="T:System.Console"/> window.
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Rendering.Renderer.InitRenderer">
+            <summary>
+            This will initiate the <see cref="T:Oiski.ConsoleTech.Engine.Rendering.Renderer"/> and apply the associated <see cref="T:Oiski.ConsoleTech.Engine.Rendering.RenderConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Rendering.Renderer.InsertAt(Oiski.ConsoleTech.Engine.Vector2,System.Char)">
+            <summary>
+            Insert a <see langword="char"/> value in the <see cref="T:Oiski.ConsoleTech.Engine.Vector2"/> defined <paramref name="_position"/>
+            </summary>
+            <param name="_position">The zero index <see cref="T:Oiski.ConsoleTech.Engine.Vector2"/> position that defines where the insertion should happen</param>
+            <param name="_symbol"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Rendering.Renderer.InsertAt(Oiski.ConsoleTech.Engine.Vector2,System.String)">
+            <summary>
+            Insert a range of <see langword="chars"/> represented as a <see langword="string"/> at the zero indexed <see cref="T:Oiski.ConsoleTech.Engine.Vector2"/> <paramref name="_position"/>
+            </summary>
+            <param name="_position"></param>
+            <param name="_toInsert"></param>
+        </member>
+        <member name="M:Oiski.ConsoleTech.Engine.Rendering.Renderer.Render">
+            <summary>
+            This will render the current <see cref="P:Oiski.ConsoleTech.Engine.Rendering.Renderer.Grid"/> as a 2-dimensional screen in the <see cref="T:System.Console"/>
+            </summary>
+        </member>
+    </members>
+</doc>
