@@ -9,13 +9,25 @@ using System.Threading.Tasks;
 
 namespace Oiski.ConsoleTech.Engine.Color.Controls
 {
+    /// <summary>
+    /// Represents an extension of the <see cref="TextField"/> that implements the <see cref="IColorableControl"/> <see langword="interface"/>
+    /// </summary>
     public class ColorableTextField : TextField, IColorableControl
     {
+        /// <summary>
+        /// The <see cref="RenderColor"/> to apply as text color in the <see cref="Console"/>
+        /// </summary>
         public RenderColor TextColor { get; set; }
+        /// <summary>
+        /// The <see cref="RenderColor"/> to apply as border color in the <see cref="Console"/>
+        /// </summary>
         public RenderColor BorderColor { get; set; }
+        /// <summary>
+        /// The grid that contains the <see cref="RenderColor"/> mappings for <see langword="this"/> <see cref="Control"/>
+        /// </summary>
         public RenderColor[,] ColorGrid { get; protected set; } = new RenderColor[1, 1];
 
-        internal override char[,] Build ()
+        internal override char[,] Build()
         {
             char[,] charBuild = base.Build();
             ColorGrid = new RenderColor[grid.GetLength(0), grid.GetLength(1)];
@@ -65,13 +77,28 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
             return charBuild;
         }
 
-        public ColorableTextField (string _text, RenderColor _textColor, RenderColor _borderColor, bool _attachToEngine = true) : base(_text, _attachToEngine)
+        /// <summary>
+        /// Initializes a new instance of type <see cref="ColorableTextField"/> where the text and text color + border color is set
+        /// </summary>
+        /// <param name="_text"></param>
+        /// <param name="_textColor"></param>
+        /// <param name="_borderColor"></param>
+        /// <param name="_attachToEngine">Whether or not to attach <see langword="this"/> <see cref="Control"/> <strong>directly</strong> to the <see cref="OiskiEngine"/></param>
+        public ColorableTextField(string _text, RenderColor _textColor, RenderColor _borderColor, bool _attachToEngine = true) : base(_text, _attachToEngine)
         {
             TextColor = _textColor;
             BorderColor = _borderColor;
         }
 
-        public ColorableTextField (string _text, RenderColor _textColor, RenderColor _borderColor, Vector2 _position, bool _attachToEngine = true) : this(_text, _textColor, _borderColor, _attachToEngine)
+        /// <summary>
+        /// Initializes a new instance of type <see cref="ColorableTextField"/> where the text, text color, border color and position is set
+        /// </summary>
+        /// <param name="_text"></param>
+        /// <param name="_textColor"></param>
+        /// <param name="_borderColor"></param>
+        /// <param name="_position"></param>
+        /// <param name="_attachToEngine">Whether or not to attach <see langword="this"/> <see cref="Control"/> <strong>directly</strong> to the <see cref="OiskiEngine"/></param>
+        public ColorableTextField(string _text, RenderColor _textColor, RenderColor _borderColor, Vector2 _position, bool _attachToEngine = true) : this(_text, _textColor, _borderColor, _attachToEngine)
         {
             Position = _position;
         }
