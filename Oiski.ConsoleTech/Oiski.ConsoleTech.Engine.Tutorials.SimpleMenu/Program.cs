@@ -74,14 +74,15 @@ namespace Oiski.ConsoleTech.Engine.Tutorials.SimpleMenu
             TextField toWriteToFile = new TextField("Type Somehting in me!", new Vector2(25, header.Position.y + 6), _attachToEngine: false)
             {
                 SelectedIndex = new Vector2(0, 0),
-                ResetAfterFirstWrite = true,
-                EraseTextOnSelect = true
+                EraseTextOnSelect = true,
+                ResetAfterFirstWrite = true
+                
             };
             toWriteToFile.OnSelect += WriteToFile;
             toWriteToFile.BorderStyle(BorderArea.Horizontal, '~');
             #endregion
 
-            #region Exit Application Button
+            #region Back Button
             Option back_button = new Option("Back", new Vector2(toWriteToFile.Position.x, toWriteToFile.Position.y + 3), _attachToEngine: false)
             {
                 SelectedIndex = new Vector2(0, 1)
