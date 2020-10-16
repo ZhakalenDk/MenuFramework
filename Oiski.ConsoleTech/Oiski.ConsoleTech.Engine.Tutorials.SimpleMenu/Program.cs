@@ -10,7 +10,7 @@ namespace Oiski.ConsoleTech.Engine.Tutorials.SimpleMenu
     {
         static readonly Menu main = new Menu();
         static readonly Menu textMenu = new Menu();
-        static void Main(string[] args)
+        static void Main()
         {
             OiskiEngine.Input.SetNavigation("Horizontal", false);
             OiskiEngine.Run();
@@ -18,7 +18,10 @@ namespace Oiski.ConsoleTech.Engine.Tutorials.SimpleMenu
             CreateTextMenu();
         }
 
-        public static void CreateMainMenu()
+        /// <summary>
+        /// Create the <see cref="main"/> layout
+        /// </summary>
+        private static void CreateMainMenu()
         {
             #region Initialize Controls
 
@@ -55,7 +58,10 @@ namespace Oiski.ConsoleTech.Engine.Tutorials.SimpleMenu
             #endregion
         }
 
-        public static void CreateTextMenu()
+        /// <summary>
+        /// Create the <see cref="textMenu"/> layout
+        /// </summary>
+        private static void CreateTextMenu()
         {
             #region Initialize Controls
 
@@ -93,9 +99,13 @@ namespace Oiski.ConsoleTech.Engine.Tutorials.SimpleMenu
             #endregion
         }
 
-        public static void WriteToFile(SelectableControl _control)
+        /// <summary>
+        /// Write whatever's inside <paramref name="_control"/>.Text to a file
+        /// </summary>
+        /// <param name="_control"></param>
+        private static void WriteToFile(SelectableControl _control)
         {
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);  //  Get the directory the application is executing in
             using ( StreamWriter writer = File.CreateText($"{path}\\SimpleMenu.txt") )
             {
                 writer.WriteLine(_control.Text);
