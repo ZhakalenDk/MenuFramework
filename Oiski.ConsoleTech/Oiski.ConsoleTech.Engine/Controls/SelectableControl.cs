@@ -31,15 +31,18 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_text"></param>
         /// <param name="_attachToEngine">Whether or not to directly attach this <see cref="SelectableControl"/> to the <see cref="OiskiEngine"/></param>
-        public SelectableControl(string _text, bool _attachToEngine = true) : base(_text, _attachToEngine)
+        public SelectableControl (string _text, bool _attachToEngine = true) : base(_text, _attachToEngine)
         {
-            SelectedIndex = new Vector2(Position.x, Position.y);
+            int xIndex = ( ( OiskiEngine.Input.HorizontalNavigationEnabled ) ? ( OiskiEngine.Controls.GetSelectableControls.Count ) : ( 0 ) );
+            int yIndex = ( ( OiskiEngine.Input.VerticalNavigationEnabled ) ? ( OiskiEngine.Controls.GetSelectableControls.Count ) : ( 0 ) );
+
+            SelectedIndex = new Vector2(xIndex, yIndex);
         }
 
         /// <summary>
         /// Will be trickered when the <see cref="SelectableControl"/> is targeted by the <see cref="OiskiEngine.Input"/> selection system
         /// </summary>
-        internal void HandleSelectEvent()
+        internal void HandleSelectEvent ()
         {
             OnSelect?.Invoke(this);
         }

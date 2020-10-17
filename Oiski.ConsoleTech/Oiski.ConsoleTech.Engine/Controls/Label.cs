@@ -30,6 +30,13 @@ namespace Oiski.ConsoleTech.Engine.Controls
         }
 
         /// <summary>
+        /// Defines the visible area of the border for the <see cref="Label"/>. 
+        /// <br/>
+        /// Use the <see cref="BorderArea"/> <see langword="enum"/> to access the individual components of the border through this member
+        /// </summary>
+        protected bool[] VisibleBorder { get; } = { true, true, true };
+
+        /// <summary>
         /// This ensures that the width of the <see cref="Label"/> always encapsulates the <see cref="Text"/>
         /// </summary>
         protected void CorrectSize ()
@@ -50,13 +57,6 @@ namespace Oiski.ConsoleTech.Engine.Controls
 
             grid = new char[Size.x, Size.y];
         }
-
-        /// <summary>
-        /// Defines the visible area of the border for the <see cref="Label"/>. 
-        /// <br/>
-        /// Use the <see cref="BorderArea"/> <see langword="enum"/> to access the individual components of the border through this member
-        /// </summary>
-        protected bool[] VisibleBorder { get; } = { true, true, true };
 
         /// <summary>
         /// Builds the <see cref="Label"/> control

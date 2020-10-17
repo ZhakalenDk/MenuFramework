@@ -403,6 +403,7 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V17 - Color Rendering
+            TextField f = new TextField("");
             //Console.SetWindowSize(50, 10);
             //var ran = new Random();
             //ColorRenderer renderer = new ColorRenderer()

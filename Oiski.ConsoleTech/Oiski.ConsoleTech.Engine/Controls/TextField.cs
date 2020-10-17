@@ -12,10 +12,6 @@ namespace Oiski.ConsoleTech.Engine.Controls
     public class TextField : Option
     {
         /// <summary>
-        /// Occures when the <see cref="TextField"/> is selected
-        /// </summary>
-        protected new readonly Action<SelectableControl> OnSelect;
-        /// <summary>
         /// If set to <see langword="true"/>, this will erase any text inside the <see cref="TextField"/> before its write state is initiated 
         /// </summary>
         public bool EraseTextOnSelect { get; set; } = false;
@@ -29,10 +25,9 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_text"></param>
         /// <param name="_attachToEngine"></param>
-        public TextField(string _text, bool _attachToEngine = true) : base(_text, _attachToEngine)
+        public TextField (string _text, bool _attachToEngine = true) : base(_text, _attachToEngine)
         {
-            OnSelect = BeginWrite;
-            base.OnSelect += OnSelect;
+            base.OnSelect += BeginWrite;
         }
 
         /// <summary>
@@ -41,7 +36,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <param name="_text"></param>
         /// <param name="_positon"></param>
         /// <param name="_attachToEngine"></param>
-        public TextField(string _text, Vector2 _positon, bool _attachToEngine = true) : this(_text, _attachToEngine)
+        public TextField (string _text, Vector2 _positon, bool _attachToEngine = true) : this(_text, _attachToEngine)
         {
             Position = _positon;
         }
@@ -50,7 +45,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Initiates the <see cref="TextField"/>s write state
         /// </summary>
         /// <param name="_me"></param>
-        private void BeginWrite(SelectableControl _me)
+        private void BeginWrite (SelectableControl _me)
         {
             if ( OiskiEngine.Input.CanWrite )
             {
@@ -81,7 +76,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Updates the <see cref="TextField"/>s text value
         /// </summary>
         /// <param name="_state"></param>
-        private void WriteToMe(object _state)
+        private void WriteToMe (object _state)
         {
             do
             {

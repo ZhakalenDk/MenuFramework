@@ -12,11 +12,11 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// <summary>
         /// Defines the thickness of the border on the X-axis used to frame the screenspace
         /// </summary>
-        protected int BorderThickness_X = 1;
+        protected int BorderThickness_X { get; set; } = 1;
         /// <summary>
         /// Defines the thickness of the border on the Y-axis used to frame the screenspace
         /// </summary>
-        protected int BorderThickness_Y = 1;
+        protected int BorderThickness_Y { get; set; } = 1;
         /// <summary>
         /// This is the defined <strong>screenspace</strong>, which includes the border of the rendered <strong>screenspace</strong>.
         /// </summary>
