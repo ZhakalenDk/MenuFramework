@@ -11,6 +11,14 @@ namespace Oiski.ConsoleTech.Engine.Controls
     public class Menu : Control
     {
         /// <summary>
+        /// The <see cref="Vector2"/> size for the <see cref="Control"/>
+        /// </summary>
+        new public Vector2 Size { get; protected set; }
+        /// <summary>
+        /// The <see cref="Vector2"/> position in screenspace cordinates
+        /// </summary>
+        new public Vector2 Position { get; protected set; }
+        /// <summary>
         /// The collection of controls, which are directly connected to <see langword="this"/> <see cref="Menu"/> instance
         /// </summary>
         public ControlCollection Controls { get; } = new ControlCollection();
@@ -24,7 +32,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// If <paramref name="_visible"/> is <see langword="true"/> the <see cref="Menu"/> will be rendered by the <see cref="OiskiEngine"/>. Otherwise it will not be rendered
         /// </summary>
         /// <param name="_visible"></param>
-        public void Show(bool _visible)
+        public void Show (bool _visible = true)
         {
             foreach ( var control in Controls.GetControls )
             {
@@ -39,7 +47,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
             }
         }
 
-        internal override char[,] Build()
+        internal override char[,] Build ()
         {
             return grid;
         }
@@ -47,7 +55,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <summary>
         /// Initializes a new instance of type <see cref="Menu"/>
         /// </summary>
-        public Menu() : base()
+        public Menu () : base()
         {
             Size = new Vector2(Console.WindowWidth - 1, Console.WindowHeight - 1);
             grid = new char[Size.x, Size.y];
@@ -64,7 +72,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// The default behavior attached ot <see cref="OnTarget"/>
         /// </summary>
         /// <param name="_me"></param>
-        protected virtual void MarkTarget(SelectableControl _me)
+        protected virtual void MarkTarget (SelectableControl _me)
         {
             foreach ( SelectableControl control in OiskiEngine.Controls.GetSelectableControls )
             {

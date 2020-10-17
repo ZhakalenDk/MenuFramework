@@ -35,7 +35,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         public Vector2 Size { get; set; } = new Vector2(3, 3);
         /// <summary>
-        /// THe <see cref="Vector2"/> position in screenspace cordinates
+        /// The <see cref="Vector2"/> position in screenspace cordinates
         /// </summary>
         public Vector2 Position { get; set; }
 
