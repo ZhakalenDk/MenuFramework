@@ -412,7 +412,7 @@ namespace Oiski.ConsoleTech
             //};
 
             ////renderer.InitRenderer();
-            
+
             //ColorableLabel label = new ColorableLabel("Hello, World!", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black));
             //ColorableTextField textfield = new ColorableTextField("Hello, World", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
 
@@ -443,7 +443,6 @@ namespace Oiski.ConsoleTech
             //OiskiEngine.ChangeRenderer(renderer);
             //OiskiEngine.Run();
             #endregion
-
         }
 
         #region V10 - Input Controller: OnSelection Test
