@@ -80,6 +80,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
             {
                 if ( _control != null )
                 {
+                    _control.IndexID = controls.Count;
                     controls.Add(_control);
 
                     if ( _control is SelectableControl sControl )

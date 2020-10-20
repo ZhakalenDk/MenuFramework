@@ -12,7 +12,7 @@ namespace Oiski.ConsoleTech
 {
     class Program
     {
-        static void Main ()
+        static void Main()
         {
             Console.Title = "Menu Framework Test";
             //Console.SetWindowSize(65, 30);
@@ -403,18 +403,20 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V17 - Color Rendering
-            TextField f = new TextField("");
             //Console.SetWindowSize(50, 10);
-            //var ran = new Random();
-            //ColorRenderer renderer = new ColorRenderer()
-            //{
-            //    DefaultColor = new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White))
-            //};
+            var ran = new Random();
+            ColorRenderer renderer = new ColorRenderer()
+            {
+                DefaultColor = new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White))
+            };
 
-            ////renderer.InitRenderer();
+            //renderer.InitRenderer();
 
-            //ColorableLabel label = new ColorableLabel("Hello, World!", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black));
-            //ColorableTextField textfield = new ColorableTextField("Hello, World", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
+            ColorableLabel label = new ColorableLabel("Hello, World!", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black));
+            ColorableTextField textfield = new ColorableTextField("Hello, World", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.Blue, ConsoleColor.Black), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)))
+            {
+                SelectedIndex = new Vector2(0, 0)
+            };
 
 
 
@@ -440,8 +442,8 @@ namespace Oiski.ConsoleTech
             //ColorableOption option19 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
             //ColorableOption option20 = new ColorableOption("I am Colored", new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new RenderColor(( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White), ( ConsoleColor ) ran.Next(( int ) ConsoleColor.Black, ( int ) ConsoleColor.White)), new Vector2(ran.Next(0, OiskiEngine.Configuration.Size.x), ran.Next(0, OiskiEngine.Configuration.Size.y)));
 
-            //OiskiEngine.ChangeRenderer(renderer);
-            //OiskiEngine.Run();
+            OiskiEngine.ChangeRenderer(renderer);
+            OiskiEngine.Run();
             #endregion
         }
 

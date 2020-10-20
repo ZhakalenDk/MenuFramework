@@ -23,7 +23,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <summary>
         /// The ID that defines this <see cref="object"/> in the <see cref="OiskiEngine.Controls"/> herirachy
         /// </summary>
-        public int IndexID { get; protected set; }
+        public int IndexID { get; internal set; }
         /// <summary>
         /// This is the index identifier that determines in which order controls should be rendered.
         /// <br/>
@@ -58,7 +58,11 @@ namespace Oiski.ConsoleTech.Engine.Controls
         {
             lock ( OiskiEngine.Controls )
             {
-                IndexID = OiskiEngine.Controls.GetControls.Count;
+                if ( _attachToEngine )
+                {
+                    IndexID = OiskiEngine.Controls.GetControls.Count;
+                }
+
                 ZIndex = 1;
                 if ( _attachToEngine )
                 {
