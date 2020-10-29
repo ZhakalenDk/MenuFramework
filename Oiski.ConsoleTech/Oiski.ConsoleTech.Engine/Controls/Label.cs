@@ -62,7 +62,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Builds the <see cref="Label"/> control
         /// </summary>
         /// <returns>A rendable two-dimensional <see langword="char"/> <see langword="array"/> that can be inserted into the <see cref="Rendering.Renderer"/> <see langword="class"/> via the <see cref="OiskiEngine"/></returns>
-        internal override char[,] Build ()
+        public override char[,] Build ()
         {
             CorrectSize();
 

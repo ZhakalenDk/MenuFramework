@@ -47,7 +47,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
             }
         }
 
-        internal override char[,] Build ()
+        public override char[,] Build ()
         {
             return grid;
         }
