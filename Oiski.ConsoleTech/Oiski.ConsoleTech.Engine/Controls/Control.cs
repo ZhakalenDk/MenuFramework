@@ -43,18 +43,23 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Set the <see cref="ZIndex"/> for <see langword="this"/> <see cref="Control"/>
         /// </summary>
         /// <param name="_index"></param>
-        public void SetZIndex(int _index)
+        public void SetZIndex (int _index)
         {
             ZIndex = ( ( _index < 0 ) ? ( 0 ) : ( _index ) );
         }
 
-        internal abstract char[,] Build();
+        /// <summary>
+        /// Builds the <see cref="Control"/> as a 2-dimensional array.
+        /// This is used to render the <see cref="Control"/> in the <see cref="Console"/> window
+        /// </summary>
+        /// <returns></returns>
+        public abstract char[,] Build ();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_attachToEngine">Whether or not to add the contorl directly to the engine</param>
-        public Control(bool _attachToEngine = true)
+        public Control (bool _attachToEngine = true)
         {
             lock ( OiskiEngine.Controls )
             {
