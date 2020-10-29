@@ -78,11 +78,19 @@ namespace Oiski.ConsoleTech.Engine.Controls
         {
             lock ( lockObject )
             {
-                controls.Add(_control);
-
-                if ( _control is SelectableControl sControl )
+                if ( _control != null )
                 {
-                    selectableControls.Add(sControl);
+                    _control.IndexID = controls.Count;
+                    controls.Add(_control);
+
+                    if ( _control is SelectableControl sControl )
+                    {
+                        selectableControls.Add(sControl);
+                    }
+                }
+                else
+                {
+                    throw new NullReferenceException("Control can't be null when adding it to an instance of type Menu");
                 }
             }
         }
@@ -97,11 +105,18 @@ namespace Oiski.ConsoleTech.Engine.Controls
             bool wasRemoved = false;
             lock ( lockObject )
             {
-                wasRemoved = controls.Remove(_control);
-
-                if ( _control is SelectableControl sControl )
+                if ( _control != null )
                 {
-                    wasRemoved = selectableControls.Remove(sControl) && wasRemoved;
+                    wasRemoved = controls.Remove(_control);
+
+                    if ( _control is SelectableControl sControl )
+                    {
+                        wasRemoved = selectableControls.Remove(sControl) && wasRemoved;
+                    }
+                }
+                else
+                {
+                    throw new NullReferenceException("Control can't be null when removing it from an instance of type Menu");
                 }
             }
 
