@@ -74,6 +74,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Add a <see cref="Control"/> to the <see cref="ControlCollection"/>
         /// </summary>
         /// <param name="_control"></param>
+        /// <exception cref="NullReferenceException"/>
         public void AddControl(Control _control)
         {
             lock ( lockObject )

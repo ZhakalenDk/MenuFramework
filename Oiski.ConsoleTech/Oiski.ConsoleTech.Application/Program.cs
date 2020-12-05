@@ -487,6 +487,28 @@ namespace Oiski.ConsoleTech
 
              */
             #endregion
+
+            #region V19 - [BUG] Issue #2 - Bad Coloring in The Menu Class' Origin positition
+            //OiskiEngine.ChangeRenderer(new ColorRenderer());
+            //OiskiEngine.Run();
+
+            
+            //ColorableLabel label2 = new ColorableLabel($"I'm Attached", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black), new Vector2(0, 0));
+            ////label2.Render = false;
+
+            //Menu menu = new Menu();
+
+            ////ColorableLabel label = new ColorableLabel(menu.Position.ToString(), new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black), false);
+            ////menu.Controls.AddControl(label);
+            ////menu.Show();
+            ////menu.Show(false);
+            ////menu.Show();
+
+
+            ////label.Position = new Vector2(0, OiskiEngine.Configuration.Size.y - 5);
+            ////label.Position = new Vector2(0, 1);
+            ////label.Position = Vector2.Center(label.Size);
+            #endregion
         }
 
         #region V10 - Input Controller: OnSelection Test

@@ -22,6 +22,21 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// The collection of controls, which are directly connected to <see langword="this"/> <see cref="Menu"/> instance
         /// </summary>
         public ControlCollection Controls { get; } = new ControlCollection();
+        /// <summary>
+        /// Whether or not the <see cref="Menu"/> <see cref="Control"/> should be rendered or not
+        /// </summary>
+        new public bool Render
+        {
+            get
+            {
+                return base.Render;
+            }
+
+            protected set
+            {
+                base.Render = value;
+            }
+        }
 
         /// <summary>
         /// The <see langword="event"/> that is triggered when a <see cref="SelectableControl"/> is targeted by the <see cref="OiskiEngine"/>s <see cref="Input.InputController"/>
@@ -51,6 +66,13 @@ namespace Oiski.ConsoleTech.Engine.Controls
         protected override char[,] Build()
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
+            for ( int i = 0; i < grid.GetLength(1); i++ )
+            {
+                for ( int j = 0; j < grid.GetLength(0); j++ )
+                {
+                    grid[j, i] = '*';
+                }
+            }
             return grid;
         }
 
@@ -61,6 +83,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         {
             Size = new Vector2(Console.WindowWidth - 1, Console.WindowHeight - 1);
             grid = new char[Size.x, Size.y];
+            Render = false;
 
             if ( OnTarget == null )
             {

@@ -134,16 +134,20 @@ namespace Oiski.ConsoleTech.Engine
 
                 for ( int i = 0; i < Controls.GetControls.Count; i++ )
                 {
-                    int positionX = Controls[i].Position.x;
-                    int positionY = Controls[i].Position.y;
-                    for ( int y = 0; y < Controls[i].Size.y; y++ )
+                    if ( Controls[i].Render )
                     {
-                        for ( int x = 0; x < Controls[i].Size.x; x++ )
+                        int positionX = Controls[i].Position.x;
+                        int positionY = Controls[i].Position.y;
+                        for ( int y = 0; y < Controls[i].Size.y; y++ )
                         {
-                            Renderer.InsertAt(new Vector2(positionX++, positionY), Controls[i].GetBuild[x, y]);
+                            for ( int x = 0; x < Controls[i].Size.x; x++ )
+                            {
+
+                                Renderer.InsertAt(new Vector2(positionX++, positionY), Controls[i].GetBuild[x, y]);
+                            }
+                            positionX = Controls[i].Position.x;
+                            positionY++;
                         }
-                        positionX = Controls[i].Position.x;
-                        positionY++;
                     }
                 }
             }

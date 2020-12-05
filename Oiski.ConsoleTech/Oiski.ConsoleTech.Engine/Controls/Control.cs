@@ -46,6 +46,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// The <see cref="Vector2"/> position in screenspace cordinates
         /// </summary>
         public Vector2 Position { get; set; }
+        /// <summary>
+        /// Whether or not the <see cref="Control"/> should be rendered or not
+        /// </summary>
+        public bool Render { get; set; } = true;
 
         /// <summary>
         /// Set the <see cref="ZIndex"/> for <see langword="this"/> <see cref="Control"/>
