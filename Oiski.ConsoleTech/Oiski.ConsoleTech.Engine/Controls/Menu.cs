@@ -32,7 +32,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// If <paramref name="_visible"/> is <see langword="true"/> the <see cref="Menu"/> will be rendered by the <see cref="OiskiEngine"/>. Otherwise it will not be rendered
         /// </summary>
         /// <param name="_visible"></param>
-        public void Show (bool _visible = true)
+        public void Show(bool _visible = true)
         {
             foreach ( var control in Controls.GetControls )
             {
@@ -47,7 +47,9 @@ namespace Oiski.ConsoleTech.Engine.Controls
             }
         }
 
-        public override char[,] Build ()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        protected override char[,] Build()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             return grid;
         }
@@ -55,7 +57,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <summary>
         /// Initializes a new instance of type <see cref="Menu"/>
         /// </summary>
-        public Menu () : base()
+        public Menu() : base()
         {
             Size = new Vector2(Console.WindowWidth - 1, Console.WindowHeight - 1);
             grid = new char[Size.x, Size.y];
@@ -72,7 +74,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// The default behavior attached ot <see cref="OnTarget"/>
         /// </summary>
         /// <param name="_me"></param>
-        protected virtual void MarkTarget (SelectableControl _me)
+        protected virtual void MarkTarget(SelectableControl _me)
         {
             foreach ( SelectableControl control in OiskiEngine.Controls.GetSelectableControls )
             {

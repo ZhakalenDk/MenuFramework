@@ -27,7 +27,9 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
         /// </summary>
         public RenderColor[,] ColorGrid { get; protected set; } = new RenderColor[1, 1];
 
-        internal override char[,] Build()
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        protected override char[,] Build()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             char[,] charBuild = base.Build();
             ColorGrid = new RenderColor[grid.GetLength(0), grid.GetLength(1)];

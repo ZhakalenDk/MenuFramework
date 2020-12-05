@@ -20,6 +20,14 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         protected readonly char[] border = { '+', '|', '-' };
 
+        internal char[,] GetBuild
+        {
+            get
+            {
+                return Build();
+            }
+        }
+
         /// <summary>
         /// The ID that defines this <see cref="object"/> in the <see cref="OiskiEngine.Controls"/> herirachy
         /// </summary>
@@ -43,23 +51,25 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Set the <see cref="ZIndex"/> for <see langword="this"/> <see cref="Control"/>
         /// </summary>
         /// <param name="_index"></param>
-        public void SetZIndex (int _index)
+        public void SetZIndex(int _index)
         {
             ZIndex = ( ( _index < 0 ) ? ( 0 ) : ( _index ) );
         }
 
         /// <summary>
         /// Builds the <see cref="Control"/> as a 2-dimensional array.
-        /// This is used to render the <see cref="Control"/> in the <see cref="Console"/> window
+        /// This is used by the <see cref="Rendering.Renderer"/> to draw the <see cref="Control"/> in the <see cref="Console"/> window.
+        /// <br/>
+        /// Override this to define how a <see cref="Control"/> should be drawn out by the <see cref="Rendering.Renderer"/>
         /// </summary>
-        /// <returns></returns>
-        public abstract char[,] Build ();
+        /// <returns>A two dimensional array that contains the visual blueprint for the <see cref="Control"/></returns>
+        protected abstract char[,] Build();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_attachToEngine">Whether or not to add the contorl directly to the engine</param>
-        public Control (bool _attachToEngine = true)
+        public Control(bool _attachToEngine = true)
         {
             lock ( OiskiEngine.Controls )
             {

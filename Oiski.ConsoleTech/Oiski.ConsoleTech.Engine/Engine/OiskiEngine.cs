@@ -140,7 +140,7 @@ namespace Oiski.ConsoleTech.Engine
                     {
                         for ( int x = 0; x < Controls[i].Size.x; x++ )
                         {
-                            Renderer.InsertAt(new Vector2(positionX++, positionY), Controls[i].Build()[x, y]);
+                            Renderer.InsertAt(new Vector2(positionX++, positionY), Controls[i].GetBuild[x, y]);
                         }
                         positionX = Controls[i].Position.x;
                         positionY++;

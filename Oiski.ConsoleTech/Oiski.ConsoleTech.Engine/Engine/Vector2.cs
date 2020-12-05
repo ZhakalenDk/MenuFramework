@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Remoting.Channels;
 
 namespace Oiski.ConsoleTech.Engine
@@ -16,6 +17,17 @@ namespace Oiski.ConsoleTech.Engine
         /// The vectors value on the Y-Axis
         /// </summary>
         public readonly int y;
+
+        /// <summary>
+        /// Shorthand for <see cref="Vector2"/> (0,0)
+        /// </summary>
+        public static Vector2 Zero
+        {
+            get
+            {
+                return new Vector2(0, 0);
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of type <see cref="Vector2"/> where X and Y are set.
@@ -78,6 +90,53 @@ namespace Oiski.ConsoleTech.Engine
         public override int GetHashCode()
         {
             return new { x, y }.GetHashCode(); /*HashCode.Combine(x, y);*/
+        }
+
+        /// <summary>
+        /// Returns the distance between point <paramref name="_a"/> and point <paramref name="_b"/> as a positive <see cref="Vector2"/>
+        /// </summary>
+        /// <param name="_a"></param>
+        /// <param name="_b"></param>
+        /// <returns></returns>
+        public static Vector2 Distance(Vector2 _a, Vector2 _b)
+        {
+            int x = _a.x - _b.x;
+            x *= Math.Sign(x);
+
+            int y = _a.y - _b.y;
+            y *= Math.Sign(x);
+
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Calculates the center position for <see cref="Vector2.x"/> based on the width of a <see cref="Controls.Control"/>.
+        /// </summary>
+        /// <param name="_controlSizeX"></param>
+        /// <returns>A positive <see langword="int"/> representing the positional point for the x component of a <see cref="Vector2"/></returns>
+        public static int CenterX(int _controlSizeX)
+        {
+            return ( int ) ( ( OiskiEngine.Configuration.Size.x / 2F ) - ( _controlSizeX / 2F ) );
+        }
+
+        /// <summary>
+        /// Calculates the center position for <see cref="Vector2.y"/> based on the width of a <see cref="Controls.Control"/>.
+        /// </summary>
+        /// <param name="_controlSizeY"></param>
+        /// <returns>A positive <see langword="int"/> representing the positional point for the y component of a <see cref="Vector2"/></returns>
+        public static int CenterY(int _controlSizeY)
+        {
+            return ( int ) ( ( OiskiEngine.Configuration.Size.y / 2F ) - ( _controlSizeY / 2F ) );
+        }
+
+        /// <summary>
+        /// Provides a <see cref="Vector2"/> that represents a horizontal and vertical center position based on a <see cref="Controls.Control"/>s height and width.
+        /// </summary>
+        /// <param name="_controlSize"></param>
+        /// <returns>A new <see cref="Vector2"/> that defines the horizontal and vertical center position for a <see cref="Controls.Control"/> placement on the screen</returns>
+        public static Vector2 Center(Vector2 _controlSize)
+        {
+            return new Vector2(CenterX(_controlSize.x), CenterY(_controlSize.y));
         }
     }
 }
