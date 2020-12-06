@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Oiski.ConsoleTech.Engine.Rendering
 {
@@ -31,7 +29,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// <summary>
         /// This will initiate the <see cref="Renderer"/> and apply the associated <see cref="RenderConfiguration"/>.
         /// </summary>
-        public virtual void InitRenderer ()
+        public virtual void InitRenderer()
         {
             if ( Configuration == null )
             {
@@ -48,7 +46,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// </summary>
         /// <param name="_x"></param>
         /// <param name="_y"></param>
-        protected virtual void InitGrid (int _x, int _y)
+        protected virtual void InitGrid(int _x, int _y)
         {
             Grid = new char[_x, _y];
 
@@ -58,7 +56,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// <summary>
         /// Builds the border used to frame the screenspace
         /// </summary>
-        protected virtual void BuildScreenBorder ()
+        protected virtual void BuildScreenBorder()
         {
             if ( Grid == null || Configuration == null )
             {
@@ -99,7 +97,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// </summary>
         /// <param name="_position">The zero index <see cref="Vector2"/> position that defines where the insertion should happen</param>
         /// <param name="_symbol"></param>
-        public virtual void InsertAt (Vector2 _position, char _symbol)
+        public virtual void InsertAt(Vector2 _position, char _symbol)
         {
             _position = new Vector2(_position.x + BorderThickness_X, _position.y + BorderThickness_Y);
 
@@ -134,7 +132,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// </summary>
         /// <param name="_position"></param>
         /// <param name="_toInsert"></param>
-        public virtual void InsertAt (Vector2 _position, string _toInsert)
+        public virtual void InsertAt(Vector2 _position, string _toInsert)
         {
             int xAxis = _position.x;
             for ( int i = 0; i < _toInsert.Length; i++ )
@@ -155,7 +153,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// </summary>
         /// <param name="_xIndex"></param>
         /// <param name="_yIndex"></param>
-        protected virtual void RenderCharacter (int _xIndex, int _yIndex)
+        protected virtual void RenderCharacter(int _xIndex, int _yIndex)
         {
             Console.Write(Grid[_xIndex, _yIndex]);
         }
@@ -163,7 +161,7 @@ namespace Oiski.ConsoleTech.Engine.Rendering
         /// <summary>
         /// This will render the current <see cref="Grid"/> as a 2-dimensional screen in the <see cref="Console"/>
         /// </summary>
-        public virtual void Render ()
+        public virtual void Render()
         {
             if ( Grid != null && Grid.Length != 0 )
             {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Oiski.ConsoleTech.Engine.Controls
+﻿namespace Oiski.ConsoleTech.Engine.Controls
 {
     /// <summary>
     /// Defines a <see cref="Control"/> that can be selected during runtime

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Oiski.ConsoleTech.Engine.Controls
+﻿namespace Oiski.ConsoleTech.Engine.Controls
 {
     /// <summary>
     /// Represents a <see cref="Label"/> that can be placed and manipulated through the <see cref="OiskiEngine"/>

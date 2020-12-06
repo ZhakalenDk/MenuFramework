@@ -6,6 +6,8 @@ using Oiski.ConsoleTech.Engine.Rendering;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 
 namespace Oiski.ConsoleTech
@@ -489,24 +491,26 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V19 - [BUG] Issue #2 - Bad Coloring in The Menu Class' Origin positition
-            //OiskiEngine.ChangeRenderer(new ColorRenderer());
+            //ColorRenderer renderer = new ColorRenderer();
+            //OiskiEngine.ChangeRenderer(renderer);
             //OiskiEngine.Run();
 
-            
-            //ColorableLabel label2 = new ColorableLabel($"I'm Attached", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black), new Vector2(0, 0));
+            ////ColorableLabel label2 = new ColorableLabel($"I'm Attached", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black), new Vector2(0, 0));
             ////label2.Render = false;
 
             //Menu menu = new Menu();
+            //Label label3 = new Label("No Color on Me!", new Vector2(2,2));
 
-            ////ColorableLabel label = new ColorableLabel(menu.Position.ToString(), new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black), false);
-            ////menu.Controls.AddControl(label);
-            ////menu.Show();
+            //ColorableLabel label = new ColorableLabel("I'm In a Menu", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black), false);
+            //menu.Controls.AddControl(label);
+            //menu.Show();
             ////menu.Show(false);
             ////menu.Show();
 
+            ////ColorableLabel label3 = new ColorableLabel($"{/*menu.Render*/2} - {OiskiEngine.Controls.GetControls.Count.ToString()}", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black));
 
             ////label.Position = new Vector2(0, OiskiEngine.Configuration.Size.y - 5);
-            ////label.Position = new Vector2(0, 1);
+            //label.Position = new Vector2(10, 2);
             ////label.Position = Vector2.Center(label.Size);
             #endregion
         }

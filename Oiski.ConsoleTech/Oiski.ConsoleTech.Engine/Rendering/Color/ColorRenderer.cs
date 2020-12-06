@@ -2,10 +2,6 @@
 using Oiski.ConsoleTech.Engine.Controls;
 using Oiski.ConsoleTech.Engine.Rendering;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Oiski.ConsoleTech.Engine.Color.Rendering
 {
@@ -45,7 +41,7 @@ namespace Oiski.ConsoleTech.Engine.Color.Rendering
         /// <param name="_position"></param>
         protected virtual void MatchColor(Vector2 _position)
         {
-            if ( OiskiEngine.Controls.FindControl(item => item.Position == _position) is IColorableControl control )
+            if ( OiskiEngine.Controls.FindControl(item => item.Position == _position && item.Render == true) is IColorableControl control )
             {
                 int xAxis = _position.x + BorderThickness_X;
                 int yAxis = _position.y + BorderThickness_Y;

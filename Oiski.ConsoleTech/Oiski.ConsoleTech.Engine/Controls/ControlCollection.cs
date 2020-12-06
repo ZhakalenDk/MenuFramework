@@ -1,8 +1,5 @@
-﻿using Oiski.ConsoleTech.Engine;
-using Oiski.ConsoleTech.Engine.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Oiski.ConsoleTech.Engine.Controls
 {
@@ -128,7 +125,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Search the list of <see cref="Control"/>s for a <see cref="Control"/> that fits the <paramref name="_match"/> conditions.
         /// </summary>
         /// <param name="_match"></param>
-        /// <returns>The first occurence that matches the predicate. If not <see cref="Control"/> is found it will return <see langword="null"/></returns>
+        /// <returns>The first occurence that matches the predicate. If no <see cref="Control"/> is found it will return <see langword="null"/></returns>
         public Control FindControl(Predicate<Control> _match)
         {
             return controls.Find(_match);

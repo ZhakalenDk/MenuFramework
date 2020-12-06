@@ -1,6 +1,4 @@
-﻿
-
-using Oiski.ConsoleTech.Engine.Controls;
+﻿using Oiski.ConsoleTech.Engine.Controls;
 
 namespace Oiski.ConsoleTech.Engine.Rendering
 {

@@ -1,11 +1,6 @@
-﻿using Oiski.ConsoleTech.Engine.Color.Controls;
-using Oiski.ConsoleTech.Engine.Color.Rendering;
+﻿using Oiski.ConsoleTech.Engine.Color.Rendering;
 using Oiski.ConsoleTech.Engine.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Oiski.ConsoleTech.Engine.Color.Controls
 {

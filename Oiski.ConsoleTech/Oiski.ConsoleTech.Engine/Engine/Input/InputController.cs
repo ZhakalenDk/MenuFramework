@@ -1,11 +1,7 @@
 ﻿using Oiski.ConsoleTech.Engine.Controls;
-using Oiski.ConsoleTech.Engine.Input;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading;
-using System.Xml.Serialization;
 
 namespace Oiski.ConsoleTech.Engine.Input
 {
