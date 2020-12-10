@@ -87,7 +87,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// Enables the <see cref="InputController"/> for recieving input
         /// </summary>
         /// <param name="_enable"></param>
-        public void EnableInput(bool _enable)
+        public void EnableInput (bool _enable)
         {
             lock ( lockObject )
             {
@@ -99,7 +99,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// When <paramref name="_enable"/> is <see langword="true"/> the <see cref="InputController"/> can use the <see cref="NavigationKeys"/> to increase or decrease the current selected index on either axis
         /// </summary>
         /// <param name="_enable"></param>
-        public void SetNavigation(bool _enable)
+        public void SetNavigation (bool _enable)
         {
             lock ( lockObject )
             {
@@ -112,7 +112,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// </summary>
         /// <param name="_axis"></param>
         /// <param name="_enable"></param>
-        public void SetNavigation(string _axis, bool _enable)
+        public void SetNavigation (string _axis, bool _enable)
         {
             switch ( _axis.ToLower() )
             {
@@ -132,7 +132,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// </summary>
         /// <param name="_axis"></param>
         /// <param name="_enable"></param>
-        public void SetClamp(string _axis, bool _enable)
+        public void SetClamp (string _axis, bool _enable)
         {
             switch ( _axis.ToLower() )
             {
@@ -151,7 +151,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// If <paramref name="_canSelect"/> is <see langword="true"/> the <see cref="InputController"/> can select a <see cref="SelectableControl"/> at the selection index target
         /// </summary>
         /// <param name="_canSelect"></param>
-        public void SetSelect(bool _canSelect)
+        public void SetSelect (bool _canSelect)
         {
             lock ( lockObject )
             {
@@ -163,7 +163,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// If <paramref name="_canWrite"/> is <see langword="true"/> the <see cref="InputController"/> will be able to recieve text input
         /// </summary>
         /// <param name="_canWrite"></param>
-        public void SetWriting(bool _canWrite)
+        public void SetWriting (bool _canWrite)
         {
             lock ( lockObject )
             {
@@ -176,7 +176,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// </summary>
         /// <param name="_text"></param>
         /// <returns></returns>
-        public string SetTextInput(string _text)
+        public string SetTextInput (string _text)
         {
             lock ( lockObject )
             {
@@ -189,13 +189,13 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// <summary>
         /// Reset the selected index back to zero no both axises
         /// </summary>
-        public void ResetSlection()
+        public void ResetSlection ()
         {
             currentSelectedIndex_X = 0;
             currentSelectedIndex_Y = 0;
         }
 
-        private bool IsSpecialCharacter(char _char)
+        private bool IsSpecialCharacter (char _char)
         {
             if ( ( _char >= '!' && _char <= '/' ) || ( _char >= ':' && _char <= '@' ) || ( _char >= '[' && _char <= '`' ) || ( _char >= '{' && _char <= '~' ) )
             {
@@ -208,7 +208,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// <summary>
         /// Begin listening for user input
         /// </summary>
-        public void ListenForInput()
+        public void ListenForInput ()
         {
             Thread rendereThread = new Thread(Start)
             {
@@ -222,7 +222,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// <summary>
         /// Begin the <see cref="InputController"/> loop
         /// </summary>
-        protected virtual void Start()
+        protected virtual void Start ()
         {
             #region DEBUG Values
             Stopwatch sw = null;
@@ -392,15 +392,12 @@ namespace Oiski.ConsoleTech.Engine.Input
 
                             lock ( lockObject )
                             {
-                                if ( ( char.IsLetter(keyInfo.KeyChar) || char.IsWhiteSpace(keyInfo.KeyChar) || IsSpecialCharacter(keyInfo.KeyChar) ) && keyInfo.Key != NavigationKeys.Select )
+                                if ( ( char.IsLetter(keyInfo.KeyChar) || char.IsNumber(keyInfo.KeyChar) || char.IsWhiteSpace(keyInfo.KeyChar) || IsSpecialCharacter(keyInfo.KeyChar) ) && keyInfo.Key != NavigationKeys.Select )
                                 {
                                     TextInput += keyInfo.KeyChar;
                                 }
-
                             }
                         }
-
-
                     }
                     #endregion
 

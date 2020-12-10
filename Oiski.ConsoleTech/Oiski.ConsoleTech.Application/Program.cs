@@ -14,7 +14,7 @@ namespace Oiski.ConsoleTech
 {
     class Program
     {
-        static void Main()
+        static void Main ()
         {
             Console.Title = "Menu Framework Test";
             //Console.SetWindowSize(65, 30);
@@ -512,6 +512,17 @@ namespace Oiski.ConsoleTech
             ////label.Position = new Vector2(0, OiskiEngine.Configuration.Size.y - 5);
             //label.Position = new Vector2(10, 2);
             ////label.Position = Vector2.Center(label.Size);
+            #endregion
+
+            #region V20 - [BUG] #4 - TextFields Not Accepting Nummeric Values When Typing
+            ColorRenderer renderer = new ColorRenderer();
+            OiskiEngine.ChangeRenderer(renderer);
+            OiskiEngine.Run();
+
+            ColorableTextField textField = new ColorableTextField("Type Here...", new RenderColor(ConsoleColor.Green, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black))
+            {
+                SelectedIndex = Vector2.Zero
+            };
             #endregion
         }
 
