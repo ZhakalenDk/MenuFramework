@@ -515,14 +515,14 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V20 - [BUG] #4 - TextFields Not Accepting Nummeric Values When Typing
-            ColorRenderer renderer = new ColorRenderer();
-            OiskiEngine.ChangeRenderer(renderer);
-            OiskiEngine.Run();
+            //ColorRenderer renderer = new ColorRenderer();
+            //OiskiEngine.ChangeRenderer(renderer);
+            //OiskiEngine.Run();
 
-            ColorableTextField textField = new ColorableTextField("Type Here...", new RenderColor(ConsoleColor.Green, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black))
-            {
-                SelectedIndex = Vector2.Zero
-            };
+            //ColorableTextField textField = new ColorableTextField("Type Here...", new RenderColor(ConsoleColor.Green, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black))
+            //{
+            //    SelectedIndex = Vector2.Zero
+            //};
             #endregion
         }
 
