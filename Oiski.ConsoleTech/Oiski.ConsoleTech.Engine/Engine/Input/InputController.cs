@@ -210,13 +210,13 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// </summary>
         public void ListenForInput ()
         {
-            Thread rendereThread = new Thread(Start)
+            Thread rendererThread = new Thread(Start)
             {
                 Name = "Input",
                 Priority = ThreadPriority.AboveNormal
             };
 
-            rendereThread.Start();
+            rendererThread.Start();
         }
 
         /// <summary>
