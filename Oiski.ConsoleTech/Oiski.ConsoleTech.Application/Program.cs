@@ -14,7 +14,7 @@ namespace Oiski.ConsoleTech
 {
     class Program
     {
-        static void Main ()
+        static void Main()
         {
             Console.Title = "Menu Framework Test";
             //Console.SetWindowSize(65, 30);
@@ -524,6 +524,22 @@ namespace Oiski.ConsoleTech
             //    SelectedIndex = Vector2.Zero
             //};
             #endregion
+
+            #region V21 - [BUG] #6 - Control Size Not Updating
+            //OiskiEngine.Run();
+
+            //TextField text = new TextField("Hello, World!")
+            //{
+            //    SelectedIndex = Vector2.Zero
+            //};
+
+            //text.Position = Vector2.Center(text.Size);
+            //text.OnSelect += (s) =>
+            //{
+            //    s.Position = Vector2.Center(obj.Size);
+            //};
+            #endregion
+
         }
 
         #region V10 - Input Controller: OnSelection Test

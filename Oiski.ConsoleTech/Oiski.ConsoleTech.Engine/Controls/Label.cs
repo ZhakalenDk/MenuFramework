@@ -5,10 +5,23 @@
     /// </summary>
     public class Label : Control
     {
+        private string text = string.Empty;
         /// <summary>
         /// The <see langword="string"/> value inside the <see cref="Label"/> <see cref="Control"/>
         /// </summary>
-        public string Text { get; set; } = string.Empty;
+        public string Text
+        {
+            get
+            {
+                return text;
+            }
+            set
+            {
+                text = value;
+
+                Size = new Vector2(value.Length + 2, 3);
+            }
+        }
 
         /// <summary>
         /// The size of the <see cref="Label"/> <see cref="Control"/>
@@ -39,21 +52,8 @@
         {
             Size = new Vector2(Text.Length + 2, 3);
 
-            #region Legacy Code
-            //if ( Size.x < Text.Length )
-            //{
-            //    Size = new Vector2(Text.Length + 1, Size.y);
-            //}
-
-            //if ( Size.y < 3 )
-            //{
-            //    Size = new Vector2(Size.x, 3);
-            //}
-            #endregion
-
             grid = new char[Size.x, Size.y];
         }
-
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         protected override char[,] Build()
