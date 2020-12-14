@@ -49,62 +49,6 @@ namespace Oiski.ConsoleTech.Engine
         /// </summary>
         public static ControlCollection Controls { get; } = new ControlCollection();
 
-        ///// <summary>
-        ///// Contains all <see cref="Control"/>s that are currently present in the render heirachy.
-        ///// </summary>
-        //internal static List<Control> Controls { get; } = new List<Control>();
-
-        //public static void AddControl (Control _control)
-        //{
-        //    lock ( lockObject )
-        //    {
-        //        Controls.Add(_control);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="_control"></param>
-        ///// <returns><see langword="true"/> if the <see cref="Control"/> could be removed, otherwise <see langword="false"/></returns>
-        //public static bool RemoveControl (Control _control)
-        //{
-        //    bool wasRemoved = false;
-        //    lock ( lockObject )
-        //    {
-        //        wasRemoved = Controls.Remove(_control);
-        //    }
-        //    return wasRemoved;
-        //}
-
-        ///// <summary>
-        ///// Search the list of <see cref="Control"/>s for a <see cref="Control"/> that fits the <paramref name="_match"/> conditions.
-        ///// </summary>
-        ///// <param name="_match"></param>
-        ///// <returns>The first occurence that matches the predicate. If not <see cref="Control"/> is found it will return <see langword="null"/></returns>
-        //public static Control FindControl (Predicate<Control> _match)
-        //{
-        //    return Controls.Find(_match);
-        //}
-
-        ///// <summary>
-        ///// Search for a <see cref="SelectableControl"/> based on the <paramref name="_selectedIndex"/>
-        ///// </summary>
-        ///// <param name="_selectedIndex"></param>
-        ///// <returns>The first occurence that matches the <paramref name="_selectedIndex"/>. If no match is found it will return <see langword="null"/></returns>
-        //public static SelectableControl FindControl (Vector2 _selectedIndex)
-        //{
-        //    foreach ( var control in Controls )
-        //    {
-        //        if ( control is SelectableControl sControl && sControl.SelectedIndex == _selectedIndex )
-        //        {
-        //            return sControl;
-        //        }
-        //    }
-
-        //    return null;
-        //}
-
         /// <summary>
         /// Change the <see cref="Renderer"/> for the <see cref="OiskiEngine"/>
         /// <br/>
