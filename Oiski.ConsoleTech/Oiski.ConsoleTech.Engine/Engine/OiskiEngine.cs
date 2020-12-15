@@ -102,13 +102,13 @@ namespace Oiski.ConsoleTech.Engine
         /// </summary>
         public static void Run()
         {
-            Thread rendereThread = new Thread(Start)
+            Thread rendererThread = new Thread(Start)
             {
                 Name = "Renderer",
                 Priority = ThreadPriority.AboveNormal
             };
 
-            rendereThread.Start();
+            rendererThread.Start();
         }
 
         /// <summary>
