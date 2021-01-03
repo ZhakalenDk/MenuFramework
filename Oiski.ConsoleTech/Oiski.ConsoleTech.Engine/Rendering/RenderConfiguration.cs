@@ -44,6 +44,9 @@ namespace Oiski.ConsoleTech.Engine.Rendering
             }
         }
 
+        /// <summary>
+        /// Represents the characters that encapsulates the rendable area in the <see cref="System.Console"/> window
+        /// </summary>
         private readonly char[] boundaryChars;
 
         /// <summary>
