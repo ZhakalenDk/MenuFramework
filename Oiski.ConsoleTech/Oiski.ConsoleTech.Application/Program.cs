@@ -4,6 +4,7 @@ using Oiski.ConsoleTech.Engine.Color.Rendering;
 using Oiski.ConsoleTech.Engine.Controls;
 using Oiski.ConsoleTech.Engine.Rendering;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.IO;
@@ -14,7 +15,7 @@ namespace Oiski.ConsoleTech
 {
     class Program
     {
-        static void Main()
+        static void Main ()
         {
             Console.Title = "Menu Framework Test";
             //Console.SetWindowSize(65, 30);
@@ -540,6 +541,35 @@ namespace Oiski.ConsoleTech
             //};
             #endregion
 
+            #region V22 - ListBox
+            OiskiEngine.ChangeRenderer(new ColorRenderer());
+            OiskiEngine.Run();
+
+            List<string> strings = new List<string>
+            {
+                "Hello, World!",
+                "Hello, World1!",
+                "Hello, World2!",
+                "Hello, World3!",
+                "Hello, World4!",
+                "Hello, World5!"
+            };
+
+            ColorableListBox<string> list = new ColorableListBox<string>("List of Strings", 5, 8, new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black));
+            //list.Items.AddItem("123", "Value 1");
+            //list.Items.AddItem("321", "Value 2");
+            //list.Items.AddItem("231", "Value 3");
+            //list.Items.AddItem("312", "Value 4");
+            //list.Items.AddItem("213", "Value 5");
+
+            int i = 0;
+            foreach ( string item in strings )
+            {
+                list.Items.AddItem($"String {i}", item);
+                i++;
+            }
+
+            #endregion
         }
 
         #region V10 - Input Controller: OnSelection Test

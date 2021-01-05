@@ -47,9 +47,13 @@
     <Compile Include="Controls\Color\ColorableOption.cs" />
     <Compile Include="Controls\Color\ColorableTextField.cs" />
     <Compile Include="Controls\Color\IColorableControl.cs" />
+    <Compile Include="Controls\ListBoxItem.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\ControlCollection.cs" />
+    <Compile Include="Controls\IReadOnlyControlCollection.cs" />
     <Compile Include="Controls\Label.cs" />
+    <Compile Include="Controls\Color\ColorableListBox.cs" />
+    <Compile Include="Controls\ListBoxItemCollection.cs" />
     <Compile Include="Controls\Menu.cs" />
     <Compile Include="Controls\Option.cs" />
     <Compile Include="Controls\SelectableControl.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Oiski.ConsoleTech.Engine.Controls
@@ -6,7 +7,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
     /// <summary>
     /// Defines a collection of <see cref="Control"/>s that can be added to and removed from
     /// </summary>
-    public class ControlCollection
+    public class ControlCollection : IReadOnlyControlCollection
     {
         /// <summary>
         /// Use this to <see langword="lock"/> internal values when changing them
@@ -58,7 +59,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// 
         /// </summary>
         /// <returns><see langword="true"/> if there's no <see cref="Control"/>s in the <see cref="ControlCollection"/>. Otherwise <see langword="false"/></returns>
-        public bool IsEmpty()
+        public bool IsEmpty ()
         {
             lock ( lockObject )
             {
@@ -72,7 +73,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_control"></param>
         /// <exception cref="NullReferenceException"/>
-        public void AddControl(Control _control)
+        public void AddControl (Control _control)
         {
             lock ( lockObject )
             {
@@ -98,7 +99,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_control"></param>
         /// <returns><see langword="true"/> if the <see cref="Control"/> could be removed, otherwise <see langword="false"/></returns>
-        public bool RemoveControl(Control _control)
+        public bool RemoveControl (Control _control)
         {
             bool wasRemoved = false;
             lock ( lockObject )
@@ -126,7 +127,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_match"></param>
         /// <returns>The first occurence that matches the predicate. If no <see cref="Control"/> is found it will return <see langword="null"/></returns>
-        public Control FindControl(Predicate<Control> _match)
+        public Control FindControl (Predicate<Control> _match)
         {
             return controls.Find(_match);
         }
@@ -136,7 +137,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         /// <param name="_selectedIndex"></param>
         /// <returns>The first occurence that matches the <paramref name="_selectedIndex"/>. If no match is found it will return <see langword="null"/></returns>
-        public SelectableControl FindControl(Vector2 _selectedIndex)
+        public SelectableControl FindControl (Vector2 _selectedIndex)
         {
             foreach ( SelectableControl control in selectableControls )
             {
@@ -147,6 +148,11 @@ namespace Oiski.ConsoleTech.Engine.Controls
             }
 
             return null;
+        }
+
+        public IEnumerator GetEnumerator ()
+        {
+            return GetControls.GetEnumerator();
         }
     }
 }
