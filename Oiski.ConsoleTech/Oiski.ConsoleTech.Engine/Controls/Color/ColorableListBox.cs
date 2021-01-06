@@ -38,11 +38,20 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
         /// </summary>
         public int MaxPrPage { get; set; }
         /// <summary>
-        /// The offset from the border for each item on the left hand
+        /// The offset from the left border
         /// </summary>
         public int LeftMargin { get; set; } = 3;
+        /// <summary>
+        /// The offset from the right border
+        /// </summary>
         public int RightMargin { get; set; } = 3;
+        /// <summary>
+        /// The offset from the top border
+        /// </summary>
         public int TopMargin { get; set; } = 1;
+        /// <summary>
+        /// The offset from the bottom border
+        /// </summary>
         public int BottomMargin { get; set; } = 1;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -59,8 +68,9 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
             {
                 for ( int x = 0; x < grid.GetLength(0); x++ )
                 {
-                    if ( ( x == 0 || x == grid.GetLength(0) - 1 ) || ( y == 0 || y == 2 || y == grid.GetLength(1) - 1 ) )
+                    if ( ( x == 0 || x == grid.GetLength(0) - 1 ) || ( y == 0 || y == 2 || y == grid.GetLength(1) - 1 ) )   //   Building border
                     {
+                        #region Border Building
                         if ( ( y == 0 || y == grid.GetLength(1) - 1 ) && ( x > 0 && x < grid.GetLength(0) - 1 ) )
                         {
                             grid[x, y] = border[( int ) BorderArea.Horizontal];
@@ -73,22 +83,26 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
                         {
                             grid[x, y] = border[( int ) BorderArea.Vertical];
                         }
-                        if ( y == 2 && ( x != 0 && x != grid.GetLength(0) - 1 ) )
+                        #endregion
+
+                        #region Header Underline
+                        if ( y == 2 && ( x != 0 && x != grid.GetLength(0) - 1 ) )   //  Building Header underline
                         {
                             grid[x, y] = border[( int ) BorderArea.Horizontal];
                         }
+                        #endregion
 
                         ColorGrid[x, y] = BorderColor;
                     }
-                    else if ( ( x >= ( Size.x / 2f - Text.Length / 2f ) && y == 1 ) && headerIndex < Text.Length )
+                    else if ( ( x >= ( Size.x / 2f - Text.Length / 2f ) && y == 1 ) && headerIndex < Text.Length )  //  Building header content
                     {
                         grid[x, y] = Text[headerIndex];
                         headerIndex++;
                         ColorGrid[x, y] = TextColor;
                     }
-                    else if ( ( x > LeftMargin && x < grid.GetLength(0) - ( 1 + RightMargin ) ) && ( y > ( 2 + TopMargin ) && y < grid.GetLength(1) - ( 1 + BottomMargin ) ) )
+                    else if ( ( x > LeftMargin && x < grid.GetLength(0) - ( 1 + RightMargin ) ) && ( y > ( 2 + TopMargin ) && y < grid.GetLength(1) - ( 1 + BottomMargin ) ) )  //  Building list content
                     {
-                        if ( itemIndex <= MaxPrPage && itemIndex < Items.Count && itemTextIndex < Items[itemIndex].Text.Length )
+                        if ( itemIndex <= MaxPrPage && itemIndex < Items.Count && itemTextIndex < Items[itemIndex].Text.Length )    //  adding each letter in the item text to the grid
                         {
                             grid[x, y] = Items[itemIndex][itemTextIndex];
                             ColorGrid[x, y] = TextColor;
@@ -98,7 +112,7 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
                     }
                 }
 
-                if ( itemIndex < Items.Count && itemTextIndex >= Items[itemIndex].Text.Length )
+                if ( itemIndex < Items.Count && itemTextIndex >= Items[itemIndex].Text.Length ) //  Targeting the next item in the collection
                 {
                     itemTextIndex = 0;
                     itemIndex++;
@@ -135,7 +149,8 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
 
             MaxPrPage = _maxPrPage;
 
-            if ( _innerWidth < _header.Length )
+
+            if ( _innerWidth < _header.Length ) //  To ensure that the header always fits inside the listbox
             {
                 _innerWidth = _header.Length;
             }
