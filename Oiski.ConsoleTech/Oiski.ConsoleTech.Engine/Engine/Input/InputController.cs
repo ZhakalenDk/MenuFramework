@@ -50,6 +50,10 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// </summary>
         public KeyBindings NavigationKeys { get; } = new KeyBindings();
         /// <summary>
+        /// The information about latest keypress
+        /// </summary>
+        public ConsoleKeyInfo InputInfo { get; protected set; }
+        /// <summary>
         /// If <see langword="true"/> input will be enabled for the <see cref="InputController"/>
         /// </summary>
         public bool InputEnabled { get; private set; } = true;
@@ -276,9 +280,9 @@ namespace Oiski.ConsoleTech.Engine.Input
                     }
                     #endregion
 
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    InputInfo = Console.ReadKey(true);
 
-                    if ( keyInfo.Key == NavigationKeys.Debug )
+                    if ( InputInfo.Key == NavigationKeys.Debug )
                     {
                         OiskiEngine.DEBUGMODE = !OiskiEngine.DEBUGMODE;
                     }
@@ -295,7 +299,7 @@ namespace Oiski.ConsoleTech.Engine.Input
                     {
                         if ( VerticalNavigationEnabled )
                         {
-                            if ( keyInfo.Key == NavigationKeys.Up )
+                            if ( InputInfo.Key == NavigationKeys.Up )
                             {
                                 lock ( lockObject )
                                 {
@@ -309,7 +313,7 @@ namespace Oiski.ConsoleTech.Engine.Input
 
                             }
 
-                            if ( keyInfo.Key == NavigationKeys.Down )
+                            if ( InputInfo.Key == NavigationKeys.Down )
                             {
                                 lock ( lockObject )
                                 {
@@ -325,7 +329,7 @@ namespace Oiski.ConsoleTech.Engine.Input
 
                         if ( HorizontalNavigationEnabled )
                         {
-                            if ( keyInfo.Key == NavigationKeys.Left )
+                            if ( InputInfo.Key == NavigationKeys.Left )
                             {
                                 lock ( lockObject )
                                 {
@@ -333,7 +337,7 @@ namespace Oiski.ConsoleTech.Engine.Input
                                 }
                             }
 
-                            if ( keyInfo.Key == NavigationKeys.Right )
+                            if ( InputInfo.Key == NavigationKeys.Right )
                             {
                                 lock ( lockObject )
                                 {
@@ -357,7 +361,7 @@ namespace Oiski.ConsoleTech.Engine.Input
                     #region Selection
                     if ( CanSelect )
                     {
-                        if ( keyInfo.Key == NavigationKeys.Select )
+                        if ( InputInfo.Key == NavigationKeys.Select )
                         {
                             lock ( lockObject )
                             {
@@ -377,7 +381,7 @@ namespace Oiski.ConsoleTech.Engine.Input
                     #region Writing
                     if ( CanWrite )
                     {
-                        if ( keyInfo.Key == ConsoleKey.Backspace )
+                        if ( InputInfo.Key == ConsoleKey.Backspace )
                         {
                             if ( TextInput.Length > 0 )
                             {
@@ -392,9 +396,9 @@ namespace Oiski.ConsoleTech.Engine.Input
 
                             lock ( lockObject )
                             {
-                                if ( ( char.IsLetter(keyInfo.KeyChar) || char.IsNumber(keyInfo.KeyChar) || char.IsWhiteSpace(keyInfo.KeyChar) || IsSpecialCharacter(keyInfo.KeyChar) ) && keyInfo.Key != NavigationKeys.Select )
+                                if ( ( char.IsLetter(InputInfo.KeyChar) || char.IsNumber(InputInfo.KeyChar) || char.IsWhiteSpace(InputInfo.KeyChar) || IsSpecialCharacter(InputInfo.KeyChar) ) && InputInfo.Key != NavigationKeys.Select )
                                 {
-                                    TextInput += keyInfo.KeyChar;
+                                    TextInput += InputInfo.KeyChar;
                                 }
                             }
                         }

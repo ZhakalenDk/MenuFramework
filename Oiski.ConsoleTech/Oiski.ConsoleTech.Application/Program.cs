@@ -541,7 +541,45 @@ namespace Oiski.ConsoleTech
             //};
             #endregion
 
-            #region V22 - ListBox
+            #region v22 - Engine Extension
+            //OiskiEngine.ChangeRenderer(new ColorRenderer());
+            //OiskiEngine.Run();
+
+            //ColorableOption option = new ColorableOption("My Option", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black))
+            //{
+            //    SelectedIndex = Vector2.Zero,
+            //};
+
+            //option.BorderStyle(BorderArea.Horizontal, '~');
+            //option.OnUpdate += (c) =>
+            //{
+            //    if ( OiskiEngine.Input.InputInfo.Key == ConsoleKey.DownArrow )
+            //    {
+            //        ( ( ColorableOption ) c ).Text = "Trickered";
+            //    }
+
+            //    if ( OiskiEngine.Input.InputInfo.Key == ConsoleKey.UpArrow )
+            //    {
+            //        ( ( ColorableOption ) c ).Text = "My Option";
+            //    }
+            //};
+
+            //OiskiEngine.Input.SetNavigation(false);
+
+            //ColorableOption option1 = new ColorableOption("My Option 2", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black))
+            //{
+            //    SelectedIndex = new Vector2(0, 1),
+            //    Position = new Vector2(0, 4)
+            //};
+
+            //ColorableOption option2 = new ColorableOption("My Option 2", new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black))
+            //{
+            //    SelectedIndex = new Vector2(0, 2),
+            //    Position = new Vector2(0, 8)
+            //};
+            #endregion
+
+            #region V23 - ListBox
             OiskiEngine.ChangeRenderer(new ColorRenderer());
             OiskiEngine.Run();
 
