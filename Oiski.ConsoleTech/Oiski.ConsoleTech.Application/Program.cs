@@ -580,33 +580,50 @@ namespace Oiski.ConsoleTech
             #endregion
 
             #region V23 - ListBox
-            OiskiEngine.ChangeRenderer(new ColorRenderer());
-            OiskiEngine.Run();
+            //OiskiEngine.ChangeRenderer(new ColorRenderer());
+            //OiskiEngine.Run();
 
-            List<string> strings = new List<string>
-            {
-                "Hello, World!",
-                "Hello, World1!",
-                "Hello, World2!",
-                "Hello, World3!",
-                "Hello, World4!",
-                "Hello, World5!"
-            };
+            //List<string> strings = new List<string>
+            //{
+            //    "Hello, World!",
+            //    "Hello, World1!",
+            //    "Hello, World2!",
+            //    "Hello, World3!",
+            //    "Hello, World4!",
+            //    "Hello, World5!",
+            //    "Hello, World6!",
+            //    "Hello, World7!",
+            //    "Hello, World8!",
+            //    "Hello, World9!",
+            //};
 
-            ColorableListBox<string> list = new ColorableListBox<string>("List of Strings", 5, 8, new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black));
-            //list.Items.AddItem("123", "Value 1");
-            //list.Items.AddItem("321", "Value 2");
-            //list.Items.AddItem("231", "Value 3");
-            //list.Items.AddItem("312", "Value 4");
-            //list.Items.AddItem("213", "Value 5");
+            //ColorableListBox<string> list = new ColorableListBox<string>("List of Strings", 5, 8, new RenderColor(ConsoleColor.Cyan, ConsoleColor.Black), new RenderColor(ConsoleColor.DarkBlue, ConsoleColor.Black))
+            //{
+            //    SelectableItems = true,
+            //    HighlightColor = new RenderColor(ConsoleColor.Black, ConsoleColor.Gray),
+            //    SelectedIndex = Vector2.Zero
+            //};
 
-            int i = 0;
-            foreach ( string item in strings )
-            {
-                list.Items.AddItem($"String {i}", item);
-                i++;
-            }
+            //int i = 0;
+            //foreach ( string item in strings )
+            //{
+            //    list.Items.AddItem($"String {i}", item);
+            //    i++;
+            //}
 
+            //Option option = new Option("Select Me")
+            //{
+            //    SelectedIndex = new Vector2(0, 1),
+            //    Position = new Vector2(30, 0)
+            //};
+
+            //option.OnSelect += (s) =>
+            //{
+            //    if ( list.GetSelectedItem != null )
+            //    {
+            //        list.GetSelectedItem.Text = "I Got Picked";
+            //    }
+            //};
             #endregion
         }
 
