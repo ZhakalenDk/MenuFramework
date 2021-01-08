@@ -100,6 +100,14 @@ namespace Oiski.ConsoleTech.Engine.Input
         }
 
         /// <summary>
+        /// Will reset the Input info property to an empty <see cref="ConsoleKeyInfo"/> <see langword="object"/>
+        /// </summary>
+        public void ResetInput ()
+        {
+            InputInfo = new ConsoleKeyInfo();
+        }
+
+        /// <summary>
         /// When <paramref name="_enable"/> is <see langword="true"/> the <see cref="InputController"/> can use the <see cref="NavigationKeys"/> to increase or decrease the current selected index on either axis
         /// </summary>
         /// <param name="_enable"></param>
@@ -279,7 +287,6 @@ namespace Oiski.ConsoleTech.Engine.Input
                         };
                     }
                     #endregion
-
                     InputInfo = Console.ReadKey(true);
 
                     if ( InputInfo.Key == NavigationKeys.Debug )
