@@ -18,6 +18,11 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         protected readonly char[] border = { '+', '|', '-' };
 
+        /// <summary>
+        /// The event that will occur right after <see langword="this"/> <see cref="Control"/> is qued for rendering.
+        /// </summary>
+        public event Action<Control> OnUpdate;
+
         internal char[,] GetBuild
         {
             get
@@ -53,7 +58,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Set the <see cref="ZIndex"/> for <see langword="this"/> <see cref="Control"/>
         /// </summary>
         /// <param name="_index"></param>
-        public void SetZIndex(int _index)
+        public void SetZIndex (int _index)
         {
             ZIndex = ( ( _index < 0 ) ? ( 0 ) : ( _index ) );
         }
@@ -65,13 +70,13 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// Override this to define how a <see cref="Control"/> should be drawn out by the <see cref="Rendering.Renderer"/>
         /// </summary>
         /// <returns>A two dimensional array that contains the visual blueprint for the <see cref="Control"/></returns>
-        protected abstract char[,] Build();
+        protected abstract char[,] Build ();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_attachToEngine">Whether or not to add the contorl directly to the engine</param>
-        public Control(bool _attachToEngine = true)
+        public Control (bool _attachToEngine = true)
         {
             lock ( OiskiEngine.Controls )
             {
@@ -92,6 +97,14 @@ namespace Oiski.ConsoleTech.Engine.Controls
             {
                 grid = new char[Size.x, Size.y];
             }
+        }
+
+        /// <summary>
+        /// Will be trickered right after <see langword="this"/> <see cref="Control"/> has been qued for rendering.
+        /// </summary>
+        internal void HandleUpdateEvent ()
+        {
+            OnUpdate?.Invoke(this);
         }
     }
 }

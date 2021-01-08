@@ -55,7 +55,7 @@ namespace Oiski.ConsoleTech.Engine
         /// <strong>Note:</strong> The default render will be sufficient for most cases.
         /// </summary>
         /// <param name="_renderer"></param>
-        public static void ChangeRenderer(Renderer _renderer)
+        public static void ChangeRenderer (Renderer _renderer)
         {
             lock ( lockObject )
             {
@@ -66,7 +66,7 @@ namespace Oiski.ConsoleTech.Engine
         /// <summary>
         /// Insert all <see cref="Control"/>s in the <see cref="Controls"/> <see cref="List{T}"/> into the <see cref="Renderer.Grid"/>
         /// </summary>
-        private static void InsertControls()
+        private static void InsertControls ()
         {
             lock ( lockObject )
             {
@@ -90,6 +90,8 @@ namespace Oiski.ConsoleTech.Engine
                             positionX = Controls[i].Position.x;
                             positionY++;
                         }
+
+                        Controls[i].HandleUpdateEvent();
                     }
                 }
             }
@@ -100,7 +102,7 @@ namespace Oiski.ConsoleTech.Engine
         /// <summary>
         /// Begin the execution of the <see cref="OiskiEngine"/> and it's internal functionalities
         /// </summary>
-        public static void Run()
+        public static void Run ()
         {
             Thread rendererThread = new Thread(Start)
             {
@@ -114,7 +116,7 @@ namespace Oiski.ConsoleTech.Engine
         /// <summary>
         /// Will set off the <see cref="OiskiEngine"/> loop
         /// </summary>
-        private static void Start()
+        private static void Start ()
         {
             #region DEBUG Values
             string infoOutput;
