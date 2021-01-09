@@ -43,7 +43,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// <summary>
         /// The text input gathered while <see cref="CanWrite"/> is active.
         /// <br/>
-        /// Use this retrieve <see cref="string"/> input from the user through the <see cref="InputController"/>
+        /// Use this to retrieve <see cref="string"/> input from the user through the <see cref="InputController"/>
         /// </summary>
         public string TextInput { get; protected set; } = string.Empty;
         /// <summary>
@@ -188,7 +188,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         /// Set the <see langword="value"/> of <see cref="TextInput"/> to <paramref name="_text"/>
         /// </summary>
         /// <param name="_text"></param>
-        /// <returns></returns>
+        /// <returns>The <see langword="value"/> of <see cref="TextInput"/></returns>
         public string SetTextInput (string _text)
         {
             lock ( lockObject )
@@ -208,6 +208,11 @@ namespace Oiski.ConsoleTech.Engine.Input
             currentSelectedIndex_Y = 0;
         }
 
+        /// <summary>
+        /// Checks if a given <see langword="char"/> is a special character or not.
+        /// </summary>
+        /// <param name="_char"></param>
+        /// <returns><see langword="true"/> if the <see langword="char"/> is a special character; otherwise <see langword="false"/></returns>
         private bool IsSpecialCharacter (char _char)
         {
             if ( ( _char >= '!' && _char <= '/' ) || ( _char >= ':' && _char <= '@' ) || ( _char >= '[' && _char <= '`' ) || ( _char >= '{' && _char <= '~' ) )

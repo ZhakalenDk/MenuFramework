@@ -23,6 +23,9 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// </summary>
         public event Action<Control> OnUpdate;
 
+        /// <summary>
+        /// Returns the <see cref="Control"/>s visual blueprint, which is used to render the <see cref="Control"/> in the <see cref="Console"/>
+        /// </summary>
         internal char[,] GetBuild
         {
             get

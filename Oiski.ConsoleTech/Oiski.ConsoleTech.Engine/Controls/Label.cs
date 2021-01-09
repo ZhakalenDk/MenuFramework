@@ -48,15 +48,15 @@
         /// <summary>
         /// This ensures that the width of the <see cref="Label"/> always encapsulates the <see cref="Text"/>
         /// </summary>
-        protected void CorrectSize()
+        protected void CorrectSize ()
         {
-            Size = new Vector2(Text.Length + 2, 3);
+            Size = new Vector2(Text.Length + 2, 3); //  Plus two because the border takes up two spaces
 
             grid = new char[Size.x, Size.y];
         }
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        protected override char[,] Build()
+        protected override char[,] Build ()
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             CorrectSize();
@@ -123,7 +123,7 @@
         /// </summary>
         /// <param name="_area"></param>
         /// <param name="_visible"></param>
-        public void SetBorder(BorderArea _area, bool _visible)
+        public void SetBorder (BorderArea _area, bool _visible)
         {
             VisibleBorder[( int ) _area] = _visible;
         }
@@ -133,7 +133,7 @@
         /// </summary>
         /// <param name="_area"></param>
         /// <param name="_style"></param>
-        public void BorderStyle(BorderArea _area, char _style)
+        public void BorderStyle (BorderArea _area, char _style)
         {
             border[( int ) _area] = _style;
         }
@@ -143,10 +143,10 @@
         /// </summary>
         /// <param name="_text"></param>
         /// <param name="_attachToEngine">Whether or not to attach the <see cref="Control"/> directly to the <see cref="OiskiEngine"/> controls heirachy</param>
-        public Label(string _text, bool _attachToEngine = true) : base(_attachToEngine)
+        public Label (string _text, bool _attachToEngine = true) : base(_attachToEngine)
         {
             Text = _text;
-            Size = new Vector2(Text.Length + 2, 3);
+            Size = new Vector2(Text.Length + 2, 3); //  Plus two because the border takes up two spaces
             Position = new Vector2(0, 0);
         }
 
@@ -156,7 +156,7 @@
         /// <param name="_text"></param>
         /// <param name="_position"></param>
         /// <param name="_attachToEngine">Whether or not to attach the <see cref="Control"/> directly to the <see cref="OiskiEngine"/> controls heirachy</param>
-        public Label(string _text, Vector2 _position, bool _attachToEngine = true) : this(_text, _attachToEngine)
+        public Label (string _text, Vector2 _position, bool _attachToEngine = true) : this(_text, _attachToEngine)
         {
             Position = _position;
         }
@@ -165,9 +165,9 @@
         /// 
         /// </summary>
         /// <returns>A formated <see langword="string"/> representation for <see langword="this"/> instance</returns>
-        public override string ToString()
+        public override string ToString ()
         {
-            return $"{{ {IndexID},{Text}}}";
+            return $"{{{IndexID},{Text}}}";
         }
     }
 }

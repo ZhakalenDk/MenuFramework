@@ -26,40 +26,46 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
         protected override char[,] Build()
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
+            /*
+                Builds the color grid to lay on top of the actual visual grid that is drawn in the Label control itself.
+                This will therefore not alter how the control is rendered but will only define how the color is drawn on top of the control grid.
+             */
+
             char[,] charBuild = base.Build();
             ColorGrid = new RenderColor[grid.GetLength(0), grid.GetLength(1)];
 
             int textIndex = 0;
-            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )
+            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )  //  Vertical iteration
             {
-                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )
+                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )  //  Horizontal iteration
                 {
-                    if ( x == 0 || x == ColorGrid.GetLength(0) - 1 )
+                    if ( x == 0 || x == ColorGrid.GetLength(0) - 1 )    //  If the current horizontal char is a border piece
                     {
-                        if ( y == 0 || y == ColorGrid.GetLength(1) - 1 )
+                        if ( y == 0 || y == ColorGrid.GetLength(1) - 1 )    //  If the current char is a corner piece
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Corner] )
+                            if ( VisibleBorder[( int ) BorderArea.Corner] ) //  If the border should be rendered
                             {
                                 ColorGrid[x, y] = BorderColor;
                             }
                         }
-                        else
+                        else    //  If the current char is a vertical border piece
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Vertical] )
+                            
+                            if ( VisibleBorder[( int ) BorderArea.Vertical] )   //  If the border should be rendered
                             {
                                 ColorGrid[x, y] = BorderColor;
                             }
                         }
 
                     }
-                    else if ( y == 0 || y == grid.GetLength(1) - 1 )
+                    else if ( y == 0 || y == grid.GetLength(1) - 1 )    //  If the current char is a horizontal border piece
                     {
-                        if ( VisibleBorder[( int ) BorderArea.Horizontal] )
+                        if ( VisibleBorder[( int ) BorderArea.Horizontal] ) //  If the border should be rendered
                         {
                             ColorGrid[x, y] = BorderColor;
                         }
                     }
-                    else
+                    else    //  If the current char is text
                     {
                         if ( textIndex < Text.Length )
                         {

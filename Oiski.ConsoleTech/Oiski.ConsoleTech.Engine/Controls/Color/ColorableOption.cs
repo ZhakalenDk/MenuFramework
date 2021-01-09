@@ -30,38 +30,38 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
             ColorGrid = new RenderColor[grid.GetLength(0), grid.GetLength(1)];
 
             int textIndex = 0;
-            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )
+            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )  //  Vertical iteration
             {
-                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )
+                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )  //  Horizontal iteration
                 {
-                    if ( x == 0 || x == ColorGrid.GetLength(0) - 1 )
+                    if ( x == 0 || x == ColorGrid.GetLength(0) - 1 )    //  If the current horizontal char is a corner piece
                     {
-                        if ( y == 0 || y == ColorGrid.GetLength(1) - 1 )
+                        if ( y == 0 || y == ColorGrid.GetLength(1) - 1 )    //   if the current vertical char is a corner piece
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Corner] )
+                            if ( VisibleBorder[( int ) BorderArea.Corner] ) //  If the border should be rendered
                             {
                                 ColorGrid[x, y] = BorderColor;
                             }
                         }
-                        else
+                        else    //  If the current char is a vertical border piece
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Vertical] )
+                            if ( VisibleBorder[( int ) BorderArea.Vertical] )   //  If the border should be rendered
                             {
                                 ColorGrid[x, y] = BorderColor;
                             }
                         }
 
                     }
-                    else if ( y == 0 || y == grid.GetLength(1) - 1 )
+                    else if ( y == 0 || y == grid.GetLength(1) - 1 )    //  If the current char is a vertical border piece 
                     {
-                        if ( VisibleBorder[( int ) BorderArea.Horizontal] )
+                        if ( VisibleBorder[( int ) BorderArea.Horizontal] ) //  If the border should be rendered
                         {
                             ColorGrid[x, y] = BorderColor;
                         }
                     }
                     else
                     {
-                        if ( textIndex < Text.Length )
+                        if ( textIndex < Text.Length )  //  Applying the color to the text of this control
                         {
                             ColorGrid[x, y] = TextColor;
                         }
