@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Linq;
 
 namespace Oiski.ConsoleTech.Engine.Input
 {
@@ -304,8 +305,10 @@ namespace Oiski.ConsoleTech.Engine.Input
                     #region Navigation
                     if ( NavigationEnabled )
                     {
+                        #region Vertical Navigation
                         if ( VerticalNavigationEnabled )
                         {
+
                             if ( InputInfo.Key == NavigationKeys.Up )
                             {
                                 lock ( lockObject )
@@ -326,14 +329,16 @@ namespace Oiski.ConsoleTech.Engine.Input
                                 {
                                     currentSelectedIndex_Y++;
 
-                                    if ( VerticalClamp && currentSelectedIndex_Y > OiskiEngine.Controls.GetSelectableControls.Count - 1 )
+                                    if ( VerticalClamp && currentSelectedIndex_Y > OiskiEngine.Controls.GetSelectableControls.Count(item => ( item.SelectedIndex.y > 0 && item.SelectedIndex.x == currentSelectedIndex_X )) )
                                     {
                                         currentSelectedIndex_Y--;
                                     }
                                 }
                             }
                         }
+                        #endregion
 
+                        #region Horizontal Navigation
                         if ( HorizontalNavigationEnabled )
                         {
                             if ( InputInfo.Key == NavigationKeys.Left )
@@ -341,6 +346,11 @@ namespace Oiski.ConsoleTech.Engine.Input
                                 lock ( lockObject )
                                 {
                                     currentSelectedIndex_X--;
+
+                                    if ( HorizontalClamp && currentSelectedIndex_X < 0 )
+                                    {
+                                        currentSelectedIndex_X++;
+                                    }
                                 }
                             }
 
@@ -349,9 +359,15 @@ namespace Oiski.ConsoleTech.Engine.Input
                                 lock ( lockObject )
                                 {
                                     currentSelectedIndex_X++;
+
+                                    if ( HorizontalClamp && currentSelectedIndex_X > OiskiEngine.Controls.GetSelectableControls.Count(item => ( item.SelectedIndex.x > 0 && item.SelectedIndex.y == currentSelectedIndex_Y )) )
+                                    {
+                                        currentSelectedIndex_X--;
+                                    }
                                 }
                             }
                         }
+                        #endregion
 
                         lock ( lockObject )
                         {

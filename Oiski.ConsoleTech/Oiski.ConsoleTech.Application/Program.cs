@@ -625,6 +625,41 @@ namespace Oiski.ConsoleTech
             //    }
             //};
             #endregion
+
+            #region v24 - [BUG] #11 - Horizontal Clamp Not Set By Default
+            //OiskiEngine.Run();
+
+            //Option newLabel = new Option("0,0")
+            //{
+            //    SelectedIndex = Vector2.Zero,
+            //};
+            //Option newLabel1 = new Option("1,0")
+            //{
+            //    SelectedIndex = new Vector2(1, 0),
+            //};
+
+
+
+            //Option newLabel2 = new Option("0,2")
+            //{
+            //    SelectedIndex = new Vector2(0, 2),
+            //};
+            //Option newLabel3 = new Option("1,2")
+            //{
+            //    SelectedIndex = new Vector2(1, 2),
+            //};
+
+
+
+            //Option newLabel4 = new Option("0,3")
+            //{
+            //    SelectedIndex = new Vector2(0, 3),
+            //};
+            //Option newLabel5 = new Option("1,3")
+            //{
+            //    SelectedIndex = new Vector2(1, 3),
+            //};
+            #endregion
         }
 
         #region V10 - Input Controller: OnSelection Test

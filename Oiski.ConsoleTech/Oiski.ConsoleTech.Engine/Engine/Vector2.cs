@@ -32,7 +32,7 @@ namespace Oiski.ConsoleTech.Engine
         /// </summary>
         /// <param name="_x"></param>
         /// <param name="_y"></param>
-        public Vector2(int _x, int _y)
+        public Vector2 (int _x, int _y)
         {
             x = _x;
             y = _y;
@@ -44,7 +44,7 @@ namespace Oiski.ConsoleTech.Engine
         /// <param name="_a"></param>
         /// <param name="_b"></param>
         /// <returns><see langword="true"/> if the two <see cref="Vector2"/>s contain the same values. Otherwise <see langword="false"/></returns>
-        public static bool operator ==(Vector2 _a, Vector2 _b)
+        public static bool operator == (Vector2 _a, Vector2 _b)
         {
             return ( _a.x == _b.x ) && ( _a.y == _b.y );
         }
@@ -55,16 +55,60 @@ namespace Oiski.ConsoleTech.Engine
         /// <param name="_a"></param>
         /// <param name="_b"></param>
         /// <returns><see langword="true"/> if the two <see cref="Vector2"/>s does not contain the same values. Otherwise <see langword="false"/></returns>
-        public static bool operator !=(Vector2 _a, Vector2 _b)
+        public static bool operator != (Vector2 _a, Vector2 _b)
         {
             return ( _a.x != _b.x ) || ( _a.y != _b.y );
+        }
+
+        /// <summary>
+        /// Compares <see cref="Vector2.x"/> and <see cref="Vector2.y"/> of <paramref name="_a"/> with the corresponding values of <paramref name="_b"/>
+        /// </summary>
+        /// <param name="_a"></param>
+        /// <param name="_b"></param>
+        /// <returns><see langword="true"/> of x and y of <paramref name="_a"/> are higher than the corresponding values of <paramref name="_b"/>; Otherwise <see langword="false"/> </returns>
+        public static bool operator > (Vector2 _a, Vector2 _b)
+        {
+            return ( _a.x > _b.x ) && ( _a.y > _b.y );
+        }
+
+        /// <summary>
+        /// Compares <see cref="Vector2.x"/> and <see cref="Vector2.y"/> of <paramref name="_a"/> with the corresponding values of <paramref name="_b"/>
+        /// </summary>
+        /// <param name="_a"></param>
+        /// <param name="_b"></param>
+        /// <returns><see langword="true"/> of x and y of <paramref name="_a"/> are lower than the corresponding values of <paramref name="_b"/>; Otherwise <see langword="false"/> </returns>
+        public static bool operator < (Vector2 _a, Vector2 _b)
+        {
+            return ( _a.x < _b.x ) && ( _a.y < _b.y );
+        }
+
+        /// <summary>
+        /// Compares <see cref="Vector2.x"/> and <see cref="Vector2.y"/> of <paramref name="_a"/> with the corresponding values of <paramref name="_b"/>
+        /// </summary>
+        /// <param name="_a"></param>
+        /// <param name="_b"></param>
+        /// <returns><see langword="true"/> of x and y of <paramref name="_a"/> are higher or equal to the corresponding values of <paramref name="_b"/>; Otherwise <see langword="false"/> </returns>
+        public static bool operator >= (Vector2 _a, Vector2 _b)
+        {
+            return ( _a.x >= _b.x ) && ( _a.y >= _b.y );
+        }
+
+        /// <summary>
+        /// Compares <see cref="Vector2.x"/> and <see cref="Vector2.y"/> of <paramref name="_a"/> with the corresponding values of <paramref name="_b"/>
+        /// </summary>
+        /// <param name="_a"></param>
+        /// <param name="_b"></param>
+        /// <returns><see langword="true"/> of x and y of <paramref name="_a"/> are lower or equal to the corresponding values of <paramref name="_b"/>; Otherwise <see langword="false"/> </returns>
+        public static bool operator <= (Vector2 _a, Vector2 _b)
+        {
+            return ( _a.x <= _b.x ) && ( _a.y <= _b.y );
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns>A string representation of the current <see cref="Vector2"/> as "<i>(<see cref="x"/>,<see cref="y"/>)</i>"</returns>
-        public override string ToString()
+        public override string ToString ()
         {
             return $"({x},{y})";
         }
@@ -74,7 +118,7 @@ namespace Oiski.ConsoleTech.Engine
         /// </summary>
         /// <param name="obj"></param>
         /// <returns><see langword="true"/> if <see langword="this"/> is equal to <paramref name="obj"/>. Otherwise <see langword="false"/></returns>
-        public override bool Equals(object obj)
+        public override bool Equals (object obj)
         {
             return obj is Vector2 vector &&
                      x == vector.x &&
@@ -85,7 +129,7 @@ namespace Oiski.ConsoleTech.Engine
         /// Returns the hash code for <see langword="this"/> instance
         /// </summary>
         /// <returns>A 32-bit signed <see langword="integer"/> that is the hash code for <see langword="this"/> instance</returns>
-        public override int GetHashCode()
+        public override int GetHashCode ()
         {
             return new { x, y }.GetHashCode(); /*HashCode.Combine(x, y);*/
         }
@@ -96,7 +140,7 @@ namespace Oiski.ConsoleTech.Engine
         /// <param name="_a"></param>
         /// <param name="_b"></param>
         /// <returns></returns>
-        public static Vector2 Distance(Vector2 _a, Vector2 _b)
+        public static Vector2 Distance (Vector2 _a, Vector2 _b)
         {
             int x = _a.x - _b.x;
             x *= Math.Sign(x);
@@ -112,7 +156,7 @@ namespace Oiski.ConsoleTech.Engine
         /// </summary>
         /// <param name="_controlSizeX"></param>
         /// <returns>A positive <see langword="int"/> representing the positional point for the x component of a <see cref="Vector2"/></returns>
-        public static int CenterX(int _controlSizeX)
+        public static int CenterX (int _controlSizeX)
         {
             return ( int ) ( ( OiskiEngine.Configuration.Size.x / 2F ) - ( _controlSizeX / 2F ) );
         }
@@ -122,7 +166,7 @@ namespace Oiski.ConsoleTech.Engine
         /// </summary>
         /// <param name="_controlSizeY"></param>
         /// <returns>A positive <see langword="int"/> representing the positional point for the y component of a <see cref="Vector2"/></returns>
-        public static int CenterY(int _controlSizeY)
+        public static int CenterY (int _controlSizeY)
         {
             return ( int ) ( ( OiskiEngine.Configuration.Size.y / 2F ) - ( _controlSizeY / 2F ) );
         }
@@ -132,7 +176,7 @@ namespace Oiski.ConsoleTech.Engine
         /// </summary>
         /// <param name="_controlSize"></param>
         /// <returns>A new <see cref="Vector2"/> that defines the horizontal and vertical center position for a <see cref="Controls.Control"/> placement on the screen</returns>
-        public static Vector2 Center(Vector2 _controlSize)
+        public static Vector2 Center (Vector2 _controlSize)
         {
             return new Vector2(CenterX(_controlSize.x), CenterY(_controlSize.y));
         }
