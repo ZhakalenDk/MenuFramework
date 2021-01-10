@@ -44,7 +44,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// If <paramref name="_visible"/> is <see langword="true"/> the <see cref="Menu"/> will be rendered by the <see cref="OiskiEngine"/>. Otherwise it will not be rendered
         /// </summary>
         /// <param name="_visible"></param>
-        public void Show(bool _visible = true)
+        public void Show (bool _visible = true)
         {
             foreach ( var control in Controls.GetControls )
             {
@@ -60,23 +60,31 @@ namespace Oiski.ConsoleTech.Engine.Controls
         }
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        protected override char[,] Build()
+        protected override char[,] Build ()
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            for ( int i = 0; i < grid.GetLength(1); i++ )
+            if ( Render )
             {
-                for ( int j = 0; j < grid.GetLength(0); j++ )
+                for ( int i = 0; i < grid.GetLength(1); i++ )
                 {
-                    grid[j, i] = '*';
+                    for ( int j = 0; j < grid.GetLength(0); j++ )
+                    {
+                        grid[j, i] = '*';
+                    }
                 }
             }
+            else
+            {
+                grid = new char[0, 0];
+            }
+
             return grid;
         }
 
         /// <summary>
         /// Initializes a new instance of type <see cref="Menu"/>
         /// </summary>
-        public Menu() : base()
+        public Menu () : base()
         {
             Size = new Vector2(Console.WindowWidth - 1, Console.WindowHeight - 1);
             grid = new char[Size.x, Size.y];
@@ -94,7 +102,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// The default behavior attached ot <see cref="OnTarget"/>
         /// </summary>
         /// <param name="_me"></param>
-        protected virtual void MarkTarget(SelectableControl _me)
+        protected virtual void MarkTarget (SelectableControl _me)
         {
             foreach ( SelectableControl control in OiskiEngine.Controls.GetSelectableControls )
             {

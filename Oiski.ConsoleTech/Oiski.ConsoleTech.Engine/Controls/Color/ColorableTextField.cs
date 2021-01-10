@@ -23,45 +23,45 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
         public RenderColor[,] ColorGrid { get; protected set; } = new RenderColor[1, 1];
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        protected override char[,] Build()
+        protected override char[,] Build ()
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             char[,] charBuild = base.Build();
             ColorGrid = new RenderColor[grid.GetLength(0), grid.GetLength(1)];
 
             int textIndex = 0;
-            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )
+            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )  //  Vertical Iteration
             {
-                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )
+                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )  //  Horizontal Iteration
                 {
-                    if ( x == 0 || x == ColorGrid.GetLength(0) - 1 )
+                    if ( x == 0 || x == ColorGrid.GetLength(0) - 1 )    //   If the current char is a horizontal border piece
                     {
-                        if ( y == 0 || y == ColorGrid.GetLength(1) - 1 )
+                        if ( y == 0 || y == ColorGrid.GetLength(1) - 1 )    //  If current char is a corner piece
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Corner] )
+                            if ( VisibleBorder[( int ) BorderArea.Corner] ) //  Corner color mapping
                             {
                                 ColorGrid[x, y] = BorderColor;
                             }
                         }
                         else
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Vertical] )
+                            if ( VisibleBorder[( int ) BorderArea.Vertical] )   //  Vertical border color mapping
                             {
                                 ColorGrid[x, y] = BorderColor;
                             }
                         }
 
                     }
-                    else if ( y == 0 || y == grid.GetLength(1) - 1 )
+                    else if ( y == 0 || y == grid.GetLength(1) - 1 )    //  If the current char is a vertical border piece
                     {
-                        if ( VisibleBorder[( int ) BorderArea.Horizontal] )
+                        if ( VisibleBorder[( int ) BorderArea.Horizontal] ) //  horizontal border color mapping
                         {
                             ColorGrid[x, y] = BorderColor;
                         }
                     }
                     else
                     {
-                        if ( textIndex < Text.Length )
+                        if ( textIndex < Text.Length )  //  text content color mapping
                         {
                             ColorGrid[x, y] = TextColor;
                         }
@@ -81,7 +81,7 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
         /// <param name="_textColor"></param>
         /// <param name="_borderColor"></param>
         /// <param name="_attachToEngine">Whether or not to attach <see langword="this"/> <see cref="Control"/> <strong>directly</strong> to the <see cref="OiskiEngine"/></param>
-        public ColorableTextField(string _text, RenderColor _textColor, RenderColor _borderColor, bool _attachToEngine = true) : base(_text, _attachToEngine)
+        public ColorableTextField (string _text, RenderColor _textColor, RenderColor _borderColor, bool _attachToEngine = true) : base(_text, _attachToEngine)
         {
             TextColor = _textColor;
             BorderColor = _borderColor;
@@ -95,7 +95,7 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
         /// <param name="_borderColor"></param>
         /// <param name="_position"></param>
         /// <param name="_attachToEngine">Whether or not to attach <see langword="this"/> <see cref="Control"/> <strong>directly</strong> to the <see cref="OiskiEngine"/></param>
-        public ColorableTextField(string _text, RenderColor _textColor, RenderColor _borderColor, Vector2 _position, bool _attachToEngine = true) : this(_text, _textColor, _borderColor, _attachToEngine)
+        public ColorableTextField (string _text, RenderColor _textColor, RenderColor _borderColor, Vector2 _position, bool _attachToEngine = true) : this(_text, _textColor, _borderColor, _attachToEngine)
         {
             Position = _position;
         }

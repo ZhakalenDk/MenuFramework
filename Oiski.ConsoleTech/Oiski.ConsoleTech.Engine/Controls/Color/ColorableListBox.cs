@@ -230,6 +230,7 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
                 }
             }
 
+            #region Clamp Index between 0 and maxPrPage - 1
             if ( selectedItemIndex >= maxPrPage )
             {
                 selectedItemIndex = maxPrPage - 1;
@@ -238,6 +239,7 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
             {
                 selectedItemIndex = 0;
             }
+            #endregion
 
         }
 

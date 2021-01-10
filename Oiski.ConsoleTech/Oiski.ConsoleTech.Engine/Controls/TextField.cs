@@ -43,12 +43,12 @@ namespace Oiski.ConsoleTech.Engine.Controls
         /// <param name="_me"></param>
         private void BeginWrite (SelectableControl _me)
         {
-            if ( OiskiEngine.Input.CanWrite )
+            if ( OiskiEngine.Input.CanWrite )   //  If the program is already in a writestate opt out of that state
             {
                 OiskiEngine.Input.SetWriting(false);
                 OiskiEngine.Input.SetNavigation(true);
             }
-            else
+            else    //  If the program is not in a write state - enter such a state
             {
                 OiskiEngine.Input.SetNavigation(false);
                 OiskiEngine.Input.SetWriting(true);
@@ -64,7 +64,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
                     ResetAfterFirstWrite = false;
                 }
 
-                ThreadPool.QueueUserWorkItem(WriteToMe);
+                ThreadPool.QueueUserWorkItem(WriteToMe);    //  Begin write state
             }
         }
 

@@ -89,7 +89,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
                 }
                 else
                 {
-                    throw new NullReferenceException("Control can't be null when adding it to an instance of type Menu");
+                    throw new NullReferenceException("Control can't be null when adding it to an instance of type ControlCollection");
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace Oiski.ConsoleTech.Engine.Controls
                 }
                 else
                 {
-                    throw new NullReferenceException("Control can't be null when removing it from an instance of type Menu");
+                    throw new NullReferenceException("Control can't be null when removing it from an instance of type ControlCollection");
                 }
             }
 
@@ -150,11 +150,21 @@ namespace Oiski.ConsoleTech.Engine.Controls
             return null;
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public IEnumerator GetEnumerator ()
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>An enumerator that iterates over the <see cref="ControlCollection"/></returns>
+        public IEnumerator<Control> GetEnumerator ()
         {
-            return GetControls.GetEnumerator();
+            foreach ( Control control in controls )
+            {
+                yield return control;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator ()
+        {
+            return GetEnumerator();
         }
     }
 }

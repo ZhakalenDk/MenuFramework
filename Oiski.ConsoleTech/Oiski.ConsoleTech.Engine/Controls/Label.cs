@@ -62,15 +62,15 @@
             CorrectSize();
 
             int textIndex = 0;
-            for ( int y = 0; y < grid.GetLength(1); y++ )
+            for ( int y = 0; y < grid.GetLength(1); y++ )   //  Vertical Iteration
             {
-                for ( int x = 0; x < grid.GetLength(0); x++ )
+                for ( int x = 0; x < grid.GetLength(0); x++ )   //  Horizontal Iteration
                 {
-                    if ( x == 0 || x == grid.GetLength(0) - 1 )
+                    if ( x == 0 || x == grid.GetLength(0) - 1 ) //  If current char is a horizontal border piece
                     {
-                        if ( y == 0 || y == grid.GetLength(1) - 1 )
+                        if ( y == 0 || y == grid.GetLength(1) - 1 ) //  if current char is a corner piece
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Corner] )
+                            if ( VisibleBorder[( int ) BorderArea.Corner] ) //  If the border should be rendered
                             {
                                 grid[x, y] = border[( int ) BorderArea.Corner];
                             }
@@ -79,9 +79,9 @@
                                 grid[x, y] = ' ';
                             }
                         }
-                        else
+                        else    //  if current char is a vertical border piece
                         {
-                            if ( VisibleBorder[( int ) BorderArea.Vertical] )
+                            if ( VisibleBorder[( int ) BorderArea.Vertical] )   //  If the vertical border should be rendered
                             {
                                 grid[x, y] = border[( int ) BorderArea.Vertical];
                             }
@@ -92,9 +92,9 @@
                         }
 
                     }
-                    else if ( y == 0 || y == grid.GetLength(1) - 1 )
+                    else if ( y == 0 || y == grid.GetLength(1) - 1 )    //  If the current char is a horizontal border piece
                     {
-                        if ( VisibleBorder[( int ) BorderArea.Horizontal] )
+                        if ( VisibleBorder[( int ) BorderArea.Horizontal] ) //  If the border should be rendered
                         {
                             grid[x, y] = border[( int ) BorderArea.Horizontal];
                         }
@@ -105,7 +105,7 @@
                     }
                     else
                     {
-                        if ( textIndex < Text.Length )
+                        if ( textIndex < Text.Length )  //  Render Text Content
                         {
                             grid[x, y] = Text[textIndex];
                         }
@@ -164,7 +164,7 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>A formated <see langword="string"/> representation for <see langword="this"/> instance</returns>
+        /// <returns>A formated <see langword="string"/> representation for <see langword="this"/> instance as {IndexID,Text}</returns>
         public override string ToString ()
         {
             return $"{{{IndexID},{Text}}}";

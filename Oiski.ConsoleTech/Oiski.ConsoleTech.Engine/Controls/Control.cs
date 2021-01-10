@@ -86,14 +86,10 @@ namespace Oiski.ConsoleTech.Engine.Controls
                 if ( _attachToEngine )
                 {
                     IndexID = OiskiEngine.Controls.GetControls.Count;
-                }
-
-                ZIndex = 1;
-                if ( _attachToEngine )
-                {
                     OiskiEngine.Controls.AddControl(this);
                 }
 
+                ZIndex = 1;
             }
 
             if ( grid == null )

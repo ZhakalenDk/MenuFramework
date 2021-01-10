@@ -24,18 +24,20 @@ namespace Oiski.ConsoleTech.Engine.Controls
                 return Text[_index];
             }
         }
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        /// <summary>
+        /// The text that will be displayed in a listbox
+        /// </summary>
         public string Text { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        /// <summary>
+        /// The value saved with this <see cref="ListBoxItem{ValueType}"/>
+        /// </summary>
         public ValueType Value { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
         /// <summary>
         /// Creates a new instance of type <see cref="ListBoxItem{ValueType}"/> where the text and value of the item is set
         /// </summary>
-        /// <param name="_text"></param>
-        /// <param name="_value"></param>
+        /// <param name="_text">The text that will be displayed in the listbox</param>
+        /// <param name="_value">The value to save inside the <see cref="ListBoxItem{ValueType}"/></param>
         public ListBoxItem (string _text, ValueType _value)
         {
             Text = _text;

@@ -46,9 +46,9 @@ namespace Oiski.ConsoleTech.Engine.Color.Rendering
                 int xAxis = _position.x + BorderThickness_X;
                 int yAxis = _position.y + BorderThickness_Y;
 
-                for ( int y = 0; y < control.ColorGrid.GetLength(1); y++ )
+                for ( int y = 0; y < control.ColorGrid.GetLength(1); y++ )  //  Vertical Iteration
                 {
-                    for ( int x = 0; x < control.ColorGrid.GetLength(0); x++ )
+                    for ( int x = 0; x < control.ColorGrid.GetLength(0); x++ )  //  Horizontal Iteration
                     {
                         if ( xAxis >= 1 && xAxis <= ( ColorGrid.GetLength(0) - ( BorderThickness_X + 1 ) ) && yAxis >= 1 && yAxis <= ( ColorGrid.GetLength(1) - ( BorderThickness_Y + 1 ) ) )
                         {
@@ -79,9 +79,9 @@ namespace Oiski.ConsoleTech.Engine.Color.Rendering
         /// </summary>
         protected override void BuildScreenBorder()
         {
-            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )
+            for ( int y = 0; y < ColorGrid.GetLength(1); y++ )  //  VErtical Iteration
             {
-                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )
+                for ( int x = 0; x < ColorGrid.GetLength(0); x++ )  //  Horizontal Iteration
                 {
                     ColorGrid[x, y] = DefaultColor;
                 }
@@ -102,12 +102,12 @@ namespace Oiski.ConsoleTech.Engine.Color.Rendering
                 Console.ForegroundColor = ColorGrid[_xIndex, _yIndex].ForegroundColor;
                 Console.BackgroundColor = ColorGrid[_xIndex, _yIndex].BackgroundColor;
             }
-            else if ( _yIndex != 0 || Grid[_xIndex - ( ( _xIndex - 1 < 0 ) ? ( 0 ) : ( 1 ) ), _yIndex] == ' ' )
+            else if ( _yIndex != 0 || Grid[_xIndex - ( ( _xIndex - 1 < 0 ) ? ( 0 ) : ( 1 ) ), _yIndex] == ' ' ) //  Only initate color change if the current index is not a border
             {
                 RenderColor oldColor = ColorGrid[_xIndex - ( ( _xIndex - 1 < 0 ) ? ( 0 ) : ( 1 ) ), _yIndex];
                 RenderColor newColor = ColorGrid[_xIndex, _yIndex];
 
-                if ( newColor != oldColor )
+                if ( newColor != oldColor ) //  ONly change color if the current color does not match the next color
                 {
                     Console.ForegroundColor = ColorGrid[_xIndex, _yIndex].ForegroundColor;
                     Console.BackgroundColor = ColorGrid[_xIndex, _yIndex].BackgroundColor;

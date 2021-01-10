@@ -200,7 +200,7 @@ namespace Oiski.ConsoleTech.Engine.Input
         }
 
         /// <summary>
-        /// Reset the selected index back to zero no both axises
+        /// Reset the selected index back to zero on both axises
         /// </summary>
         public void ResetSlection ()
         {
