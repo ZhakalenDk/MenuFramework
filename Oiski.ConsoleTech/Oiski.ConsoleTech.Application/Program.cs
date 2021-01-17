@@ -579,7 +579,7 @@ namespace Oiski.ConsoleTech
             //};
             #endregion
 
-            #region V23 - ListBox
+            #region V23 - ListBox (V25 [BUG] #14 - Crash when scrolling in ColorableListBox)
             //OiskiEngine.ChangeRenderer(new ColorRenderer());
             //OiskiEngine.Run();
 

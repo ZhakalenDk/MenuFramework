@@ -179,7 +179,10 @@ namespace Oiski.ConsoleTech.Engine.Color.Controls
                                 displayedItems[itemIndex] = Items[itemIndex];
                             }
 
-                            grid[x, y] = displayedItems[itemIndex][itemTextIndex];
+                            if ( itemTextIndex < displayedItems[itemIndex].Text.Length )
+                            {
+                                grid[x, y] = displayedItems[itemIndex][itemTextIndex];
+                            }
 
                             #region Color Mapping
                             if ( SelectableItems && IsSelected && ( itemIndex == SelectedItemIndex ) )
